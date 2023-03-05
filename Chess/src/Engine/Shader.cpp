@@ -59,7 +59,7 @@ namespace Engine
 		glDeleteShader(fragShaderID);
 	}
 
-	Shader& Shader::Compile(const char* vertPath, const char* fragPath)
+	Shader Shader::Compile(const char* vertPath, const char* fragPath)
 	{
 		std::string vertShaderSource = ReadFile(vertPath);
 		std::string fragShaderSource = ReadFile(fragPath);

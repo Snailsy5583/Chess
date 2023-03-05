@@ -287,6 +287,7 @@ bool Board::HandleMouseMoved(Engine::MouseMovedEvent& e)
 		2,
 		calculatedOffset
 	);
+	return true;
 }
 
 int Board::Pos2Index(Position pos)

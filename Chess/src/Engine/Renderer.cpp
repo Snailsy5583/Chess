@@ -17,7 +17,7 @@ namespace Engine
 		   -0.5f,  0.5f, 0.0f,	0.f, 1.f
 	};
 
-	RendererObject& Renderer::GenObject(const float pos[3], int size, const float* vertices, const char* vertShaderPath, const char* fragShaderPath)
+	RendererObject Renderer::GenObject(const float pos[3], int size, const float* vertices, const char* vertShaderPath, const char* fragShaderPath)
 	{
 		RendererObject obj = { {pos[0], pos[1], pos[2]}, 0, 0, 0, Shader::Compile(vertShaderPath, fragShaderPath)};
 
@@ -44,7 +44,7 @@ namespace Engine
 		return obj;
 	}
 
-	RendererObject& Renderer::GenQuad(const float pos[3], const float sideLen, const char* vertShaderPath, const char* fragShaderPath)
+	RendererObject Renderer::GenQuad(const float pos[3], const float sideLen, const char* vertShaderPath, const char* fragShaderPath)
 	{
 		float verts[sizeof(m_QuadVerts)/sizeof(float)];
 

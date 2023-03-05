@@ -13,7 +13,7 @@ namespace Engine
 	public:
 		Shader(const char* vertShaderSource=NULL, const char* fragShaderSource=NULL);
 
-		static Shader& Compile(const char* vertPath, const char* fragPath);
+		static Shader Compile(const char* vertPath, const char* fragPath);
 
 		void SetUniform(int loc, int value) const;
 		void SetUniform(int loc, bool value) const;
