@@ -1,0 +1,24 @@
+#pragma once
+
+#include "Engine/Window.h"
+#include "Engine/Events/Events.h"
+#include "Engine/Layer.h"
+#include "Board/Board.h"
+
+class Application
+{
+public:
+	Application(unsigned int width, unsigned int height, const char* title);
+	~Application();
+
+	void Run();
+
+	void OnEvent(Engine::Event& e);
+
+private:
+	Engine::Window* m_MainWindow;
+
+	Engine::LayerStack m_LayerStack;
+
+	Board* m_ChessBoard;
+};
