@@ -164,27 +164,6 @@
     <ClCompile Include="stb.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Piece.frag" />
-    <None Include="Assets\Shaders\Piece.vert" />
-    <None Include="Assets\Shaders\Board.frag" />
-    <None Include="Assets\Shaders\Board.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Textures\Pieces\B_bishop.png" />
-    <Image Include="Assets\Textures\Pieces\B_king.png" />
-    <Image Include="Assets\Textures\Pieces\B_knight.png" />
-    <Image Include="Assets\Textures\Pieces\B_pawn.png" />
-    <Image Include="Assets\Textures\Pieces\B_queen.png" />
-    <Image Include="Assets\Textures\Pieces\B_rook.png" />
-    <Image Include="Assets\Textures\LegalMove.png" />
-    <Image Include="Assets\Textures\Pieces\W_bishop.png" />
-    <Image Include="Assets\Textures\Pieces\W_king.png" />
-    <Image Include="Assets\Textures\Pieces\W_knight.png" />
-    <Image Include="Assets\Textures\Pieces\W_pawn.png" />
-    <Image Include="Assets\Textures\Pieces\W_queen.png" />
-    <Image Include="Assets\Textures\Pieces\W_rook.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
     </ProjectReference>

@@ -10,17 +10,11 @@
     <Filter Include="src\Board\Pieces">
       <UniqueIdentifier>{8C880973-7881-28C5-A1B3-0D4A8D0B08D1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Board\Pieces\Shaders">
-      <UniqueIdentifier>{6579038B-519E-520B-7AE9-379B666D5129}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Board\Pieces\Textures">
-      <UniqueIdentifier>{DFB79627-4B7A-CAB1-942A-593E002CA38F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Board\Shaders">
-      <UniqueIdentifier>{5D528CB8-C968-8A4E-12E0-15707E355BD6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Engine">
       <UniqueIdentifier>{12A1320E-FE58-745B-6760-4DB753370F4C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine\Events">
+      <UniqueIdentifier>{B624EAB0-223B-E846-6BB2-7368D707B9CE}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +27,24 @@
     <ClInclude Include="src\Board\Pieces\Piece.h">
       <Filter>src\Board\Pieces</Filter>
     </ClInclude>
+    <ClInclude Include="src\Board\Pieces\SlidingPieces.h">
+      <Filter>src\Board\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Board\Pieces\SpecialPieces.h">
+      <Filter>src\Board\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\Events.h">
+      <Filter>src\Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\MouseEvents.h">
+      <Filter>src\Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Events\WindowEvents.h">
+      <Filter>src\Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Layer.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\Renderer.h">
       <Filter>src\Engine</Filter>
     </ClInclude>
@@ -42,12 +54,6 @@
     <ClInclude Include="src\Engine\Window.h">
       <Filter>src\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Board\Pieces\SlidingPieces.h" />
-    <ClInclude Include="src\Board\Pieces\SpecialPieces.h" />
-    <ClInclude Include="src\Engine\Events\Events.h" />
-    <ClInclude Include="src\Engine\Events\WindowEvents.h" />
-    <ClInclude Include="src\Engine\Events\MouseEvents.h" />
-    <ClInclude Include="src\Engine\Layer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -60,6 +66,15 @@
     <ClCompile Include="src\Board\Pieces\Piece.cpp">
       <Filter>src\Board\Pieces</Filter>
     </ClCompile>
+    <ClCompile Include="src\Board\Pieces\SlidingPieces.cpp">
+      <Filter>src\Board\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Board\Pieces\SpecialPieces.cpp">
+      <Filter>src\Board\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Layer.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="src\Engine\Renderer.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
@@ -70,63 +85,5 @@
       <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="stb.cpp" />
-    <ClCompile Include="src\Board\Pieces\SlidingPieces.cpp" />
-    <ClCompile Include="src\Board\Pieces\SpecialPieces.cpp" />
-    <ClCompile Include="src\Engine\Layer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Shaders\Piece.frag">
-      <Filter>src\Board\Pieces\Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\Piece.vert">
-      <Filter>src\Board\Pieces\Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\Board.frag">
-      <Filter>src\Board\Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\Board.vert">
-      <Filter>src\Board\Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Textures\Pieces\B_bishop.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\B_king.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\B_knight.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\B_pawn.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\B_queen.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\B_rook.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\LegalMove.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\W_bishop.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\W_king.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\W_knight.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\W_pawn.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\W_queen.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
-    <Image Include="Assets\Textures\Pieces\W_rook.png">
-      <Filter>src\Board\Pieces\Textures</Filter>
-    </Image>
   </ItemGroup>
 </Project>
