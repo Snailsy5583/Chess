@@ -44,8 +44,12 @@ public:
 	LegalMoveSprite(float squareSize, float spriteSize, Position pos);
 	~LegalMoveSprite();
 
+	void SetPosition(Position pos);
+
 	void Render() const;
 
 private:
 	Engine::RendererObject m_Obj;
+
+	float m_SquareSize;
 };

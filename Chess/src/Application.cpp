@@ -29,6 +29,7 @@ Application::Application(unsigned int width, unsigned int height, const char* ti
 	m_LayerStack.Push(m_ChessBoard->GetBoardLayer());
 
 	m_ChessBoard->GenerateBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+
 }
 
 Application::~Application()
@@ -41,13 +42,22 @@ Application::~Application()
 
 void Application::Run()
 {
+	m_LastFrame = std::chrono::steady_clock::now();
+
 	while (!m_MainWindow->GetShouldCloseWindow())
 	{
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		m_ChessBoard->RenderBoard();
 
 		m_MainWindow->Update();
+
+		m_DeltaTime = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - m_LastFrame).count()/1000000.f;
+
+		std::cout << 1.f/m_DeltaTime << std::endl;
+
+		m_LastFrame = std::chrono::steady_clock::now();
 	}
 }
 

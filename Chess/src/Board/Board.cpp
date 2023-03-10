@@ -135,6 +135,7 @@ void Board::GenerateBoard(std::string str)
 
 void Board::RenderBoard()
 {
+	LegalMoveSprite legalMoveSpriteInst(m_SquareSize, m_SquareSize * 0.75f, {0,0});
 	for (Square& square : m_Board)
 	{
 		Engine::Renderer::SubmitObject(square.obj);
@@ -148,7 +149,9 @@ void Board::RenderBoard()
 		{
 			for (const Position& legalMove : GetPiece(m_ActivatedSquare)->GetLegalMoves())
 			{
-				LegalMoveSprite(m_SquareSize, m_SquareSize*0.75f, legalMove).Render();
+				//LegalMoveSprite legalMoveSpriteInst(m_SquareSize, m_SquareSize * 0.75f, legalMove);
+				legalMoveSpriteInst.SetPosition(legalMove);
+				legalMoveSpriteInst.Render();
 			}
 		}
 		GetPiece(m_ActivatedSquare)->Render();

@@ -21,7 +21,7 @@ namespace Engine
 		glfwWindowHint(GLFW_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_VERSION_MINOR, 3);
 
-		glfwSwapInterval(1);
+//		glfwSwapInterval(1);
 
 		if (!m_Window)
 		{

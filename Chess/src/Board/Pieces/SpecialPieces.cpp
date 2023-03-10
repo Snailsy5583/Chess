@@ -4,8 +4,6 @@
 
 #include "Board/Board.h"
 
-#include <iostream>
-
 King::King(Color color, Position pos, float squareSize, Board* board, bool isVirgin/*=true*/)
 	: Piece(color, pos, squareSize, "king", board), m_InCheck(false)
 {
@@ -48,7 +46,6 @@ const std::vector<Position>& King::CalculateLegalMoves()
 				// TODO: check whether the king will be walking through check while castling
 				bool castleCheck = !m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) &&
 					!m_OwnerBoard->IsSquareOccupied(m_Position + (movePattern * 2));
-				std::cout << m_Color << " can almost castle\n";
 				if (castleCheck)
 				{
 					Position rookPos = m_Position + (movePattern *
@@ -57,7 +54,6 @@ const std::vector<Position>& King::CalculateLegalMoves()
 					if (piece && piece->GetPieceName() == "rook" && piece->GetIsVirgin())
 					{
 						m_LegalMoves.push_back(m_Position + movePattern*2); // The king is **FINALLY** able to castle
-						std::cout << m_Color << " can fully castle\n";
 					}
 				}
 			}
@@ -73,7 +69,6 @@ bool King::Move(Position pos, bool overrideLegality/* =false */)
 	Position prev = m_Position;
 	if (Piece::Move(pos, overrideLegality))
 	{
-		std::cout << (prev - pos).file << std::endl;
 		if ((prev - pos).file > 1 || (prev - pos).file < -1) // move is castling
 		{
 			Position rookPos = pos;
@@ -81,7 +76,6 @@ bool King::Move(Position pos, bool overrideLegality/* =false */)
 				rookPos = { 7, (m_Color ? 0 : 7) };
 			else
 				rookPos = { 0, (m_Color ? 0 : 7) };
-			std::cout << "(" << rookPos.file << ", " << rookPos.rank << ")\n";
 
 
 			Piece* rook = m_OwnerBoard->GetPiece(rookPos);
@@ -168,7 +162,9 @@ const std::vector<Position>& Knight::CalculateLegalMoves()
 
 LegalMoveSprite::LegalMoveSprite(float squareSize, float spriteSize, Position pos)
 {
-	float viewPos[3] = { (-1 + squareSize / 2) + (pos.file * squareSize), (-1 + squareSize / 2) + (pos.rank * squareSize), 1 };
+	float viewPos[3] = { pos.file, pos.rank, 1 };
+	//float viewPos[3] = { (-1 + m_SquareSize / 2) + (pos.file * m_SquareSize), (-1 + m_SquareSize / 2) + (pos.rank * m_SquareSize) };
+	m_SquareSize = squareSize;
 
 	m_Obj = Engine::Renderer::GenQuad(viewPos, spriteSize, "Assets/Shaders/Piece.vert", "Assets/Shaders/Piece.frag");
 	m_Obj.shader.AttachTexture(Engine::Texture("Assets/Textures/LegalMove.png"));
@@ -178,6 +174,12 @@ LegalMoveSprite::LegalMoveSprite(float squareSize, float spriteSize, Position po
 
 LegalMoveSprite::~LegalMoveSprite()
 { Engine::Renderer::DeleteQuad(m_Obj); }
+
+void LegalMoveSprite::SetPosition(Position pos)
+{
+	float viewPos[2] = { (-1 + m_SquareSize / 2) + (pos.file * m_SquareSize), (-1 + m_SquareSize / 2) + (pos.rank * m_SquareSize) };
+	m_Obj.shader.SetUniformVec(m_Obj.shader.GetUniformLocation("renderOffset"), 2, viewPos);
+}
 
 void LegalMoveSprite::Render() const
 { Engine::Renderer::SubmitObject(m_Obj); }
