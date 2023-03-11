@@ -37,7 +37,7 @@ public:
 	Board(const char* vertShaderPath, const char* fragShaderPath);
 	~Board();
 
-	void CalculateAllLegalMoves();
+	int CalculateAllLegalMoves();
 	bool MakeMove(Piece* piece, Position from, Position to, bool overrideLegality=false);
 
 	void GenerateBoard(std::string fen);

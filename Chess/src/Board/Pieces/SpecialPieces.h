@@ -10,6 +10,8 @@ public:
 	King(Color color, Position pos, float squareSize, Board* board, bool isVirgin=true);
 	
 	const std::vector<Position>& CalculateLegalMoves() override;
+	const bool CheckCastling(int direction);
+
 	bool Move(Position pos, bool overrideLegality=false) override;
 
 	void SetCheck(bool isInCheck);

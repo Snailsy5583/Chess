@@ -39,10 +39,12 @@ Board::~Board()
 	}
 }
 
-void Board::CalculateAllLegalMoves()
+int Board::CalculateAllLegalMoves()
 {
 	m_WhiteControlledSquares.clear();
 	m_BlackControlledSquares.clear();
+
+	int numOfMoves=0;
 	for (Square& square : m_Board)
 	{
 		if (square.piece)
@@ -59,9 +61,14 @@ void Board::CalculateAllLegalMoves()
 					GetKing()->SetCheck(true);
 				else
 					GetKing()->SetCheck(false);
+				if (square.piece->GetColor() == m_Turn)
+					numOfMoves++;
 			}
 		}
 	}
+	std::cout << numOfMoves << std::endl;
+
+	return numOfMoves;
 }
 
 bool Board::MakeMove(Piece* piece, Position from, Position to, bool overrideLegality/*=false*/)

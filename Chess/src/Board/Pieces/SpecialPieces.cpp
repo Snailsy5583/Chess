@@ -33,35 +33,42 @@ const std::vector<Position>& King::CalculateLegalMoves()
 		if  (
 				!m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) ||
 				m_OwnerBoard->IsPieceCapturable(m_Position + movePattern, m_Color)
+				// TODO: Check whether king will be walking into check
 			)
 		{
 			m_LegalMoves.push_back(m_Position + movePattern);
-
-			if (m_IsVirgin
-				&&
-				(movePattern == Position({ -1, 0 }) || movePattern == Position({ 1, 0 }))
-				)
-			{
-				// Check castling
-				// TODO: check whether the king will be walking through check while castling
-				bool castleCheck = !m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) &&
-					!m_OwnerBoard->IsSquareOccupied(m_Position + (movePattern * 2));
-				if (castleCheck)
-				{
-					Position rookPos = m_Position + (movePattern *
-						(movePattern == Position({ 1, 0 }) ? 3 : 4)); // if king is white and movePattern is to the right of it then check 3 spaces to the right for the rook else check 4 spaces in the other direction
-					Piece* piece = m_OwnerBoard->GetPiece(rookPos);
-					if (piece && piece->GetPieceName() == "rook" && piece->GetIsVirgin())
-					{
-						m_LegalMoves.push_back(m_Position + movePattern*2); // The king is **FINALLY** able to castle
-					}
-				}
-			}
 		}
 
 	}
 
+	CheckCastling(-1);
+	CheckCastling(1);
+
 	return m_LegalMoves;
+}
+
+const bool King::CheckCastling(int direction)
+{
+	if (m_IsVirgin)
+	{
+		Position movePattern = Position({ direction, 0 });
+		// TODO: check whether the king will be walking through check while castling
+		bool castleCheck = !m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) &&
+			!m_OwnerBoard->IsSquareOccupied(m_Position + (movePattern * 2));
+		if (castleCheck)
+		{
+			Position rookPos = m_Position + (movePattern *
+				(direction > 0 ? 3 : 4)); // if king is white and movePattern is to the right of it then check 3 spaces to the right for the rook else check 4 spaces in the other direction
+			Piece* piece = m_OwnerBoard->GetPiece(rookPos);
+			if (piece && piece->GetPieceName() == "rook" && piece->GetIsVirgin())
+			{
+				m_LegalMoves.push_back(m_Position + movePattern * 2); // The king is **FINALLY** able to castle
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 bool King::Move(Position pos, bool overrideLegality/* =false */)
