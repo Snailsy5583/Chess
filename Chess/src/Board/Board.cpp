@@ -32,66 +32,9 @@ Board::~Board()
 {
 	for (Square& square : m_Board)
 	{
-		if (square.piece)
-		{
-			delete square.piece;
-		}
+		if (square.piece && square.piece->GetPosition() == square.pos)
+			square.piece;
 	}
-}
-
-int Board::CalculateAllLegalMoves()
-{
-	m_WhiteControlledSquares.clear();
-	m_BlackControlledSquares.clear();
-
-	int numOfMoves=0;
-	for (Square& square : m_Board)
-	{
-		if (square.piece)
-		{
-			square.piece->CalculateLegalMoves();
-			for (Position move : square.piece->GetLegalMoves())
-			{
-				if (square.piece->GetColor())
-					m_WhiteControlledSquares.push_back(move);
-				else
-					m_BlackControlledSquares.push_back(move);
-
-				if (GetKing()->GetPosition() == move)
-					GetKing()->SetCheck(true);
-				else
-					GetKing()->SetCheck(false);
-				if (square.piece->GetColor() == m_Turn)
-					numOfMoves++;
-			}
-		}
-	}
-	std::cout << numOfMoves << std::endl;
-
-	return numOfMoves;
-}
-
-bool Board::MakeMove(Piece* piece, Position from, Position to, bool overrideLegality/*=false*/)
-{
-	if (piece->Move(to, overrideLegality)) // move is possible
-	{
-		if (IsPieceCapturable(to, m_Turn))
-		{
-			delete m_Board[Pos2Index(to)].piece; // capture piece
-			m_Board[Pos2Index(to)].piece = nullptr; // resets board piece ptr (prolly not necessary, just in case)
-		}
-		m_Board[Pos2Index(to)].piece = m_Board[Pos2Index(from)].piece; // move piece (finally!)
-		m_Board[Pos2Index(from)].piece = nullptr; // unassign piece from previous square
-
-		if (!overrideLegality)
-		{
-			m_Turn = (Color)(!(bool)m_Turn); // switch turn
-			CalculateAllLegalMoves();
-		}
-
-		return true;
-	}
-	return false;
 }
 
 void Board::GenerateBoard(std::string str)
@@ -112,23 +55,22 @@ void Board::GenerateBoard(std::string str)
 			switch (std::tolower(str[i]))
 			{
 			case 'k':
-				m_Board[pos].piece = new King(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
-				m_King = (King*) m_Board[pos].piece;
+				m_Board[pos].piece = std::make_unique<King>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
 				break;
 			case 'q':
-				m_Board[pos].piece = new Queen(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
+				m_Board[pos].piece = std::make_unique<Queen>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
 				break;
 			case 'r':
-				m_Board[pos].piece = new Rook(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
+				m_Board[pos].piece = std::make_unique<Rook>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
 				break;
 			case 'b':
-				m_Board[pos].piece = new Bishop(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
+				m_Board[pos].piece = std::make_unique<Bishop>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
 				break;
 			case 'n':
-				m_Board[pos].piece = new Knight(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
+				m_Board[pos].piece = std::make_unique<Knight>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
 				break;
 			case 'p':
-				m_Board[pos].piece = new Pawn(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
+				m_Board[pos].piece = std::make_unique<Pawn>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
 				break;
 			default:
 				continue;
@@ -140,37 +82,84 @@ void Board::GenerateBoard(std::string str)
 	CalculateAllLegalMoves();
 }
 
+int Board::CalculateAllLegalMoves()
+{
+	m_WhiteControlledSquares.clear();
+	m_BlackControlledSquares.clear();
+
+	int numOfMoves=0;
+	for (int i=0; i<64; i++)
+	{
+		Square& square = m_Board[i];
+		if (square.piece && Position({i%8, i/8}) == square.piece->GetPosition())
+		{
+			square.piece->CalculateLegalMoves();
+			for (Position move : square.piece->GetLegalMoves())
+			{
+				if (square.piece->GetColor())
+					m_WhiteControlledSquares.push_back(move);
+				else
+					m_BlackControlledSquares.push_back(move);
+
+				if (square.piece->GetColor() == m_Turn)
+					numOfMoves++;
+			}
+		}
+	}
+	std::cout << numOfMoves << std::endl;
+
+	return numOfMoves;
+}
+
+bool Board::MakeMove(Piece* piece, Position from, Position to, bool overrideLegality/*=false*/)
+{
+	if (piece->Move(to, overrideLegality)) // move is possible
+	{
+		if (IsPieceCapturable(to, m_Turn) && (GetPiecePtr(to)->GetPosition() == to || GetPiecePtr(from)->GetPieceName() == "pawn") /* only pawns can En Passant*/)
+		{
+			Position pos = GetPiecePtr(to)->GetPosition();
+			m_Board[Pos2Index(to)].piece.reset(); // capture piece
+			SetPiece(pos, nullptr); // En passant hack crap
+		}
+		SetPiece(to, GetPiece(from)); // move piece (finally!)
+
+		if (!overrideLegality)
+		{
+			m_Turn = (Color)(!(bool)m_Turn); // switch turn
+			CalculateAllLegalMoves();
+		}
+
+		return true;
+	}
+	return false;
+}
+
 void Board::RenderBoard()
 {
 	LegalMoveSprite legalMoveSpriteInst(m_SquareSize, m_SquareSize * 0.75f, {0,0});
 	for (Square& square : m_Board)
 	{
 		Engine::Renderer::SubmitObject(square.obj);
-		if (square.piece)
+		if (square.piece && square.piece->GetPosition() == square.pos)
 			square.piece->Render();
 	}
 
 	if (m_ActivatedSquare.file != -1)
 	{
-		if (GetPiece(m_ActivatedSquare))
+		if (GetPiecePtr(m_ActivatedSquare))
 		{
-			for (const Position& legalMove : GetPiece(m_ActivatedSquare)->GetLegalMoves())
+			for (const Position& legalMove : GetPiecePtr(m_ActivatedSquare)->GetLegalMoves())
 			{
 				//LegalMoveSprite legalMoveSpriteInst(m_SquareSize, m_SquareSize * 0.75f, legalMove);
 				legalMoveSpriteInst.SetPosition(legalMove);
 				legalMoveSpriteInst.Render();
 			}
 		}
-		GetPiece(m_ActivatedSquare)->Render();
+		GetPiecePtr(m_ActivatedSquare)->Render();
 	}
 }
 
-bool Board::IsSquareOccupied(Position pos) const
-{
-	return m_Board[Pos2Index(pos)].piece != nullptr;
-}
-
-bool Board::IsValidPosition(Position pos) const
+bool Board::IsValidPosition(Position pos)
 {
 	if (pos.file >= 0 && pos.file < 8 &&
 		pos.rank >= 0 && pos.rank < 8)
@@ -178,24 +167,37 @@ bool Board::IsValidPosition(Position pos) const
 	else
 		return false;
 }
-
-Piece* Board::GetPiece(Position pos)
+bool Board::IsSquareOccupied(Position pos) const
 {
-	if (m_Board[Pos2Index(pos)].piece)
-		return m_Board[Pos2Index(pos)].piece;
-	else
-		return nullptr;
+	return GetPiecePtr(pos) && GetPiecePtr(pos)->GetPosition() == pos;
 }
-
-King* Board::GetKing()
-{ return m_King; }
 
 bool Board::IsPieceCapturable(Position pos, Color color)
 {
-	if (GetPiece(pos))
-		return GetPiece(pos)->GetColor() != color;
+	if (GetPiecePtr(pos))
+		return GetPiecePtr(pos)->GetColor() != color;
 	else
 		return false;
+}
+
+Piece* Board::GetPiecePtr(Position pos) const
+{
+	return m_Board[Pos2Index(pos)].piece.get();
+}
+
+std::unique_ptr<Piece> Board::GetPiece(Position pos)
+{
+	return std::move(m_Board[Pos2Index(pos)].piece);
+}
+
+void Board::SetPiece(Position pos, std::unique_ptr<Piece> piece)
+{
+	m_Board[Pos2Index(pos)].piece = std::move(piece);
+}
+
+void Board::DeletePiece(Position pos)
+{
+	m_Board[Pos2Index(pos)].piece.reset();
 }
 
 bool Board::HandleMouseDown(Engine::MouseButtonPressedEvent& e)
@@ -203,17 +205,15 @@ bool Board::HandleMouseDown(Engine::MouseButtonPressedEvent& e)
 	Position invalid = {-1, -1};
 	float mouseX, mouseY;
 	e.GetMousePosition(mouseX, mouseY);
-	Position squarePos = {(1+mouseX) / m_SquareSize, (1+mouseY) / m_SquareSize };
+	Position squarePos = { (1 + mouseX) / m_SquareSize, (1 + mouseY) / m_SquareSize };
 	
 	if (m_ActivatedSquare != invalid)
 	{
-		if (MakeMove(GetPiece(m_ActivatedSquare), m_ActivatedSquare, squarePos))
-		{}
-		else
+		if (!MakeMove(GetPiecePtr(m_ActivatedSquare), m_ActivatedSquare, squarePos))
 		{
 			float offset[2] = { 0, 0 };
-			GetPiece(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
-				GetPiece(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
+			GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
+				GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
 				2,
 				offset
 			);
@@ -225,12 +225,12 @@ bool Board::HandleMouseDown(Engine::MouseButtonPressedEvent& e)
 	}
 	else
 	{
-		if (!GetPiece(squarePos))
+		if (!GetPiecePtr(squarePos))
 		{
 			m_ActivatedSquare = invalid;
 			return true;
 		}
-		else if (GetPiece(squarePos)->GetColor() != m_Turn)
+		else if (GetPiecePtr(squarePos)->GetColor() != m_Turn)
 		{
 			m_ActivatedSquare = invalid;
 			return true;
@@ -255,21 +255,21 @@ bool Board::HandleMouseReleased(Engine::MouseButtonReleasedEvent& e)
 	if (squarePos == m_ActivatedSquare)
 	{
 		float offset[2] = { 0, 0 };
-		GetPiece(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
-			GetPiece(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
+		GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
+			GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
 			2,
 			offset
 		);
 		return false;
 	}
 
-	if (MakeMove(GetPiece(m_ActivatedSquare), m_ActivatedSquare, squarePos))
+	if (MakeMove(GetPiecePtr(m_ActivatedSquare), m_ActivatedSquare, squarePos))
 	{}
 	else
 	{
 		float offset[2] = { 0, 0 };
-		GetPiece(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
-			GetPiece(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
+		GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
+			GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
 			2,
 			offset
 		);
@@ -288,7 +288,7 @@ bool Board::HandleMouseMoved(Engine::MouseMovedEvent& e)
 	float mouseX, mouseY;
 	e.GetMousePosition(mouseX, mouseY);
 
-	const Engine::RendererObject& pieceOBJ = GetPiece(m_ActivatedSquare)->GetRendererObject();
+	const Engine::RendererObject& pieceOBJ = GetPiecePtr(m_ActivatedSquare)->GetRendererObject();
 
 	float calculatedOffset[2] = {mouseX - pieceOBJ.position[0], mouseY - pieceOBJ.position[1]};
 	

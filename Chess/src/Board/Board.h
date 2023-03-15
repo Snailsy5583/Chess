@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Engine/Layer.h"
 #include "Engine/Renderer.h"
@@ -12,7 +13,7 @@ struct Square
 {
 	Position pos;
 	Engine::RendererObject obj;
-	Piece* piece;
+	std::unique_ptr<Piece> piece;
 };
 
 class Board;
@@ -37,20 +38,25 @@ public:
 	Board(const char* vertShaderPath, const char* fragShaderPath);
 	~Board();
 
-	int CalculateAllLegalMoves();
-	bool MakeMove(Piece* piece, Position from, Position to, bool overrideLegality=false);
-
 	void GenerateBoard(std::string fen);
+
+	int CalculateAllLegalMoves();
+	bool MakeMove(Piece* piece, Position from, Position to, bool overrideLegality = false);
 
 	void RenderBoard();
 
 public:
-	bool IsSquareOccupied(Position pos) const;
-	bool IsValidPosition(Position pos) const;
-	bool IsPieceCapturable(Position pos, Color color);
-	Piece* GetPiece(Position pos);
+	static bool IsValidPosition(Position pos);
 
-	class King* GetKing();
+	bool IsSquareOccupied(Position pos) const;
+
+	bool IsPieceCapturable(Position pos, Color color);
+
+	Piece* GetPiecePtr(Position pos) const;
+	// Careful -- uses std::move()
+	std::unique_ptr<Piece> GetPiece(Position pos);
+	void SetPiece(Position pos, std::unique_ptr<Piece> piece);
+	void DeletePiece(Position pos);
 	
 public:
 	bool HandleMouseDown(Engine::MouseButtonPressedEvent& e);
@@ -70,8 +76,6 @@ private:
 
 	float m_SquareSize;
 	Square m_Board[64];
-
-	class King* m_King;
 
 	Position m_ActivatedSquare;
 	Color m_Turn;

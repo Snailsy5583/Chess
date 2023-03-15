@@ -8,10 +8,14 @@
 #include <fstream>
 
 
+
+
+
 #define BIND_EVENT_FUNC(x, obj) std::bind(&x, obj, std::placeholders::_1)
 
 Application::Application(unsigned int width, unsigned int height, const char* title)
 {
+	m_DeltaTime = 0;
 	if (!glfwInit())
 		std::cout << "GLFW INIT FAILED\n";
 
@@ -29,7 +33,6 @@ Application::Application(unsigned int width, unsigned int height, const char* ti
 	m_LayerStack.Push(m_ChessBoard->GetBoardLayer());
 
 	m_ChessBoard->GenerateBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-
 }
 
 Application::~Application()

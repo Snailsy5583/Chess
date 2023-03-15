@@ -5,14 +5,12 @@
 
 #include <iostream>
 
-Piece::Piece(Color color, Position pos, float squareSize, char* pieceName, Board* board)
-	: m_Color(color), m_Position(pos), m_TexturePath("Assets/Textures/Pieces/"), m_OwnerBoard(board), m_IsGamePiece(false), m_PieceName(pieceName)
+Piece::Piece(Color color, Position pos, float squareSize, std::string pieceName, Board* board)
+	: m_Color(color), m_Position(pos), m_TexturePath("Assets/Textures/Pieces/"), m_OwnerBoard(board), m_IsGamePiece(false), m_PieceName(pieceName), m_SquareSize(squareSize)
 {
 	m_TexturePath.append((color == White ? "W_" : "B_"));
 	m_TexturePath.append(pieceName);
 	m_TexturePath.append(".png");
-
-	m_SquareSize = squareSize;
 	float viewPos[3] = { (-1 + squareSize/2) + (pos.file * squareSize), (-1 + squareSize/2) + (pos.rank * squareSize), 1};
 
 	m_Object = Engine::Renderer::GenQuad(viewPos, squareSize, "Assets/Shaders/Piece.vert", "Assets/Shaders/Piece.frag");

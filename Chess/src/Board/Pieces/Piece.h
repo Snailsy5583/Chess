@@ -15,7 +15,7 @@ struct Position
 	bool operator==(const Position& other) const
 	{ return other.file == file && other.rank == rank; }
 	bool operator!=(const Position& other) const
-	{ return other.file != file && other.rank != rank; }
+	{ return other.file != file || other.rank != rank; }
 
 	Position operator+(const Position& other) const
 	{ return { file + other.file, rank + other.rank }; }
@@ -53,8 +53,9 @@ enum Color
 class Piece
 {
 public:
-	Piece(Color color, Position pos, float squareSize, char* pieceName, Board* board);
-	~Piece();
+	Piece()=default;
+	Piece(Color color, Position pos, float squareSize, std::string pieceName, Board* board);
+	virtual ~Piece();
 
 	virtual bool Move(Position pos, bool overrideLegality=false);
 
@@ -69,14 +70,14 @@ public:
 	inline bool GetIsVirgin() const { return m_IsVirgin; }
 
 	inline const Engine::RendererObject& GetRendererObject() const { return m_Object; }
-	inline const char* GetPieceName() const { return m_PieceName; }
+	inline const char* GetPieceName() const { return m_PieceName.c_str(); }
 
 protected:
 	Board* m_OwnerBoard;
 
 	Engine::RendererObject m_Object;
 	std::string m_TexturePath;
-	const char* m_PieceName;
+	std::string m_PieceName;
 	
 	Position m_Position;
 	Color m_Color;
@@ -87,6 +88,5 @@ protected:
 	std::vector<Position> m_LegalMoves;
 	bool m_IsVirgin;
 
-private:
 	float m_SquareSize;
 };

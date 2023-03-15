@@ -17,7 +17,9 @@ const std::vector<Position>& SlidingPiece::CalculateLegalMoves()
 		if (!m_OwnerBoard->IsValidPosition(latest+movePattern))
 			continue;
 
-		while (!m_OwnerBoard->IsSquareOccupied(latest + movePattern) && m_OwnerBoard->IsValidPosition(latest + movePattern))
+		while (		m_OwnerBoard->IsValidPosition(latest + movePattern)
+				&& (!m_OwnerBoard->IsSquareOccupied(latest + movePattern)
+				|| /*En Passant*/ m_OwnerBoard->GetPiecePtr(latest+movePattern)->GetPosition() != latest+movePattern) )
 		{
 			m_LegalMoves.push_back(latest + movePattern);
 			latest += movePattern;
@@ -26,7 +28,8 @@ const std::vector<Position>& SlidingPiece::CalculateLegalMoves()
 		if (!m_OwnerBoard->IsValidPosition(latest + movePattern))
 			continue;
 
-		if (m_OwnerBoard->IsPieceCapturable(latest + movePattern, m_Color))
+		if (m_OwnerBoard->IsPieceCapturable(latest + movePattern, m_Color) && 
+			m_OwnerBoard->GetPiecePtr(latest+movePattern)->GetPosition() == (latest+movePattern))
 		{
 			m_LegalMoves.push_back(latest + movePattern);
 		}
