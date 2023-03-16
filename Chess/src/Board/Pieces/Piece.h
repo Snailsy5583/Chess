@@ -2,6 +2,7 @@
 
 #include "Engine/Renderer.h"
 
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -43,6 +44,13 @@ struct Position
 		rank -= other.rank;
 		return *this;
 	}
+
+	std::string ToString() const 
+	{
+		std::stringstream ss;
+		ss << "(" << file << ", " << rank << ")";
+		return ss.str();
+	}
 };
 
 enum Color
@@ -53,31 +61,30 @@ enum Color
 class Piece
 {
 public:
-	Piece()=default;
-	Piece(Color color, Position pos, float squareSize, std::string pieceName, Board* board);
+	Piece(Color color, Position pos, float squareSize, const char* pieceName, Board* board, bool loadImage=true);
 	virtual ~Piece();
 
 	virtual bool Move(Position pos, bool overrideLegality=false);
 
 	virtual void Render();
 
-	virtual const std::vector<Position>& CalculateLegalMoves() = 0;
+	virtual void CalculateLegalMoves() = 0;
 	inline const std::vector<Position>& GetLegalMoves() const { return m_LegalMoves; }
 
 	inline Color GetColor() const { return m_Color; }
-	inline Position GetPosition() const { return m_Position; }
+	virtual inline Position GetPosition() const { return m_Position; }
 	inline bool GetIsGamePiece() const { return m_IsGamePiece; }
 	inline bool GetIsVirgin() const { return m_IsVirgin; }
 
 	inline const Engine::RendererObject& GetRendererObject() const { return m_Object; }
-	inline const char* GetPieceName() const { return m_PieceName.c_str(); }
+	inline const char* GetPieceName() const { return m_PieceName; }
 
 protected:
 	Board* m_OwnerBoard;
 
 	Engine::RendererObject m_Object;
 	std::string m_TexturePath;
-	std::string m_PieceName;
+	const char* m_PieceName;
 	
 	Position m_Position;
 	Color m_Color;

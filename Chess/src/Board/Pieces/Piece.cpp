@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-Piece::Piece(Color color, Position pos, float squareSize, std::string pieceName, Board* board)
+Piece::Piece(Color color, Position pos, float squareSize, const char* pieceName, Board* board, bool loadImage/*=true*/)
 	: m_Color(color), m_Position(pos), m_TexturePath("Assets/Textures/Pieces/"), m_OwnerBoard(board), m_IsGamePiece(false), m_PieceName(pieceName), m_SquareSize(squareSize)
 {
 	m_TexturePath.append((color == White ? "W_" : "B_"));
@@ -13,9 +13,12 @@ Piece::Piece(Color color, Position pos, float squareSize, std::string pieceName,
 	m_TexturePath.append(".png");
 	float viewPos[3] = { (-1 + squareSize/2) + (pos.file * squareSize), (-1 + squareSize/2) + (pos.rank * squareSize), 1};
 
-	m_Object = Engine::Renderer::GenQuad(viewPos, squareSize, "Assets/Shaders/Piece.vert", "Assets/Shaders/Piece.frag");
+	if (loadImage)
+	{
+		m_Object = Engine::Renderer::GenQuad(viewPos, squareSize, "Assets/Shaders/Piece.vert", "Assets/Shaders/Piece.frag");
 
-	m_Object.shader.AttachTexture(Engine::Texture(m_TexturePath.c_str()));
+		m_Object.shader.AttachTexture(Engine::Texture(m_TexturePath.c_str()));
+	}
 }
 
 Piece::~Piece()

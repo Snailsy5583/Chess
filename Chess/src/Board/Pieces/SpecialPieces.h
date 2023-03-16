@@ -1,6 +1,8 @@
 
 #pragma once
 
+//#include <memory>
+
 #include "Piece.h"
 
 // Special Piece = any piece that is not a sliding piece
@@ -10,7 +12,7 @@ class King : public Piece
 public:
 	King(Color color, Position pos, float squareSize, Board* board, bool isVirgin=true);
 	
-	const std::vector<Position>& CalculateLegalMoves() override;
+	void CalculateLegalMoves() override;
 	const bool CheckCastling(int direction);
 
 	bool Move(Position pos, bool overrideLegality=false) override;
@@ -22,44 +24,51 @@ private:
 	bool m_InCheck;
 };
 
+class Knight : public Piece
+{
+public:
+	Knight(Color color, Position pos, float squareSize, Board* board);
+	
+	void CalculateLegalMoves() override;
+};
+
+class EnPassantPiece;
+
 class Pawn : public Piece
 {
 public:
 	Pawn(Color color, Position pos, float squareSize, Board* board);
 	~Pawn() override;
 	
-	const std::vector<Position>& CalculateLegalMoves() override;
+	void CalculateLegalMoves() override;
 	bool Move(Position pos, bool overrideLegality = false) override;
+};
 
-	void CancelEnPassantOffer(bool deleteOriginal=false);
-	inline Position GetEnPassantPos() const { return m_EnPassantPos; }
+/////////////// Fake Pieces /////////////////
+
+// Piece generated when a pawn is En Passant-able
+class EnPassantPiece : public Piece
+{
+public:
+	EnPassantPiece(Position pos, Pawn* originalPawn, Board* board);
+
+	void CancelEnPassantOffer(bool deletePawn = false);
+	void DeleteOwningPawn();
+
+	// This doesn't have legal moves but it still needs to delete itself
+	// after the first move
+	void CalculateLegalMoves() override;
+
+	Position GetPosition() const override { return m_OriginalPawn->GetPosition(); }
 
 private:
-	Position m_EnPassantPos;
+	Pawn* m_OriginalPawn;
+	
 	bool m_FirstMove;
 };
 
-// Fake Piece
-class EnPassantPiece : public Piece // TODO: Finish this
-{
-public:
-	EnPassantPiece(Position pos, Piece* originalPawn);
 
-private:
-	Piece* m_OriginalPawn;
-};
-
-class Knight : public Piece
-{
-public:
-	Knight(Color color, Position pos, float squareSize, Board* board);
-	
-	const std::vector<Position>& CalculateLegalMoves() override;
-};
-
-///////// Legal Move Sprite /////////////////
-
-// Not actually a piece but still important
+// Piece generated to show legal moves
 class LegalMoveSprite
 {
 public:

@@ -6,7 +6,7 @@
 class SlidingPiece : public Piece
 {
 public:
-	virtual const std::vector<Position>& CalculateLegalMoves() override;
+	virtual void CalculateLegalMoves() override;
 
 protected:
 	SlidingPiece(Color color, Position pos, float squareSize, char* pieceName, Board* board);

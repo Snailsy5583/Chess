@@ -32,7 +32,7 @@ Board::~Board()
 {
 	for (Square& square : m_Board)
 	{
-		if (square.piece && square.piece->GetPosition() == square.pos)
+		if (square.piece && square.piece->GetPieceName() != "en_passant")
 			square.piece;
 	}
 }
@@ -55,7 +55,7 @@ void Board::GenerateBoard(std::string str)
 			switch (std::tolower(str[i]))
 			{
 			case 'k':
-				m_Board[pos].piece = std::make_unique<King>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
+				SetPiece(currentPos, std::make_unique<King>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this));
 				break;
 			case 'q':
 				m_Board[pos].piece = std::make_unique<Queen>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
@@ -82,6 +82,36 @@ void Board::GenerateBoard(std::string str)
 	CalculateAllLegalMoves();
 }
 
+void Board::RenderBoard()
+{
+	// Instanciate a legal move which is then rendered multiple times in different locations
+	LegalMoveSprite legalMoveSpriteInst(m_SquareSize, m_SquareSize * 0.75f, {0,0});
+
+	for (Square& square : m_Board)
+	{
+		// Render background
+		Engine::Renderer::SubmitObject(square.obj);
+		
+		// Render every piece except for fake pieces
+		if (square.piece && square.piece->GetPieceName() != "en_passant")
+			square.piece->Render();
+	}
+
+	// If a piece is activated display its legal moves
+	if (m_ActivatedSquare.file != -1)
+	{
+		for (const Position& legalMove : GetPiece(m_ActivatedSquare)->GetLegalMoves())
+		{
+			legalMoveSpriteInst.SetPosition(legalMove);
+			legalMoveSpriteInst.Render();
+		}
+
+		// the piece might be covered up by the background squares
+		// so render it on top
+		GetPiece(m_ActivatedSquare)->Render();
+	}
+}
+
 int Board::CalculateAllLegalMoves()
 {
 	m_WhiteControlledSquares.clear();
@@ -91,9 +121,13 @@ int Board::CalculateAllLegalMoves()
 	for (int i=0; i<64; i++)
 	{
 		Square& square = m_Board[i];
-		if (square.piece && Position({i%8, i/8}) == square.piece->GetPosition())
+		if (square.piece)
 		{
 			square.piece->CalculateLegalMoves();
+			
+			if (!square.piece)
+				continue;
+
 			for (Position move : square.piece->GetLegalMoves())
 			{
 				if (square.piece->GetColor())
@@ -113,107 +147,61 @@ int Board::CalculateAllLegalMoves()
 
 bool Board::MakeMove(Piece* piece, Position from, Position to, bool overrideLegality/*=false*/)
 {
-	if (piece->Move(to, overrideLegality)) // move is possible
+	if (piece->Move(to, overrideLegality)) // if the move is actually possible
 	{
-		if (IsPieceCapturable(to, m_Turn) && (GetPiecePtr(to)->GetPosition() == to || GetPiecePtr(from)->GetPieceName() == "pawn") /* only pawns can En Passant*/)
+		// Capture Piece if piece exists on ending square
+		if (IsPieceCapturable(to, m_Turn))
 		{
-			Position pos = GetPiecePtr(to)->GetPosition();
-			m_Board[Pos2Index(to)].piece.reset(); // capture piece
-			SetPiece(pos, nullptr); // En passant hack crap
-		}
-		SetPiece(to, GetPiece(from)); // move piece (finally!)
+			std::cout << GetPiece(to)->GetPieceName() << std::endl;
+			if (GetPiece(to)->GetPieceName() == "en_passant")
+			{
+				EnPassantPiece* enPassantPiece = dynamic_cast<EnPassantPiece*>(GetPiece(to));
+				Position pawnPos = enPassantPiece->GetPosition();
+				if (GetPiece(from)->GetPieceName() == "pawn")
+					enPassantPiece->CancelEnPassantOffer(true);
+				else
+					enPassantPiece->CancelEnPassantOffer(false);
+			}
+			else
+				DeletePiece(to); // capture piece
 
-		if (!overrideLegality)
-		{
-			m_Turn = (Color)(!(bool)m_Turn); // switch turn
-			CalculateAllLegalMoves();
 		}
+
+		// move piece
+		SetPiece(to, GetFullPiecePtr(from));
+
+		// we don't want to switch the turn or calculate any legal moves
+		// if the legality is overrided (for example because of castling)
+		if (overrideLegality)
+			return true;
+
+		m_Turn = (Color)(!(bool)m_Turn); // switch turn
+		CalculateAllLegalMoves();
 
 		return true;
 	}
 	return false;
 }
 
-void Board::RenderBoard()
-{
-	LegalMoveSprite legalMoveSpriteInst(m_SquareSize, m_SquareSize * 0.75f, {0,0});
-	for (Square& square : m_Board)
-	{
-		Engine::Renderer::SubmitObject(square.obj);
-		if (square.piece && square.piece->GetPosition() == square.pos)
-			square.piece->Render();
-	}
-
-	if (m_ActivatedSquare.file != -1)
-	{
-		if (GetPiecePtr(m_ActivatedSquare))
-		{
-			for (const Position& legalMove : GetPiecePtr(m_ActivatedSquare)->GetLegalMoves())
-			{
-				//LegalMoveSprite legalMoveSpriteInst(m_SquareSize, m_SquareSize * 0.75f, legalMove);
-				legalMoveSpriteInst.SetPosition(legalMove);
-				legalMoveSpriteInst.Render();
-			}
-		}
-		GetPiecePtr(m_ActivatedSquare)->Render();
-	}
-}
-
-bool Board::IsValidPosition(Position pos)
-{
-	if (pos.file >= 0 && pos.file < 8 &&
-		pos.rank >= 0 && pos.rank < 8)
-		return true;
-	else
-		return false;
-}
-bool Board::IsSquareOccupied(Position pos) const
-{
-	return GetPiecePtr(pos) && GetPiecePtr(pos)->GetPosition() == pos;
-}
-
-bool Board::IsPieceCapturable(Position pos, Color color)
-{
-	if (GetPiecePtr(pos))
-		return GetPiecePtr(pos)->GetColor() != color;
-	else
-		return false;
-}
-
-Piece* Board::GetPiecePtr(Position pos) const
-{
-	return m_Board[Pos2Index(pos)].piece.get();
-}
-
-std::unique_ptr<Piece> Board::GetPiece(Position pos)
-{
-	return std::move(m_Board[Pos2Index(pos)].piece);
-}
-
-void Board::SetPiece(Position pos, std::unique_ptr<Piece> piece)
-{
-	m_Board[Pos2Index(pos)].piece = std::move(piece);
-}
-
-void Board::DeletePiece(Position pos)
-{
-	m_Board[Pos2Index(pos)].piece.reset();
-}
-
 bool Board::HandleMouseDown(Engine::MouseButtonPressedEvent& e)
 {
 	Position invalid = {-1, -1};
+
 	float mouseX, mouseY;
 	e.GetMousePosition(mouseX, mouseY);
+	
 	Position squarePos = { (1 + mouseX) / m_SquareSize, (1 + mouseY) / m_SquareSize };
 	
+	
 	if (m_ActivatedSquare != invalid)
-	{
-		if (!MakeMove(GetPiecePtr(m_ActivatedSquare), m_ActivatedSquare, squarePos))
+	{ // if a piece is already activated, move to the new square (if possible)
+		if (!MakeMove(GetPiece(m_ActivatedSquare), m_ActivatedSquare, squarePos))
 		{
 			float offset[2] = { 0, 0 };
-			GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
-				GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
+
+			// reset piece position, so that it is on the new square
+			GetPiece(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
+				GetPiece(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
 				2,
 				offset
 			);
@@ -224,17 +212,11 @@ bool Board::HandleMouseDown(Engine::MouseButtonPressedEvent& e)
 		return true;
 	}
 	else
-	{
-		if (!GetPiecePtr(squarePos))
-		{
-			m_ActivatedSquare = invalid;
+	{ // if a piece is not already selected, then select the piece under the mouse
+		if (!GetPiece(squarePos))
 			return true;
-		}
-		else if (GetPiecePtr(squarePos)->GetColor() != m_Turn)
-		{
-			m_ActivatedSquare = invalid;
+		else if (GetPiece(squarePos)->GetColor() != m_Turn)
 			return true;
-		}
 
 		m_ActivatedSquare = squarePos;
 		return true;
@@ -245,6 +227,7 @@ bool Board::HandleMouseReleased(Engine::MouseButtonReleasedEvent& e)
 {
 	Position invalid = { -1, -1 };
 
+	// do nothing if no piece is already selected
 	if (m_ActivatedSquare == invalid)
 		return false;
 
@@ -255,25 +238,30 @@ bool Board::HandleMouseReleased(Engine::MouseButtonReleasedEvent& e)
 	if (squarePos == m_ActivatedSquare)
 	{
 		float offset[2] = { 0, 0 };
-		GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
-			GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
+
+		// reset piece position, so that it is on the new square
+		GetPiece(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
+			GetPiece(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
 			2,
 			offset
 		);
 		return false;
 	}
 
-	if (MakeMove(GetPiecePtr(m_ActivatedSquare), m_ActivatedSquare, squarePos))
+	if (MakeMove(GetPiece(m_ActivatedSquare), m_ActivatedSquare, squarePos))
 	{}
 	else
 	{
 		float offset[2] = { 0, 0 };
-		GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
-			GetPiecePtr(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
+
+		// reset piece position, so that it is on the new square
+		GetPiece(m_ActivatedSquare)->GetRendererObject().shader.SetUniformVec(
+			GetPiece(m_ActivatedSquare)->GetRendererObject().shader.GetUniformLocation("renderOffset"),
 			2,
 			offset
 		);
 	}
+
 	m_ActivatedSquare = invalid;
 	return true;
 }
@@ -288,16 +276,61 @@ bool Board::HandleMouseMoved(Engine::MouseMovedEvent& e)
 	float mouseX, mouseY;
 	e.GetMousePosition(mouseX, mouseY);
 
-	const Engine::RendererObject& pieceOBJ = GetPiecePtr(m_ActivatedSquare)->GetRendererObject();
-
+	const Engine::RendererObject& pieceOBJ = GetPiece(m_ActivatedSquare)->GetRendererObject();
 	float calculatedOffset[2] = {mouseX - pieceOBJ.position[0], mouseY - pieceOBJ.position[1]};
 	
+	// set the render offset so the piece follows the mouse
 	pieceOBJ.shader.SetUniformVec(
 		pieceOBJ.shader.GetUniformLocation("renderOffset"),
 		2,
 		calculatedOffset
 	);
 	return true;
+}
+
+bool Board::IsValidPosition(Position pos)
+{
+	if (pos.file >= 0 && pos.file < 8 &&
+		pos.rank >= 0 && pos.rank < 8)
+		return true;
+	else
+		return false;
+}
+
+bool Board::IsSquareOccupied(Position pos) const
+{
+	return GetPiece(pos) && GetPiece(pos)->GetPieceName() != "en_passant";
+}
+
+bool Board::IsPieceCapturable(Position pos, Color color)
+{
+	if (!IsValidPosition(pos))
+		return false;
+
+	if (GetPiece(pos))
+		return GetPiece(pos)->GetColor() != color;
+	else
+		return false;
+}
+
+Piece* Board::GetPiece(Position pos) const
+{
+	return m_Board[Pos2Index(pos)].piece.get();
+}
+
+std::unique_ptr<Piece> Board::GetFullPiecePtr(Position pos)
+{
+	return std::move(m_Board[Pos2Index(pos)].piece);
+}
+
+void Board::SetPiece(Position pos, std::unique_ptr<Piece> piece)
+{
+	m_Board[Pos2Index(pos)].piece = std::move(piece);
+}
+
+void Board::DeletePiece(Position pos)
+{
+	m_Board[Pos2Index(pos)].piece.reset();
 }
 
 int Board::Pos2Index(Position pos)

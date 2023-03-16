@@ -39,24 +39,11 @@ public:
 	~Board();
 
 	void GenerateBoard(std::string fen);
+	
+	void RenderBoard();
 
 	int CalculateAllLegalMoves();
 	bool MakeMove(Piece* piece, Position from, Position to, bool overrideLegality = false);
-
-	void RenderBoard();
-
-public:
-	static bool IsValidPosition(Position pos);
-
-	bool IsSquareOccupied(Position pos) const;
-
-	bool IsPieceCapturable(Position pos, Color color);
-
-	Piece* GetPiecePtr(Position pos) const;
-	// Careful -- uses std::move()
-	std::unique_ptr<Piece> GetPiece(Position pos);
-	void SetPiece(Position pos, std::unique_ptr<Piece> piece);
-	void DeletePiece(Position pos);
 	
 public:
 	bool HandleMouseDown(Engine::MouseButtonPressedEvent& e);
@@ -65,7 +52,21 @@ public:
 
 public:
 	static int Pos2Index(Position pos);
+	static bool IsValidPosition(Position pos);
 
+	bool IsSquareOccupied(Position pos) const;
+
+	bool IsPieceCapturable(Position pos, Color color);
+
+	Piece* GetPiece(Position pos) const;
+
+	// Careful -- uses std::move()
+	std::unique_ptr<Piece> GetFullPiecePtr(Position pos);
+	void SetPiece(Position pos, std::unique_ptr<Piece> piece);
+
+	void DeletePiece(Position pos);
+
+public:
 	inline BoardLayer* GetBoardLayer()
 	{ return &m_Layer; }
 	inline Color GetTurn()

@@ -6,7 +6,7 @@ SlidingPiece::SlidingPiece(Color color, Position pos, float squareSize, char* pi
 	: Piece(color, pos, squareSize, pieceName, board)
 {}
 
-const std::vector<Position>& SlidingPiece::CalculateLegalMoves()
+void SlidingPiece::CalculateLegalMoves()
 {
 	m_LegalMoves.clear();
 
@@ -19,7 +19,7 @@ const std::vector<Position>& SlidingPiece::CalculateLegalMoves()
 
 		while (		m_OwnerBoard->IsValidPosition(latest + movePattern)
 				&& (!m_OwnerBoard->IsSquareOccupied(latest + movePattern)
-				|| /*En Passant*/ m_OwnerBoard->GetPiecePtr(latest+movePattern)->GetPosition() != latest+movePattern) )
+				|| /*En Passant*/ m_OwnerBoard->GetPiece(latest+movePattern)->GetPieceName() == "en_passant"))
 		{
 			m_LegalMoves.push_back(latest + movePattern);
 			latest += movePattern;
@@ -29,12 +29,11 @@ const std::vector<Position>& SlidingPiece::CalculateLegalMoves()
 			continue;
 
 		if (m_OwnerBoard->IsPieceCapturable(latest + movePattern, m_Color) && 
-			m_OwnerBoard->GetPiecePtr(latest+movePattern)->GetPosition() == (latest+movePattern))
+			m_OwnerBoard->GetPiece(latest+movePattern)->GetPieceName() != "en_passant")
 		{
 			m_LegalMoves.push_back(latest + movePattern);
 		}
 	}
-	return m_LegalMoves;
 }
 
 /////////////////////////////// Instances ////////////////////////////////////
