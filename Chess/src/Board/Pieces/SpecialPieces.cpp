@@ -139,19 +139,20 @@ Knight::Knight(Color color, Position pos, float squareSize, Board* board)
 void Knight::CalculateLegalMoves()
 {
 	m_LegalMoves.clear();
+	m_ControlledSquares.clear();
 
 	for (const Position& movePattern : m_MovePatterns)
 	{
 		if (!m_OwnerBoard->IsValidPosition(m_Position + movePattern))
 			continue;
 
+		m_ControlledSquares.push_back(m_Position + movePattern);
+
 		if (!m_OwnerBoard->IsSquareOccupied(m_Position+movePattern))
 			m_LegalMoves.push_back(m_Position + movePattern);
 		else if (m_OwnerBoard->GetPiece(m_Position+movePattern)->GetColor() != m_Color)
 			m_LegalMoves.push_back(m_Position + movePattern);
 	}
-
-	m_ControlledSquares = m_LegalMoves;
 }
 
 ///////////////////////////////// Pawn /////////////////////////////////////////////////

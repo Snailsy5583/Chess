@@ -83,8 +83,7 @@ void Board::RenderBoard()
 	for (Square& square : m_Board)
 	{
 		// Highlight controlled squares
-		/*
-		{
+		/*{
 			bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) != m_WhiteControlledSquares.end();
 			bool controlledByBlack = m_BlackControlledSquares.find(square.pos) != m_BlackControlledSquares.end();
 			if (controlledByWhite)
@@ -102,8 +101,8 @@ void Board::RenderBoard()
 				float tint[4] = { 0.2f, 0.5f, 0.2f, 0.5f };
 				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
 			}
-		}
-		*/
+		}*/
+		
 
 		// Render background
 		Engine::Renderer::SubmitObject(square.obj);

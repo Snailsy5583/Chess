@@ -9,6 +9,7 @@ SlidingPiece::SlidingPiece(Color color, Position pos, float squareSize, char* pi
 void SlidingPiece::CalculateLegalMoves()
 {
 	m_LegalMoves.clear();
+	m_ControlledSquares.clear();
 
 	for (const Position& movePattern : m_MovePatterns)
 	{
@@ -19,23 +20,33 @@ void SlidingPiece::CalculateLegalMoves()
 
 		while (		m_OwnerBoard->IsValidPosition(latest + movePattern)
 				&& (!m_OwnerBoard->IsSquareOccupied(latest + movePattern)
-				|| /*En Passant*/ m_OwnerBoard->GetPiece(latest+movePattern)->GetPieceName() == "en_passant"))
+				|| m_OwnerBoard->GetPiece(latest+movePattern)->GetPieceName() == "en_passant"))
 		{
 			m_LegalMoves.push_back(latest + movePattern);
+			m_ControlledSquares.push_back(latest+movePattern);
 			latest += movePattern;
 		}
 
 		if (!m_OwnerBoard->IsValidPosition(latest + movePattern))
 			continue;
 
+		m_ControlledSquares.push_back(latest+movePattern);
+
 		if (m_OwnerBoard->IsPieceCapturable(latest + movePattern, m_Color) && 
 			m_OwnerBoard->GetPiece(latest+movePattern)->GetPieceName() != "en_passant")
 		{
 			m_LegalMoves.push_back(latest + movePattern);
+			if (m_OwnerBoard->GetPiece(latest + movePattern)->GetPieceName() == "king")
+			{
+				latest += movePattern;
+				while (m_OwnerBoard->IsValidPosition(latest + movePattern))
+				{
+					m_ControlledSquares.push_back(latest+movePattern);
+					latest += movePattern;
+				}
+			}
 		}
 	}
-
-	m_ControlledSquares = m_LegalMoves;
 }
 
 /////////////////////////////// Instances ////////////////////////////////////
