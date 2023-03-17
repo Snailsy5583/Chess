@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 #include <memory>
 
 #include "Engine/Layer.h"
@@ -51,12 +52,13 @@ public:
 	bool HandleMouseMoved(Engine::MouseMovedEvent& e);
 
 public:
-	static int Pos2Index(Position pos);
 	static bool IsValidPosition(Position pos);
 
 	bool IsSquareOccupied(Position pos) const;
 
 	bool IsPieceCapturable(Position pos, Color color);
+
+	bool IsInEnemyTerritory(Position pos, Color color);
 
 	Piece* GetPiece(Position pos) const;
 
@@ -81,6 +83,6 @@ private:
 	Position m_ActivatedSquare;
 	Color m_Turn;
 
-	std::vector<Position> m_WhiteControlledSquares;
-	std::vector<Position> m_BlackControlledSquares;
+	std::set<Position> m_WhiteControlledSquares;
+	std::set<Position> m_BlackControlledSquares;
 };

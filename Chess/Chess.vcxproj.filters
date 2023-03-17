@@ -86,4 +86,10 @@
     </ClCompile>
     <ClCompile Include="stb.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Board.frag" />
+    <None Include="Assets\Shaders\Board.vert" />
+    <None Include="Assets\Shaders\Piece.frag" />
+    <None Include="Assets\Shaders\Piece.vert" />
+  </ItemGroup>
 </Project>

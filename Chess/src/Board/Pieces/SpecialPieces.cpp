@@ -29,6 +29,7 @@ King::King(Color color, Position pos, float squareSize, Board* board, bool isVir
 void King::CalculateLegalMoves()
 {
 	m_LegalMoves.clear();
+	m_ControlledSquares.clear();
 
 	for (const Position& movePattern : m_MovePatterns)
 	{
@@ -36,14 +37,17 @@ void King::CalculateLegalMoves()
 			continue;
 
 		if  (
-				!m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) ||
-				m_OwnerBoard->IsPieceCapturable(m_Position + movePattern, m_Color)
-				// TODO: Check whether king will be walking into check
+				(
+					!m_OwnerBoard->IsSquareOccupied(m_Position + movePattern)
+					|| m_OwnerBoard->IsPieceCapturable(m_Position + movePattern, m_Color)
+				)
+				&& !m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern, m_Color)
 			)
 		{
 			m_LegalMoves.push_back(m_Position + movePattern);
 		}
 
+		m_ControlledSquares.push_back(m_Position + movePattern);
 	}
 
 	CheckCastling(-1);
@@ -146,6 +150,8 @@ void Knight::CalculateLegalMoves()
 		else if (m_OwnerBoard->GetPiece(m_Position+movePattern)->GetColor() != m_Color)
 			m_LegalMoves.push_back(m_Position + movePattern);
 	}
+
+	m_ControlledSquares = m_LegalMoves;
 }
 
 ///////////////////////////////// Pawn /////////////////////////////////////////////////
@@ -168,19 +174,35 @@ Pawn::~Pawn()
 void Pawn::CalculateLegalMoves()
 {
 	m_LegalMoves.clear();
+	m_ControlledSquares.clear();
 
-	if (!m_OwnerBoard->IsSquareOccupied(m_Position + m_MovePatterns[0]))
-	{   // Check if pawn can be Pushed
+	// Check if pawn can be Pushed
+	if (m_OwnerBoard->IsValidPosition(m_Position + m_MovePatterns[0])
+		&& !m_OwnerBoard->IsSquareOccupied(m_Position + m_MovePatterns[0]))
+	{
 		m_LegalMoves.push_back(m_Position + m_MovePatterns[0]);
-		if (m_IsVirgin && !m_OwnerBoard->IsSquareOccupied(m_Position + m_MovePatterns[1])) // Check if pawn can be pushed twice
+
+		// Check if pawn can be pushed twice
+		if (m_IsVirgin && !m_OwnerBoard->IsSquareOccupied(m_Position + m_MovePatterns[1]))
 			m_LegalMoves.push_back(m_Position + m_MovePatterns[1]);
 	}
 
 	// Check if pawn can capture
-	if (m_OwnerBoard->IsValidPosition(m_Position+m_MovePatterns[2]) && m_OwnerBoard->IsPieceCapturable(m_Position + m_MovePatterns[2], m_Color))
-		m_LegalMoves.push_back(m_Position+m_MovePatterns[2]);
-	if (m_OwnerBoard->IsValidPosition(m_Position + m_MovePatterns[3]) && m_OwnerBoard->IsPieceCapturable(m_Position + m_MovePatterns[3], m_Color))
-		m_LegalMoves.push_back(m_Position + m_MovePatterns[3]);
+	if (m_OwnerBoard->IsValidPosition(m_Position+m_MovePatterns[2]))
+	{
+		m_ControlledSquares.push_back(m_Position + m_MovePatterns[2]);
+
+		if (m_OwnerBoard->IsPieceCapturable(m_Position + m_MovePatterns[2], m_Color))
+			m_LegalMoves.push_back(m_Position + m_MovePatterns[2]);
+	}
+	if (m_OwnerBoard->IsValidPosition(m_Position + m_MovePatterns[3]))
+	{
+		m_ControlledSquares.push_back(m_Position + m_MovePatterns[3]);
+
+		if (m_OwnerBoard->IsPieceCapturable(m_Position + m_MovePatterns[3], m_Color))
+			m_LegalMoves.push_back(m_Position + m_MovePatterns[3]);
+	}
+
 }
 
 bool Pawn::Move(Position pos, bool overrideLegality)

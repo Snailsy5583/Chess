@@ -17,6 +17,10 @@ struct Position
 	{ return other.file == file && other.rank == rank; }
 	bool operator!=(const Position& other) const
 	{ return other.file != file || other.rank != rank; }
+	bool operator<(const Position& other) const
+	{ return ToIndex() < other.ToIndex(); }
+	bool operator>(const Position & other) const
+	{ return ToIndex() > other.ToIndex(); }
 
 	Position operator+(const Position& other) const
 	{ return { file + other.file, rank + other.rank }; }
@@ -51,6 +55,8 @@ struct Position
 		ss << "(" << file << ", " << rank << ")";
 		return ss.str();
 	}
+
+	int ToIndex() const { return rank * 8 + file; }
 };
 
 enum Color
@@ -70,6 +76,7 @@ public:
 
 	virtual void CalculateLegalMoves() = 0;
 	inline const std::vector<Position>& GetLegalMoves() const { return m_LegalMoves; }
+	inline const std::vector<Position>& GetControlledSquares() const { return m_ControlledSquares; }
 
 	inline Color GetColor() const { return m_Color; }
 	virtual inline Position GetPosition() const { return m_Position; }
@@ -93,6 +100,7 @@ protected:
 	bool m_IsGamePiece;
 	std::vector<Position> m_MovePatterns;
 	std::vector<Position> m_LegalMoves;
+	std::vector<Position> m_ControlledSquares;
 	bool m_IsVirgin;
 
 	float m_SquareSize;

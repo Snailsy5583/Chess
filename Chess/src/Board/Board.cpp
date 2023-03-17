@@ -28,14 +28,7 @@ Board::Board(const char* vertShaderPath, const char* fragShaderPath)
 	}
 }
 
-Board::~Board()
-{
-	for (Square& square : m_Board)
-	{
-		if (square.piece && square.piece->GetPieceName() != "en_passant")
-			square.piece;
-	}
-}
+Board::~Board() {}
 
 void Board::GenerateBoard(std::string str)
 {
@@ -51,7 +44,7 @@ void Board::GenerateBoard(std::string str)
 		}
 		else
 		{
-			int pos = Pos2Index(currentPos);
+			int pos = currentPos.ToIndex();
 			switch (std::tolower(str[i]))
 			{
 			case 'k':
@@ -89,6 +82,29 @@ void Board::RenderBoard()
 
 	for (Square& square : m_Board)
 	{
+		// Highlight controlled squares
+		/*
+		{
+			bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) != m_WhiteControlledSquares.end();
+			bool controlledByBlack = m_BlackControlledSquares.find(square.pos) != m_BlackControlledSquares.end();
+			if (controlledByWhite)
+			{
+				float tint[4] = { 0.75f, 0.5f, 0.5f, 0.66f };
+				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+			}
+			else if (controlledByBlack)
+			{
+				float tint[4] = { 0.2f, 0.3f, 0.4f, 0.85f };
+				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+			}
+			if (controlledByWhite && controlledByBlack)
+			{
+				float tint[4] = { 0.2f, 0.5f, 0.2f, 0.5f };
+				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+			}
+		}
+		*/
+
 		// Render background
 		Engine::Renderer::SubmitObject(square.obj);
 		
@@ -117,29 +133,63 @@ int Board::CalculateAllLegalMoves()
 	m_WhiteControlledSquares.clear();
 	m_BlackControlledSquares.clear();
 
+	King* kings[2] = { nullptr, nullptr };
+
 	int numOfMoves=0;
 	for (int i=0; i<64; i++)
 	{
 		Square& square = m_Board[i];
 		if (square.piece)
 		{
+			if (square.piece->GetPieceName() == "king")
+			{
+				if (!kings[0])
+					kings[0] = dynamic_cast<King*>(square.piece.get());
+				else
+					kings[1] = dynamic_cast<King*>(square.piece.get());
+				continue;
+			}
 			square.piece->CalculateLegalMoves();
 			
 			if (!square.piece)
 				continue;
 
-			for (Position move : square.piece->GetLegalMoves())
+			if (square.piece->GetColor() == m_Turn)
+				numOfMoves += square.piece->GetLegalMoves().size();
+
+			for (Position pos : square.piece->GetControlledSquares())
 			{
 				if (square.piece->GetColor())
-					m_WhiteControlledSquares.push_back(move);
+					m_WhiteControlledSquares.insert(pos);
 				else
-					m_BlackControlledSquares.push_back(move);
-
-				if (square.piece->GetColor() == m_Turn)
-					numOfMoves++;
+					m_BlackControlledSquares.insert(pos);
 			}
 		}
 	}
+
+	// Calculate both kings' controlled squares
+	for (King* king : kings)
+	{
+		if (king)
+		{
+			king->CalculateLegalMoves();
+
+			// Add controlled positions to the set
+			for (Position pos : king->GetControlledSquares())
+			{
+				if (king->GetColor())
+					m_WhiteControlledSquares.insert(pos);
+				else
+					m_BlackControlledSquares.insert(pos);
+			}
+		}
+	}
+
+	// Calculate King legal moves again so that they can't walk into each other
+	for (King* king : kings)
+		if (king)
+			king->CalculateLegalMoves();
+
 	std::cout << numOfMoves << std::endl;
 
 	return numOfMoves;
@@ -157,6 +207,7 @@ bool Board::MakeMove(Piece* piece, Position from, Position to, bool overrideLega
 			{
 				EnPassantPiece* enPassantPiece = dynamic_cast<EnPassantPiece*>(GetPiece(to));
 				Position pawnPos = enPassantPiece->GetPosition();
+
 				if (GetPiece(from)->GetPieceName() == "pawn")
 					enPassantPiece->CancelEnPassantOffer(true);
 				else
@@ -298,9 +349,7 @@ bool Board::IsValidPosition(Position pos)
 }
 
 bool Board::IsSquareOccupied(Position pos) const
-{
-	return GetPiece(pos) && GetPiece(pos)->GetPieceName() != "en_passant";
-}
+{ return GetPiece(pos) && GetPiece(pos)->GetPieceName() != "en_passant"; }
 
 bool Board::IsPieceCapturable(Position pos, Color color)
 {
@@ -313,29 +362,36 @@ bool Board::IsPieceCapturable(Position pos, Color color)
 		return false;
 }
 
+bool Board::IsInEnemyTerritory(Position pos, Color color)
+{
+	if (color)
+	{
+		return (m_BlackControlledSquares.find(pos) != m_BlackControlledSquares.end());
+	}
+	else
+	{
+		return (m_WhiteControlledSquares.find(pos) != m_WhiteControlledSquares.end());
+	}
+}
+
 Piece* Board::GetPiece(Position pos) const
 {
-	return m_Board[Pos2Index(pos)].piece.get();
+	return m_Board[pos.ToIndex()].piece.get();
 }
 
 std::unique_ptr<Piece> Board::GetFullPiecePtr(Position pos)
 {
-	return std::move(m_Board[Pos2Index(pos)].piece);
+	return std::move(m_Board[pos.ToIndex()].piece);
 }
 
 void Board::SetPiece(Position pos, std::unique_ptr<Piece> piece)
 {
-	m_Board[Pos2Index(pos)].piece = std::move(piece);
+	m_Board[pos.ToIndex()].piece = std::move(piece);
 }
 
 void Board::DeletePiece(Position pos)
 {
-	m_Board[Pos2Index(pos)].piece.reset();
-}
-
-int Board::Pos2Index(Position pos)
-{
-	return pos.rank * 8 + pos.file;
+	m_Board[pos.ToIndex()].piece.reset();
 }
 
 ////////////////// BoardLayer ////////////////////////////////
@@ -344,11 +400,9 @@ BoardLayer::BoardLayer(Board* boardPtr)
 	: m_BoardPtr(boardPtr)
 {}
 
-void BoardLayer::OnAttach()
-{}
+void BoardLayer::OnAttach() {}
 
-void BoardLayer::OnDetach()
-{}
+void BoardLayer::OnDetach() {}
 
 void BoardLayer::OnEvent(Engine::Event& e)
 {

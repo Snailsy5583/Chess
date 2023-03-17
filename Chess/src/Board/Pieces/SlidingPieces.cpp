@@ -34,6 +34,8 @@ void SlidingPiece::CalculateLegalMoves()
 			m_LegalMoves.push_back(latest + movePattern);
 		}
 	}
+
+	m_ControlledSquares = m_LegalMoves;
 }
 
 /////////////////////////////// Instances ////////////////////////////////////

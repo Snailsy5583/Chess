@@ -1,8 +1,6 @@
 
 #pragma once
 
-//#include <memory>
-
 #include "Piece.h"
 
 // Special Piece = any piece that is not a sliding piece

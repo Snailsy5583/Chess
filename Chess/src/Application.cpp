@@ -8,9 +8,6 @@
 #include <fstream>
 
 
-
-
-
 #define BIND_EVENT_FUNC(x, obj) std::bind(&x, obj, std::placeholders::_1)
 
 Application::Application(unsigned int width, unsigned int height, const char* title)
@@ -20,15 +17,12 @@ Application::Application(unsigned int width, unsigned int height, const char* ti
 		std::cout << "GLFW INIT FAILED\n";
 
 	m_MainWindow = new Engine::Window(width, height, title, BIND_EVENT_FUNC(Application::OnEvent, this));
+	//m_MainWindow = std::make_unique<Engine::Window>(width, height, title, BIND_EVENT_FUNC(Application::OnEvent, this));
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		std::cout << "Failed to initialize GLAD\n";
 
-	m_ChessBoard = new Board
-	(
-		"Assets/Shaders/Board.vert", 
-		"Assets/Shaders/Board.frag"
-	);
+	m_ChessBoard = std::make_unique<Board>("Assets/Shaders/Board.vert", "Assets/Shaders/Board.frag");
 
 	m_LayerStack.Push(m_ChessBoard->GetBoardLayer());
 
@@ -37,9 +31,6 @@ Application::Application(unsigned int width, unsigned int height, const char* ti
 
 Application::~Application()
 {
-	delete m_MainWindow;
-	delete m_ChessBoard;
-
 	glfwTerminate();
 }
 

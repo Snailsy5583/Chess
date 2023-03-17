@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <chrono>
 
 #include "Engine/Window.h"
@@ -22,7 +23,7 @@ private:
 
 	Engine::LayerStack m_LayerStack;
 
-	Board* m_ChessBoard;
+	std::unique_ptr<Board> m_ChessBoard;
 
 	std::chrono::time_point<std::chrono::steady_clock> m_LastFrame;
 	float m_DeltaTime;

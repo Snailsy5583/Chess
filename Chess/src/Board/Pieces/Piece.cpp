@@ -6,7 +6,7 @@
 #include <iostream>
 
 Piece::Piece(Color color, Position pos, float squareSize, const char* pieceName, Board* board, bool loadImage/*=true*/)
-	: m_Color(color), m_Position(pos), m_TexturePath("Assets/Textures/Pieces/"), m_OwnerBoard(board), m_IsGamePiece(false), m_PieceName(pieceName), m_SquareSize(squareSize)
+	: m_IsVirgin(true), m_Color(color), m_Position(pos), m_TexturePath("Assets/Textures/Pieces/"), m_OwnerBoard(board), m_IsGamePiece(false), m_PieceName(pieceName), m_SquareSize(squareSize)
 {
 	m_TexturePath.append((color == White ? "W_" : "B_"));
 	m_TexturePath.append(pieceName);
