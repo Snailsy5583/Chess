@@ -10,6 +10,8 @@ class King : public Piece
 public:
 	King(Color color, Position pos, float squareSize, Board* board, bool isVirgin=true);
 	
+	// Only Sliding Pieces can pin
+	void FindPins();
 	void CalculateLegalMoves() override;
 	const bool CheckCastling(int direction);
 
@@ -18,8 +20,20 @@ public:
 	void SetCheck(bool isInCheck);
 	bool IsInCheck() const;
 
+	void SetCastling(bool K, bool Q);
+	inline bool GetCastling(bool side)
+	{
+		if (side)
+			return m_CanCastleK;
+		else
+			return m_CanCastleQ;
+	}
+
 private:
 	bool m_InCheck;
+	std::vector<Piece*> m_Pins;
+
+	bool m_CanCastleK, m_CanCastleQ;
 };
 
 class Knight : public Piece
@@ -37,6 +51,7 @@ class Pawn : public Piece
 public:
 	Pawn(Color color, Position pos, float squareSize, Board* board);
 	~Pawn() override;
+	// TODO: Queen
 	
 	void CalculateLegalMoves() override;
 	bool Move(Position pos, bool overrideLegality = false) override;

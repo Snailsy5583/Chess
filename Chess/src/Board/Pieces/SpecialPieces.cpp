@@ -10,7 +10,7 @@
 ////////////////////////// King ////////////////////////////////////////////////////////
 
 King::King(Color color, Position pos, float squareSize, Board* board, bool isVirgin/*=true*/)
-	: Piece(color, pos, squareSize, "king", board), m_InCheck(false)
+	: Piece(color, pos, squareSize, "king", board), m_InCheck(false), m_CanCastleK(true), m_CanCastleQ(true)
 {
 	m_IsGamePiece = true;
 	m_IsVirgin = isVirgin;
@@ -24,6 +24,11 @@ King::King(Color color, Position pos, float squareSize, Board* board, bool isVir
 	m_MovePatterns.push_back({ 0,  1 });
 	m_MovePatterns.push_back({ -1,  0 });
 	m_MovePatterns.push_back({ 1,  0 });
+}
+
+void King::FindPins()
+{
+	// TODO: Find pins
 }
 
 void King::CalculateLegalMoves()
@@ -58,14 +63,18 @@ const bool King::CheckCastling(int direction)
 {
 	if (m_IsVirgin)
 	{
+		// Can Castle King Side
+		if (((m_Color && direction > 0 || !m_Color && direction < 0) && !m_CanCastleK) ||
+		// Can Castle Queen Side
+			((m_Color && direction < 0 || !m_Color && direction > 0) && !m_CanCastleQ))
+			return false;
+
 		Position movePattern = Position({ direction, 0 });
 		// TODO: check whether the king will be walking through check while castling
 		bool castleCheck = !m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) &&
 			!m_OwnerBoard->IsSquareOccupied(m_Position + (movePattern * 2));
 		if (castleCheck)
 		{
-			//Position rookPos = m_Position + (movePattern * (direction > 0 ? 4 : 3) /** ((m_Color * 2)-1)*/); // if king is white and direction is to the right, check for the rook 3 spaces to the right, or else check 4 spaces to the other direction
-
 			Position rookPos;
 			if (direction < 0)
 				rookPos = { 7, (m_Color ? 0 : 7) };
@@ -117,6 +126,12 @@ void King::SetCheck(bool isInCheck)
 
 bool King::IsInCheck() const
 { return m_InCheck; }
+
+void King::SetCastling(bool K, bool Q)
+{
+	m_CanCastleK = K;
+	m_CanCastleQ = Q;
+}
 
 ////////////////////////// Knight //////////////////////////////////////////////////////
 

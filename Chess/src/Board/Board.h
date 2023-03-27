@@ -39,7 +39,9 @@ public:
 	Board(const char* vertShaderPath, const char* fragShaderPath);
 	~Board();
 
-	void GenerateBoard(std::string fen);
+	void ReadFen(std::string fen);
+
+	void GeneratePieces(std::string fen, int i, Position& currentPos );
 	
 	void RenderBoard();
 
@@ -83,6 +85,7 @@ private:
 	Position m_ActivatedSquare;
 	Color m_Turn;
 
-	std::set<Position> m_WhiteControlledSquares;
-	std::set<Position> m_BlackControlledSquares;
+	Position m_WhiteKingPos, m_BlackKingPos;
+
+	std::set<Position> m_WhiteControlledSquares, m_BlackControlledSquares;
 };

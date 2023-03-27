@@ -30,49 +30,110 @@ Board::Board(const char* vertShaderPath, const char* fragShaderPath)
 
 Board::~Board() {}
 
-void Board::GenerateBoard(std::string str)
+void Board::ReadFen(std::string fen)
 {
+	enum Phase
+	{
+		GenPieces=0, ActiveColor=1, CheckCastling=2,
+		CheckEnPassant=3, HalfMove=4, FullMove=5
+	};
+
+	Phase phase = Phase::GenPieces;
+
+	// Really only useful in PieceGen Phase
 	Position currentPos = {0,7};
 
-	for (int i=0; i < str.length(); i++)
+	King* king;
+	bool k, q;
+
+	for (int i=0; i < fen.length(); i++)
 	{
-		if (str[i] == '/')
-			currentPos = {0, currentPos.rank-1};
-		else if (std::isdigit(str[i]))
+		if (fen[i] == ' ')
 		{
-			currentPos.file += str[i] - '0';
+			phase = (Phase)(phase + 1);
+			currentPos = { -1, -1 };
+			continue;
 		}
-		else
+
+		switch (phase)
 		{
-			int pos = currentPos.ToIndex();
-			switch (std::tolower(str[i]))
+		case GenPieces:
+			GeneratePieces(fen, i, currentPos);
+			break;
+		case ActiveColor:
+			m_Turn = (Color)(fen[i] == 'w');
+			break;
+		case CheckCastling:
+			king = dynamic_cast<King*>(GetPiece((std::isupper(fen[i]) ? m_WhiteKingPos : m_BlackKingPos)));
+			k = (fen[i] == (std::isupper(fen[i]) ? 'K' : 'k'));
+			q = (fen[i] == (std::isupper(fen[i]) ? 'Q' : 'q'));
+			king->SetCastling(k, q);
+			break;
+		case CheckEnPassant:
+			if (currentPos.file < 0)
+				currentPos.file = (fen[i] - 'a');
+			else if (currentPos.rank < 0)
+				currentPos.rank = (fen[i] - '1');
+			else
 			{
-			case 'k':
-				SetPiece(currentPos, std::make_unique<King>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this));
-				break;
-			case 'q':
-				m_Board[pos].piece = std::make_unique<Queen>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
-				break;
-			case 'r':
-				m_Board[pos].piece = std::make_unique<Rook>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
-				break;
-			case 'b':
-				m_Board[pos].piece = std::make_unique<Bishop>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
-				break;
-			case 'n':
-				m_Board[pos].piece = std::make_unique<Knight>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
-				break;
-			case 'p':
-				m_Board[pos].piece = std::make_unique<Pawn>(static_cast<Color>(std::isupper(str[i])), currentPos, m_SquareSize, this);
-				break;
-			default:
-				continue;
+				Position pawn = currentPos + Position({ 0, 1 });
+				if (GetPiece(pawn))
+					pawn = currentPos + Position({ 0, -1 });
+				SetPiece(currentPos, std::make_unique<EnPassantPiece>(currentPos, dynamic_cast<Pawn*>(GetPiece(pawn)), this));
 			}
-			currentPos.file++;
+			break;
+		case HalfMove:
+			break;
+		case FullMove:
+			break;
+		default:
+			break;
 		}
 	}
 
+	// Calculate moves after the board is set up.
 	CalculateAllLegalMoves();
+}
+
+void Board::GeneratePieces(std::string fen, int i, Position& currentPos)
+{
+	if (fen[i] == '/')
+		currentPos = { 0, currentPos.rank - 1 };
+	else if (std::isdigit(fen[i]))
+	{
+		currentPos.file += fen[i] - '0';
+	}
+	else
+	{
+		int pos = currentPos.ToIndex();
+		Color color = static_cast<Color>(std::isupper(fen[i]));
+		switch (std::tolower(fen[i]))
+		{
+		case 'k':
+			SetPiece(currentPos, std::make_unique<King>(color, currentPos, m_SquareSize, this));
+			if (color)
+				m_WhiteKingPos = currentPos;
+			else
+				m_BlackKingPos = currentPos;
+			break;
+		case 'q':
+			SetPiece(currentPos, std::make_unique<Queen>(color, currentPos, m_SquareSize, this));
+			break;
+		case 'r':
+			SetPiece(currentPos, std::make_unique<Rook>(color, currentPos, m_SquareSize, this));
+			break;
+		case 'b':
+			SetPiece(currentPos, std::make_unique<Bishop>(color, currentPos, m_SquareSize, this));
+			break;
+		case 'n':
+			SetPiece(currentPos, std::make_unique<Knight>(color, currentPos, m_SquareSize, this));
+			break;
+		case 'p':
+			SetPiece(currentPos, std::make_unique<Pawn>(static_cast<Color>(std::isupper(fen[i])), currentPos, m_SquareSize, this));
+			break;
+		}
+		currentPos.file++;
+	}
 }
 
 void Board::RenderBoard()
@@ -83,27 +144,28 @@ void Board::RenderBoard()
 	for (Square& square : m_Board)
 	{
 		// Highlight controlled squares
-		/*{
-			bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) != m_WhiteControlledSquares.end();
-			bool controlledByBlack = m_BlackControlledSquares.find(square.pos) != m_BlackControlledSquares.end();
-			if (controlledByWhite)
+		#if 0
 			{
-				float tint[4] = { 0.75f, 0.5f, 0.5f, 0.66f };
-				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+				bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) != m_WhiteControlledSquares.end();
+				bool controlledByBlack = m_BlackControlledSquares.find(square.pos) != m_BlackControlledSquares.end();
+				if (controlledByWhite)
+				{
+					float tint[4] = { 0.75f, 0.5f, 0.5f, 0.66f };
+					square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+				}
+				else if (controlledByBlack)
+				{
+					float tint[4] = { 0.2f, 0.3f, 0.4f, 0.85f };
+					square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+				}
+				if (controlledByWhite && controlledByBlack)
+				{
+					float tint[4] = { 0.2f, 0.5f, 0.2f, 0.5f };
+					square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+				}
 			}
-			else if (controlledByBlack)
-			{
-				float tint[4] = { 0.2f, 0.3f, 0.4f, 0.85f };
-				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
-			}
-			if (controlledByWhite && controlledByBlack)
-			{
-				float tint[4] = { 0.2f, 0.5f, 0.2f, 0.5f };
-				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
-			}
-		}*/
+		#endif
 		
-
 		// Render background
 		Engine::Renderer::SubmitObject(square.obj);
 		
@@ -183,11 +245,16 @@ int Board::CalculateAllLegalMoves()
 			}
 		}
 	}
+	
+	
 
 	// Calculate King legal moves again so that they can't walk into each other
 	for (King* king : kings)
+	{
 		if (king)
 			king->CalculateLegalMoves();
+	}
+
 
 	std::cout << numOfMoves << std::endl;
 
@@ -348,7 +415,7 @@ bool Board::IsValidPosition(Position pos)
 }
 
 bool Board::IsSquareOccupied(Position pos) const
-{ return GetPiece(pos) && GetPiece(pos)->GetPieceName() != "en_passant"; }
+{ return pos.IsValid() && GetPiece(pos) && GetPiece(pos)->GetPieceName() != "en_passant"; }
 
 bool Board::IsPieceCapturable(Position pos, Color color)
 {

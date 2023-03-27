@@ -57,6 +57,12 @@ struct Position
 	}
 
 	int ToIndex() const { return rank * 8 + file; }
+
+	bool IsValid()
+	{
+		return file >= 0 && file < 8 &&
+			rank >= 0 && rank < 8;
+	}
 };
 
 enum Color
