@@ -29,6 +29,19 @@ King::King(Color color, Position pos, float squareSize, Board* board, bool isVir
 void King::FindPins()
 {
 	// TODO: Find pins
+	std::vector<Position> pinCheck;
+
+	pinCheck.push_back({ -1, -1 });
+	pinCheck.push_back({ -1,  1 });
+	pinCheck.push_back({ 1, -1 });
+	pinCheck.push_back({ 1,  1 });
+
+	pinCheck.push_back({ 0, -1 });
+	pinCheck.push_back({ 0,  1 });
+	pinCheck.push_back({ -1,  0 });
+	pinCheck.push_back({ 1,  0 });
+
+	//for (Position& )
 }
 
 void King::CalculateLegalMoves()
@@ -77,14 +90,15 @@ const bool King::CheckCastling(int direction)
 		{
 			Position rookPos;
 			if (direction < 0)
-				rookPos = { 7, (m_Color ? 0 : 7) };
+				rookPos = { (m_Color ? 7 : 0), (m_Color ? 0 : 7) };
 			else
-				rookPos = { 0, (m_Color ? 0 : 7) };
+				rookPos = { (m_Color ? 0 : 7), (m_Color ? 0 : 7) };
 
 
 			if (!m_OwnerBoard->IsValidPosition(rookPos))
 				return false;
 			Piece* piece = m_OwnerBoard->GetPiece(rookPos);
+			std::cout << direction << ", " << piece->GetPieceName() << ", " << piece->GetPosition().ToString() << std::endl;
 			if (m_OwnerBoard->IsSquareOccupied(rookPos) && piece->GetPieceName() == "rook" && piece->GetIsVirgin()) // if the piece is a rook that hasn't moved
 			{
 				m_LegalMoves.push_back(m_Position + movePattern * 2); // The king is **FINALLY** able to castle

@@ -26,7 +26,7 @@ Application::Application(unsigned int width, unsigned int height, const char* ti
 
 	m_LayerStack.Push(m_ChessBoard->GetBoardLayer());
 
-	m_ChessBoard->ReadFen("5rk1/1pp1b1pp/p1n1b1q1/8/1PNPn3/P1NBP3/1BQ4p/R6K b - - 0 1");
+	m_ChessBoard->ReadFen("rnbqk2r/pppp1ppp/8/2b1p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 1");
 }
 
 Application::~Application()

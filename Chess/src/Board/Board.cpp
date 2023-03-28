@@ -144,25 +144,23 @@ void Board::RenderBoard()
 	for (Square& square : m_Board)
 	{
 		// Highlight controlled squares
-		#if 0
+		#if 1
+			bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) != m_WhiteControlledSquares.end();
+			bool controlledByBlack = m_BlackControlledSquares.find(square.pos) != m_BlackControlledSquares.end();
+			if (controlledByWhite)
 			{
-				bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) != m_WhiteControlledSquares.end();
-				bool controlledByBlack = m_BlackControlledSquares.find(square.pos) != m_BlackControlledSquares.end();
-				if (controlledByWhite)
-				{
-					float tint[4] = { 0.75f, 0.5f, 0.5f, 0.66f };
-					square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
-				}
-				else if (controlledByBlack)
-				{
-					float tint[4] = { 0.2f, 0.3f, 0.4f, 0.85f };
-					square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
-				}
-				if (controlledByWhite && controlledByBlack)
-				{
-					float tint[4] = { 0.2f, 0.5f, 0.2f, 0.5f };
-					square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
-				}
+				float tint[4] = { 0.75f, 0.5f, 0.5f, 0.66f };
+				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+			}
+			else if (controlledByBlack)
+			{
+				float tint[4] = { 0.5f, 0.75f, 0.5f, 0.66f };
+				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
+			}
+			if (controlledByWhite && controlledByBlack)
+			{
+				float tint[4] = { 0.8f, 0.75f, 0.35f, 0.66f };
+				square.obj.shader.SetUniformVec(square.obj.shader.GetUniformLocation("tint"), 4, tint);
 			}
 		#endif
 		
@@ -246,15 +244,12 @@ int Board::CalculateAllLegalMoves()
 		}
 	}
 	
-	
-
 	// Calculate King legal moves again so that they can't walk into each other
 	for (King* king : kings)
 	{
 		if (king)
 			king->CalculateLegalMoves();
 	}
-
 
 	std::cout << numOfMoves << std::endl;
 
