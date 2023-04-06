@@ -6,12 +6,14 @@
 #include <iostream>
 
 Piece::Piece(Color color, Position pos, float squareSize, const char* pieceName, Board* board, bool loadImage/*=true*/)
-	: m_IsVirgin(true), m_Color(color), m_Position(pos), m_TexturePath("Assets/Textures/Pieces/"), m_OwnerBoard(board), m_IsGamePiece(false), m_PieceName(pieceName), m_SquareSize(squareSize)
+	: m_Color(color), m_Position(pos), m_OwnerBoard(board), m_PieceName(pieceName), m_SquareSize(squareSize)
 {
 	m_TexturePath.append((color == White ? "W_" : "B_"));
 	m_TexturePath.append(pieceName);
 	m_TexturePath.append(".png");
 	float viewPos[3] = { (-1 + squareSize/2) + (pos.file * squareSize), (-1 + squareSize/2) + (pos.rank * squareSize), 1};
+
+	m_PinnedDirections.clear();
 
 	if (loadImage)
 	{
@@ -23,6 +25,7 @@ Piece::Piece(Color color, Position pos, float squareSize, const char* pieceName,
 
 Piece::~Piece()
 {
+	m_PinnedDirections.clear();
 	Engine::Renderer::DeleteQuad(m_Object);
 }
 

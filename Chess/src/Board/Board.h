@@ -54,8 +54,6 @@ public:
 	bool HandleMouseMoved(Engine::MouseMovedEvent& e);
 
 public:
-	static bool IsValidPosition(Position pos);
-
 	bool IsSquareOccupied(Position pos) const;
 
 	bool IsPieceCapturable(Position pos, Color color);

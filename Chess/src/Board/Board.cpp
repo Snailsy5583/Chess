@@ -136,6 +136,8 @@ void Board::GeneratePieces(std::string fen, int i, Position& currentPos)
 	}
 }
 
+#define SHOW_CONTROLLED_SQUARES
+
 void Board::RenderBoard()
 {
 	// Instanciate a legal move which is then rendered multiple times in different locations
@@ -144,7 +146,7 @@ void Board::RenderBoard()
 	for (Square& square : m_Board)
 	{
 		// Highlight controlled squares
-		#if 1
+		#ifdef SHOW_CONTROLLED_SQUARES
 			bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) != m_WhiteControlledSquares.end();
 			bool controlledByBlack = m_BlackControlledSquares.find(square.pos) != m_BlackControlledSquares.end();
 			if (controlledByWhite)
@@ -400,21 +402,12 @@ bool Board::HandleMouseMoved(Engine::MouseMovedEvent& e)
 	return true;
 }
 
-bool Board::IsValidPosition(Position pos)
-{
-	if (pos.file >= 0 && pos.file < 8 &&
-		pos.rank >= 0 && pos.rank < 8)
-		return true;
-	else
-		return false;
-}
-
 bool Board::IsSquareOccupied(Position pos) const
 { return pos.IsValid() && GetPiece(pos) && GetPiece(pos)->GetPieceName() != "en_passant"; }
 
 bool Board::IsPieceCapturable(Position pos, Color color)
 {
-	if (!IsValidPosition(pos))
+	if (!pos.IsValid())
 		return false;
 
 	if (GetPiece(pos))

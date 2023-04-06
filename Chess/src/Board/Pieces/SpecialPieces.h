@@ -50,7 +50,6 @@ class Pawn : public Piece
 {
 public:
 	Pawn(Color color, Position pos, float squareSize, Board* board);
-	~Pawn() override;
 	// TODO: Queen
 	
 	void CalculateLegalMoves() override;

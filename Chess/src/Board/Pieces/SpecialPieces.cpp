@@ -12,7 +12,6 @@
 King::King(Color color, Position pos, float squareSize, Board* board, bool isVirgin/*=true*/)
 	: Piece(color, pos, squareSize, "king", board), m_InCheck(false), m_CanCastleK(true), m_CanCastleQ(true)
 {
-	m_IsGamePiece = true;
 	m_IsVirgin = isVirgin;
 
 	m_MovePatterns.push_back({ -1, -1 });
@@ -51,7 +50,9 @@ void King::CalculateLegalMoves()
 
 	for (const Position& movePattern : m_MovePatterns)
 	{
-		if (!m_OwnerBoard->IsValidPosition(m_Position + movePattern))
+		// king actually cannot be pinned to anything
+
+		if (!(m_Position + movePattern).IsValid())
 			continue;
 
 		if  (
@@ -76,9 +77,9 @@ const bool King::CheckCastling(int direction)
 {
 	if (m_IsVirgin)
 	{
-		// Can Castle King Side
+		// Can't Castle King Side
 		if (((m_Color && direction > 0 || !m_Color && direction < 0) && !m_CanCastleK) ||
-		// Can Castle Queen Side
+		// Can't Castle Queen Side
 			((m_Color && direction < 0 || !m_Color && direction > 0) && !m_CanCastleQ))
 			return false;
 
@@ -95,10 +96,10 @@ const bool King::CheckCastling(int direction)
 				rookPos = { (m_Color ? 0 : 7), (m_Color ? 0 : 7) };
 
 
-			if (!m_OwnerBoard->IsValidPosition(rookPos))
+			if (!rookPos.IsValid())
 				return false;
 			Piece* piece = m_OwnerBoard->GetPiece(rookPos);
-			std::cout << direction << ", " << piece->GetPieceName() << ", " << piece->GetPosition().ToString() << std::endl;
+
 			if (m_OwnerBoard->IsSquareOccupied(rookPos) && piece->GetPieceName() == "rook" && piece->GetIsVirgin()) // if the piece is a rook that hasn't moved
 			{
 				m_LegalMoves.push_back(m_Position + movePattern * 2); // The king is **FINALLY** able to castle
@@ -172,7 +173,10 @@ void Knight::CalculateLegalMoves()
 
 	for (const Position& movePattern : m_MovePatterns)
 	{
-		if (!m_OwnerBoard->IsValidPosition(m_Position + movePattern))
+		if (!m_PinnedDirections.empty() && (m_PinnedDirections.find(movePattern) == m_PinnedDirections.end() || m_PinnedDirections.find(-movePattern) == m_PinnedDirections.end()))
+			continue;
+
+		if (!(m_Position + movePattern).IsValid())
 			continue;
 
 		m_ControlledSquares.push_back(m_Position + movePattern);
@@ -196,19 +200,18 @@ Pawn::Pawn(Color color, Position pos, float squareSize, Board* board)
 	m_MovePatterns.push_back({  1,   (color ? 1 : -1) });
 }
 
-Pawn::~Pawn()
-{
-	Piece::~Piece();
-}
-
 void Pawn::CalculateLegalMoves()
 {
 	m_LegalMoves.clear();
 	m_ControlledSquares.clear();
 
 	// Check if pawn can be Pushed
-	if (m_OwnerBoard->IsValidPosition(m_Position + m_MovePatterns[0])
-		&& !m_OwnerBoard->IsSquareOccupied(m_Position + m_MovePatterns[0]))
+	if (
+			(m_Position + m_MovePatterns[0]).IsValid()
+			&& !m_OwnerBoard->IsSquareOccupied(m_Position + m_MovePatterns[0])
+			&& // pinned directions
+			(!m_PinnedDirections.empty() && (m_PinnedDirections.find(m_MovePatterns[0]) == m_PinnedDirections.end() || m_PinnedDirections.find(-m_MovePatterns[0]) == m_PinnedDirections.end()))
+		)
 	{
 		m_LegalMoves.push_back(m_Position + m_MovePatterns[0]);
 
@@ -218,14 +221,22 @@ void Pawn::CalculateLegalMoves()
 	}
 
 	// Check if pawn can capture
-	if (m_OwnerBoard->IsValidPosition(m_Position+m_MovePatterns[2]))
+	if (
+			(m_Position+m_MovePatterns[2]).IsValid()
+			&& // pinned directions
+			(!m_PinnedDirections.empty() && (m_PinnedDirections.find(m_MovePatterns[2]) == m_PinnedDirections.end() || m_PinnedDirections.find(-m_MovePatterns[2]) == m_PinnedDirections.end()))
+		)
 	{
 		m_ControlledSquares.push_back(m_Position + m_MovePatterns[2]);
 
 		if (m_OwnerBoard->IsPieceCapturable(m_Position + m_MovePatterns[2], m_Color))
 			m_LegalMoves.push_back(m_Position + m_MovePatterns[2]);
 	}
-	if (m_OwnerBoard->IsValidPosition(m_Position + m_MovePatterns[3]))
+	if (
+			(m_Position + m_MovePatterns[3]).IsValid()
+			&& // pinned directions
+			(!m_PinnedDirections.empty() && (m_PinnedDirections.find(m_MovePatterns[3]) == m_PinnedDirections.end() || m_PinnedDirections.find(-m_MovePatterns[3]) == m_PinnedDirections.end()))
+		)
 	{
 		m_ControlledSquares.push_back(m_Position + m_MovePatterns[3]);
 

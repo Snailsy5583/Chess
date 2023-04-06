@@ -3,8 +3,10 @@
 #include "Engine/Renderer.h"
 
 #include <sstream>
+#include <iostream>
 #include <string>
 #include <vector>
+#include <set>
 
 class Board;
 
@@ -26,6 +28,11 @@ struct Position
 	{ return { file + other.file, rank + other.rank }; }
 	Position operator-(const Position& other) const
 	{ return { file - other.file, rank - other.rank }; }
+
+	Position operator-() const
+	{
+		return { 0 - file, 0 - rank };
+	}
 	Position operator*(const Position& other) const
 	{ return { file * other.file, rank * other.rank }; }
 	Position operator*(const int& other) const
@@ -78,6 +85,17 @@ public:
 
 	virtual bool Move(Position pos, bool overrideLegality=false);
 
+	virtual void Pin(Position dir)
+	{
+		m_PinnedDirections.insert(dir);
+	}
+
+	virtual void UnPin(Position dir)
+	{
+		if (m_PinnedDirections.find(dir) != m_PinnedDirections.end())
+			m_PinnedDirections.erase(dir);
+	}
+
 	virtual void Render();
 
 	virtual void CalculateLegalMoves() = 0;
@@ -86,7 +104,6 @@ public:
 
 	inline Color GetColor() const { return m_Color; }
 	virtual inline Position GetPosition() const { return m_Position; }
-	inline bool GetIsGamePiece() const { return m_IsGamePiece; }
 	inline bool GetIsVirgin() const { return m_IsVirgin; }
 
 	inline const Engine::RendererObject& GetRendererObject() const { return m_Object; }
@@ -96,18 +113,18 @@ protected:
 	Board* m_OwnerBoard;
 
 	Engine::RendererObject m_Object;
-	std::string m_TexturePath;
-	const char* m_PieceName;
+	std::string m_TexturePath = "Assets/Textures/Pieces/";
+	const char* m_PieceName = "";
 	
 	Position m_Position;
 	Color m_Color;
 
-	bool m_IsSlidingPiece;
-	bool m_IsGamePiece;
+	bool m_IsVirgin = true;
+	bool m_IsSlidingPiece = false;
 	std::vector<Position> m_MovePatterns;
+	std::set<Position> m_PinnedDirections;
 	std::vector<Position> m_LegalMoves;
 	std::vector<Position> m_ControlledSquares;
-	bool m_IsVirgin;
 
 	float m_SquareSize;
 };
