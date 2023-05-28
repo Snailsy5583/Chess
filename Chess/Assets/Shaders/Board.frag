@@ -6,6 +6,7 @@ uniform bool isWhite;
 
 vec4 WHITE = vec4(234,233,210,255);
 vec4 BLACK = vec4(75,115,153,255);
+
 void main()
 {
 	if (isWhite)

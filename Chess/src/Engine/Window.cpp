@@ -41,12 +41,14 @@ namespace Engine
 		glfwSetWindowUserPointer(m_Window, (void*) this);
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
 				Window& win = *(Window*) glfwGetWindowUserPointer(window);
-				win.m_OnEventFunc(WindowClosedEvent());
+                WindowClosedEvent e;
+                win.m_OnEventFunc(e);
 			});
 
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
 				Window& win = *(Window*) glfwGetWindowUserPointer(window);
-				win.m_OnEventFunc(WindowResizedEvent(width, height));
+                WindowResizedEvent e(width, height);
+				win.m_OnEventFunc(e);
 			});
 		
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods) {
@@ -60,11 +62,13 @@ namespace Engine
 
 				if (action == GLFW_PRESS)
 				{
-					win.m_OnEventFunc(MouseButtonPressedEvent(button, mouseX * 2 / width - 1, -mouseY * 2 / height + 1));
+                    MouseButtonPressedEvent e(button, mouseX * 2 / width - 1, -mouseY * 2 / height + 1);
+					win.m_OnEventFunc(e);
 				}
 				else if (action == GLFW_RELEASE)
 				{
-					win.m_OnEventFunc(MouseButtonReleasedEvent(button, mouseX * 2 / width - 1, -mouseY * 2 / height + 1));
+                    MouseButtonReleasedEvent e(button, mouseX * 2 / width - 1, -mouseY * 2 / height + 1);
+					win.m_OnEventFunc(e);
 				}
 			});
 
@@ -74,7 +78,8 @@ namespace Engine
 				int width, height;
 				glfwGetWindowSize(window, &width, &height);
 
-				win.m_OnEventFunc(MouseMovedEvent(mouseX*2/width-1, -mouseY*2/height+1));
+                MouseMovedEvent e(mouseX*2/width-1, -mouseY*2/height+1);
+				win.m_OnEventFunc(e);
 			});
 	}
 
