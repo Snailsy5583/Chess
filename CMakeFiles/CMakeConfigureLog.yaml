@@ -1,0 +1,1185 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      The system is: Windows - 10.0 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+      Build started 4/23/2023 3:14:57 AM.
+      Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+      
+      Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:00.73
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Dev/Rishab/Chess/CMakeFiles/3.26.3/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+      Build started 4/23/2023 3:14:58 AM.
+      Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+      
+      Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:00.48
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Dev/Rishab/Chess/CMakeFiles/3.26.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ixuvlm"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ixuvlm"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ixuvlm
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_a01b0.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:14:59 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ixuvlm\\cmTC_a01b0.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_a01b0.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ixuvlm\\Debug\\".
+          Creating directory "cmTC_a01b0.dir\\Debug\\cmTC_a01b0.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_a01b0.dir\\Debug\\cmTC_a01b0.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a01b0.dir\\Debug\\\\" /Fd"cmTC_a01b0.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CMakeCCompilerABI.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a01b0.dir\\Debug\\\\" /Fd"cmTC_a01b0.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ixuvlm\\Debug\\cmTC_a01b0.exe" /INCREMENTAL /ILK:"cmTC_a01b0.dir\\Debug\\cmTC_a01b0.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ixuvlm/Debug/cmTC_a01b0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ixuvlm/Debug/cmTC_a01b0.lib" /MACHINE:X64  /machine:x64 cmTC_a01b0.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_a01b0.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ixuvlm\\Debug\\cmTC_a01b0.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_a01b0.dir\\Debug\\cmTC_a01b0.tlog\\unsuccessfulbuild".
+          Touching "cmTC_a01b0.dir\\Debug\\cmTC_a01b0.tlog\\cmTC_a01b0.lastbuildstate".
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ixuvlm\\cmTC_a01b0.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.48
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-for2an"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-for2an"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-for2an
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_8889d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:14:59 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-for2an\\cmTC_8889d.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_8889d.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-for2an\\Debug\\".
+          Creating directory "cmTC_8889d.dir\\Debug\\cmTC_8889d.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_8889d.dir\\Debug\\cmTC_8889d.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_8889d.dir\\Debug\\\\" /Fd"cmTC_8889d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CMakeCXXCompilerABI.cpp
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_8889d.dir\\Debug\\\\" /Fd"cmTC_8889d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-for2an\\Debug\\cmTC_8889d.exe" /INCREMENTAL /ILK:"cmTC_8889d.dir\\Debug\\cmTC_8889d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-for2an/Debug/cmTC_8889d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-for2an/Debug/cmTC_8889d.lib" /MACHINE:X64  /machine:x64 cmTC_8889d.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_8889d.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-for2an\\Debug\\cmTC_8889d.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_8889d.dir\\Debug\\cmTC_8889d.tlog\\unsuccessfulbuild".
+          Touching "cmTC_8889d.dir\\Debug\\cmTC_8889d.tlog\\cmTC_8889d.lastbuildstate".
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-for2an\\cmTC_8889d.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.48
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "vendor/GLFW/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-l7ehty"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-l7ehty"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/Chess/vendor/GLFW/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-l7ehty
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_68d7b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:15:00 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\cmTC_68d7b.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_68d7b.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\Debug\\".
+          Creating directory "cmTC_68d7b.dir\\Debug\\cmTC_68d7b.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_68d7b.dir\\Debug\\cmTC_68d7b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_68d7b.dir\\Debug\\\\" /Fd"cmTC_68d7b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          src.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_68d7b.dir\\Debug\\\\" /Fd"cmTC_68d7b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\src.c"
+        C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\cmTC_68d7b.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\cmTC_68d7b.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\cmTC_68d7b.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-l7ehty\\cmTC_68d7b.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.31
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "vendor/GLFW/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-f5elhi"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-f5elhi"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/Chess/vendor/GLFW/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-f5elhi
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_c9257.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:15:01 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\cmTC_c9257.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_c9257.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\Debug\\".
+          Creating directory "cmTC_c9257.dir\\Debug\\cmTC_c9257.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_c9257.dir\\Debug\\cmTC_c9257.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_c9257.dir\\Debug\\\\" /Fd"cmTC_c9257.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CheckFunctionExists.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_c9257.dir\\Debug\\\\" /Fd"cmTC_c9257.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\Debug\\cmTC_c9257.exe" /INCREMENTAL /ILK:"cmTC_c9257.dir\\Debug\\cmTC_c9257.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-f5elhi/Debug/cmTC_c9257.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-f5elhi/Debug/cmTC_c9257.lib" /MACHINE:X64 cmTC_c9257.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\cmTC_c9257.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\cmTC_c9257.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\cmTC_c9257.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-f5elhi\\cmTC_c9257.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.39
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "vendor/GLFW/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-96hlf9"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-96hlf9"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/Chess/vendor/GLFW/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-96hlf9
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_b9472.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:15:01 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\cmTC_b9472.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_b9472.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\Debug\\".
+          Creating directory "cmTC_b9472.dir\\Debug\\cmTC_b9472.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_b9472.dir\\Debug\\cmTC_b9472.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b9472.dir\\Debug\\\\" /Fd"cmTC_b9472.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CheckFunctionExists.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b9472.dir\\Debug\\\\" /Fd"cmTC_b9472.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\Debug\\cmTC_b9472.exe" /INCREMENTAL /ILK:"cmTC_b9472.dir\\Debug\\cmTC_b9472.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-96hlf9/Debug/cmTC_b9472.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-96hlf9/Debug/cmTC_b9472.lib" /MACHINE:X64 cmTC_b9472.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\cmTC_b9472.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\cmTC_b9472.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\cmTC_b9472.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-96hlf9\\cmTC_b9472.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.38
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      The system is: Windows - 10.0 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+      Build started 4/23/2023 3:21:16 AM.
+      Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+      
+      Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:00.62
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Dev/Rishab/Chess/CMakeFiles/3.26.3/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+      Build started 4/23/2023 3:21:16 AM.
+      Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+      
+      Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:00.52
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Dev/Rishab/Chess/CMakeFiles/3.26.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-dj26e2"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-dj26e2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-dj26e2
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_137cc.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:21:17 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-dj26e2\\cmTC_137cc.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_137cc.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-dj26e2\\Debug\\".
+          Creating directory "cmTC_137cc.dir\\Debug\\cmTC_137cc.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_137cc.dir\\Debug\\cmTC_137cc.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_137cc.dir\\Debug\\\\" /Fd"cmTC_137cc.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CMakeCCompilerABI.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_137cc.dir\\Debug\\\\" /Fd"cmTC_137cc.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-dj26e2\\Debug\\cmTC_137cc.exe" /INCREMENTAL /ILK:"cmTC_137cc.dir\\Debug\\cmTC_137cc.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-dj26e2/Debug/cmTC_137cc.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-dj26e2/Debug/cmTC_137cc.lib" /MACHINE:X64  /machine:x64 cmTC_137cc.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_137cc.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-dj26e2\\Debug\\cmTC_137cc.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_137cc.dir\\Debug\\cmTC_137cc.tlog\\unsuccessfulbuild".
+          Touching "cmTC_137cc.dir\\Debug\\cmTC_137cc.tlog\\cmTC_137cc.lastbuildstate".
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-dj26e2\\cmTC_137cc.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.47
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-50i916"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-50i916"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-50i916
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_45b1e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:21:18 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-50i916\\cmTC_45b1e.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_45b1e.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-50i916\\Debug\\".
+          Creating directory "cmTC_45b1e.dir\\Debug\\cmTC_45b1e.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_45b1e.dir\\Debug\\cmTC_45b1e.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_45b1e.dir\\Debug\\\\" /Fd"cmTC_45b1e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CMakeCXXCompilerABI.cpp
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_45b1e.dir\\Debug\\\\" /Fd"cmTC_45b1e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-50i916\\Debug\\cmTC_45b1e.exe" /INCREMENTAL /ILK:"cmTC_45b1e.dir\\Debug\\cmTC_45b1e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-50i916/Debug/cmTC_45b1e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-50i916/Debug/cmTC_45b1e.lib" /MACHINE:X64  /machine:x64 cmTC_45b1e.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_45b1e.vcxproj -> C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-50i916\\Debug\\cmTC_45b1e.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_45b1e.dir\\Debug\\cmTC_45b1e.tlog\\unsuccessfulbuild".
+          Touching "cmTC_45b1e.dir\\Debug\\cmTC_45b1e.tlog\\cmTC_45b1e.lastbuildstate".
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-50i916\\cmTC_45b1e.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.47
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "vendor/GLFW/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-54n8n8"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-54n8n8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/Chess/vendor/GLFW/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-54n8n8
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_19aad.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:21:19 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\cmTC_19aad.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_19aad.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\Debug\\".
+          Creating directory "cmTC_19aad.dir\\Debug\\cmTC_19aad.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_19aad.dir\\Debug\\cmTC_19aad.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_19aad.dir\\Debug\\\\" /Fd"cmTC_19aad.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          src.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_19aad.dir\\Debug\\\\" /Fd"cmTC_19aad.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\src.c"
+        C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\cmTC_19aad.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\cmTC_19aad.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\cmTC_19aad.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-54n8n8\\cmTC_19aad.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.31
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "vendor/GLFW/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ag71j3"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ag71j3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/Chess/vendor/GLFW/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ag71j3
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_6655e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:21:19 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\cmTC_6655e.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_6655e.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\Debug\\".
+          Creating directory "cmTC_6655e.dir\\Debug\\cmTC_6655e.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_6655e.dir\\Debug\\cmTC_6655e.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6655e.dir\\Debug\\\\" /Fd"cmTC_6655e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CheckFunctionExists.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6655e.dir\\Debug\\\\" /Fd"cmTC_6655e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\Debug\\cmTC_6655e.exe" /INCREMENTAL /ILK:"cmTC_6655e.dir\\Debug\\cmTC_6655e.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ag71j3/Debug/cmTC_6655e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-ag71j3/Debug/cmTC_6655e.lib" /MACHINE:X64 cmTC_6655e.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\cmTC_6655e.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\cmTC_6655e.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\cmTC_6655e.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ag71j3\\cmTC_6655e.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.43
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "vendor/GLFW/CMakeLists.txt:64 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-c72cpy"
+      binary: "C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-c72cpy"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/Chess/vendor/GLFW/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-c72cpy
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_0a4f9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 4/23/2023 3:21:20 AM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\cmTC_0a4f9.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_0a4f9.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\Debug\\".
+          Creating directory "cmTC_0a4f9.dir\\Debug\\cmTC_0a4f9.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_0a4f9.dir\\Debug\\cmTC_0a4f9.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0a4f9.dir\\Debug\\\\" /Fd"cmTC_0a4f9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CheckFunctionExists.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /W1 /WX- /diagnostics:column /O2 /D _MBCS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0a4f9.dir\\Debug\\\\" /Fd"cmTC_0a4f9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\Debug\\cmTC_0a4f9.exe" /INCREMENTAL /ILK:"cmTC_0a4f9.dir\\Debug\\cmTC_0a4f9.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-c72cpy/Debug/cmTC_0a4f9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/Chess/CMakeFiles/CMakeScratch/TryCompile-c72cpy/Debug/cmTC_0a4f9.lib" /MACHINE:X64 cmTC_0a4f9.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\cmTC_0a4f9.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\cmTC_0a4f9.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\cmTC_0a4f9.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Dev\\Rishab\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-c72cpy\\cmTC_0a4f9.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.42
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      The system is: Windows - 10.0 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+      Build started 6/3/2023 9:45:47 PM.
+      Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+      
+      Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Done Building Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:01.51
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/3.26.3/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:5 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+      Build started 6/3/2023 9:45:49 PM.
+      Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+      
+      Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:01.07
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/3.26.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-b3r6nu"
+      binary: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-b3r6nu"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-b3r6nu
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_0be29.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 6/3/2023 9:45:51 PM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-b3r6nu\\cmTC_0be29.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_0be29.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-b3r6nu\\Debug\\".
+          Creating directory "cmTC_0be29.dir\\Debug\\cmTC_0be29.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_0be29.dir\\Debug\\cmTC_0be29.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0be29.dir\\Debug\\\\" /Fd"cmTC_0be29.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CMakeCCompilerABI.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0be29.dir\\Debug\\\\" /Fd"cmTC_0be29.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-b3r6nu\\Debug\\cmTC_0be29.exe" /INCREMENTAL /ILK:"cmTC_0be29.dir\\Debug\\cmTC_0be29.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-b3r6nu/Debug/cmTC_0be29.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-b3r6nu/Debug/cmTC_0be29.lib" /MACHINE:X64  /machine:x64 cmTC_0be29.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_0be29.vcxproj -> C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-b3r6nu\\Debug\\cmTC_0be29.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_0be29.dir\\Debug\\cmTC_0be29.tlog\\unsuccessfulbuild".
+          Touching "cmTC_0be29.dir\\Debug\\cmTC_0be29.tlog\\cmTC_0be29.lastbuildstate".
+        Done Building Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-b3r6nu\\cmTC_0be29.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:01.00
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:5 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-726v1m"
+      binary: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-726v1m"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-726v1m
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_03b1b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 6/3/2023 9:45:52 PM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-726v1m\\cmTC_03b1b.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_03b1b.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-726v1m\\Debug\\".
+          Creating directory "cmTC_03b1b.dir\\Debug\\cmTC_03b1b.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_03b1b.dir\\Debug\\cmTC_03b1b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_03b1b.dir\\Debug\\\\" /Fd"cmTC_03b1b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CMakeCXXCompilerABI.cpp
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_03b1b.dir\\Debug\\\\" /Fd"cmTC_03b1b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\MinGW\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-726v1m\\Debug\\cmTC_03b1b.exe" /INCREMENTAL /ILK:"cmTC_03b1b.dir\\Debug\\cmTC_03b1b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-726v1m/Debug/cmTC_03b1b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-726v1m/Debug/cmTC_03b1b.lib" /MACHINE:X64  /machine:x64 cmTC_03b1b.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_03b1b.vcxproj -> C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-726v1m\\Debug\\cmTC_03b1b.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_03b1b.dir\\Debug\\cmTC_03b1b.tlog\\unsuccessfulbuild".
+          Touching "cmTC_03b1b.dir\\Debug\\cmTC_03b1b.tlog\\cmTC_03b1b.lastbuildstate".
+        Done Building Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-726v1m\\cmTC_03b1b.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:01.01
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "vendor/glfw/CMakeLists.txt:56 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-y9vep1"
+      binary: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-y9vep1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/ClionProjects/Chess/vendor/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-y9vep1
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_8da8e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 6/3/2023 9:45:54 PM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\cmTC_8da8e.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_8da8e.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\Debug\\".
+          Creating directory "cmTC_8da8e.dir\\Debug\\cmTC_8da8e.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_8da8e.dir\\Debug\\cmTC_8da8e.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_8da8e.dir\\Debug\\\\" /Fd"cmTC_8da8e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          src.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_8da8e.dir\\Debug\\\\" /Fd"cmTC_8da8e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\src.c"
+        C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\cmTC_8da8e.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\cmTC_8da8e.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\cmTC_8da8e.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\src.c(1,10): fatal  error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-y9vep1\\cmTC_8da8e.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.67
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "vendor/glfw/CMakeLists.txt:56 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-ppmm0z"
+      binary: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-ppmm0z"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/ClionProjects/Chess/vendor/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-ppmm0z
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_12bae.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 6/3/2023 9:45:55 PM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\cmTC_12bae.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_12bae.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\Debug\\".
+          Creating directory "cmTC_12bae.dir\\Debug\\cmTC_12bae.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_12bae.dir\\Debug\\cmTC_12bae.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_12bae.dir\\Debug\\\\" /Fd"cmTC_12bae.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CheckFunctionExists.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_12bae.dir\\Debug\\\\" /Fd"cmTC_12bae.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\Debug\\cmTC_12bae.exe" /INCREMENTAL /ILK:"cmTC_12bae.dir\\Debug\\cmTC_12bae.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-ppmm0z/Debug/cmTC_12bae.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-ppmm0z/Debug/cmTC_12bae.lib" /MACHINE:X64  /machine:x64 cmTC_12bae.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\cmTC_12bae.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\cmTC_12bae.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\cmTC_12bae.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-ppmm0z\\cmTC_12bae.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.80
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/MinGW/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/MinGW/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "vendor/glfw/CMakeLists.txt:56 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-biq2o0"
+      binary: "C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-biq2o0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Dev/Rishab/ClionProjects/Chess/vendor/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-biq2o0
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_b7e09.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.5.0+6f08c67f3 for .NET Framework
+        Build started 6/3/2023 9:45:56 PM.
+        Included response file: C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.rsp
+        
+        Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\cmTC_b7e09.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_b7e09.dir\\Debug\\".
+          Creating directory "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\Debug\\".
+          Creating directory "cmTC_b7e09.dir\\Debug\\cmTC_b7e09.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_b7e09.dir\\Debug\\cmTC_b7e09.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b7e09.dir\\Debug\\\\" /Fd"cmTC_b7e09.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.35.32215 for x64
+          CheckFunctionExists.c
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b7e09.dir\\Debug\\\\" /Fd"cmTC_b7e09.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.35.32215\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\Debug\\cmTC_b7e09.exe" /INCREMENTAL /ILK:"cmTC_b7e09.dir\\Debug\\cmTC_b7e09.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-biq2o0/Debug/cmTC_b7e09.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Dev/Rishab/ClionProjects/Chess/CMakeFiles/CMakeScratch/TryCompile-biq2o0/Debug/cmTC_b7e09.lib" /MACHINE:X64  /machine:x64 cmTC_b7e09.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\cmTC_b7e09.vcxproj]
+        Done Building Project "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\cmTC_b7e09.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\cmTC_b7e09.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Dev\\Rishab\\ClionProjects\\Chess\\CMakeFiles\\CMakeScratch\\TryCompile-biq2o0\\cmTC_b7e09.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.86
+        
+      exitCode: 1
+...
