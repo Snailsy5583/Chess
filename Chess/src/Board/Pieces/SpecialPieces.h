@@ -5,94 +5,83 @@
 
 // Special Piece = any piece that is not a sliding piece
 
-class King : public Piece
-{
+class King : public Piece {
 public:
-	King(Color color, Position pos, float squareSize, Board* board, bool isVirgin=true);
-	
-	// Only Sliding Pieces can pin
-	void FindPins();
-	void CalculateLegalMoves() override;
-	const bool CheckCastling(int direction);
+    King(Color color, Position pos, float squareSize, Board *board,
+         bool isVirgin = true);
 
-	bool Move(Position pos, bool overrideLegality=false) override;
+    void CalculateLegalMoves() override;
 
-	void SetCheck(bool isInCheck);
-	bool IsInCheck() const;
+    bool CheckCastling(int direction);
 
-	void SetCastling(bool K, bool Q);
-	inline bool GetCastling(bool side)
-	{
-		if (side)
-			return m_CanCastleK;
-		else
-			return m_CanCastleQ;
-	}
+    bool Move(Position pos, bool overrideLegality) override;
+
+    void SetCastling(bool K, bool Q);
 
 private:
-	bool m_InCheck;
-	std::vector<Piece*> m_Pins;
+    std::vector<Piece *> m_Pins;
 
-	bool m_CanCastleK, m_CanCastleQ;
+    bool m_CanCastleK, m_CanCastleQ;
 };
 
-class Knight : public Piece
-{
+class Knight : public Piece {
 public:
-	Knight(Color color, Position pos, float squareSize, Board* board);
-	
-	void CalculateLegalMoves() override;
+    Knight(Color color, Position pos, float squareSize, Board *board);
+
+    void CalculateLegalMoves() override;
 };
 
 class EnPassantPiece;
 
-class Pawn : public Piece
-{
+class Pawn : public Piece {
 public:
-	Pawn(Color color, Position pos, float squareSize, Board* board);
-	// TODO: Queen
-	
-	void CalculateLegalMoves() override;
-	bool Move(Position pos, bool overrideLegality = false) override;
+    Pawn(Color color, Position pos, float squareSize, Board *board);
+    // TODO: Queening
+
+    void CalculateLegalMoves() override;
+
+    bool Move(Position pos, bool overrideLegality) override;
 };
 
 /////////////// Fake Pieces /////////////////
 
 // Piece generated when a pawn is En Passant-able
-class EnPassantPiece : public Piece
-{
+class EnPassantPiece : public Piece {
 public:
-	EnPassantPiece(Position pos, Pawn* originalPawn, Board* board);
+    EnPassantPiece(Position pos, Pawn *originalPawn, Board *board);
 
-	void CancelEnPassantOffer(bool deletePawn = false);
-	void DeleteOwningPawn();
+    void CancelEnPassantOffer(bool deletePawn = false);
 
-	// This doesn't have legal moves but it still needs to delete itself
-	// after the first move
-	void CalculateLegalMoves() override;
+    void DeleteOwningPawn();
 
-	Position GetPosition() const override { return m_OriginalPawn->GetPosition(); }
+    // This doesn't have legal move, but it still
+    // needs to delete itself after the first move
+    void CalculateLegalMoves() override;
+
+    Position
+    GetPosition() const override
+    { return m_OriginalPawn->GetPosition(); }
 
 private:
-	Pawn* m_OriginalPawn;
-	
-	bool m_FirstMove;
+    Pawn *m_OriginalPawn;
+
+    bool m_FirstMove;
 };
 
 
 // Piece generated to show legal moves
-class LegalMoveSprite
-{
+class LegalMoveSprite {
 public:
-	LegalMoveSprite(float squareSize, float spriteSize, Position pos);
-	~LegalMoveSprite();
+    LegalMoveSprite(float squareSize, float spriteSize, Position pos);
 
-	void SetPosition(Position pos);
+    ~LegalMoveSprite();
 
-	void Render() const;
+    void SetPosition(Position pos);
+
+    void Render() const;
 
 private:
-	Engine::RendererObject m_Obj;
+    Engine::RendererObject m_Obj;
 
-	float m_SquareSize;
+    float m_SquareSize;
 };

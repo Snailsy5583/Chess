@@ -4,32 +4,31 @@
 
 #include "Events/Events.h"
 
-namespace Engine
-{
-	class Layer
-	{
-	public:
-		Layer();
+namespace Engine {
+    class Layer {
+    public:
+        Layer();
 
-		virtual void OnAttach()=0;
-		virtual void OnDetach()=0;
+        virtual void OnAttach() = 0;
 
-		virtual void OnEvent(Event& e) {}
-	};
+        virtual void OnDetach() = 0;
 
-	class LayerStack
-	{
-	public:
-		LayerStack();
+        virtual void OnEvent(Event &e) {}
+    };
 
-		void Push(Layer* layer);
-		void PopBack();
+    class LayerStack {
+    public:
+        LayerStack();
 
-		void Remove(int index);
+        void Push(Layer *layer);
 
-		void OnEvent(Event& e);
+        void PopBack();
 
-	private:
-		std::deque<Layer*> m_LayerStack;
-	};
+        void Remove(int index);
+
+        void OnEvent(Event &e);
+
+    private:
+        std::deque<Layer *> m_LayerStack;
+    };
 }

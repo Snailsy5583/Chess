@@ -3,58 +3,63 @@
 #include <string>
 #include <vector>
 
-namespace Engine
-{
+namespace Engine {
 
-	class Texture;
+    class Texture;
 
-	class Shader
-	{
-	public:
-		Shader(const char* vertShaderSource=NULL, const char* fragShaderSource=NULL);
+    class Shader {
+    public:
+        Shader(const char *vertShaderSource = NULL,
+               const char *fragShaderSource = NULL);
 
-		static Shader Compile(const char* vertPath, const char* fragPath);
+        static Shader Compile(const char *vertPath, const char *fragPath);
 
-		void SetUniform(int loc, int value) const;
-		void SetUniform(int loc, bool value) const;
-		void SetUniform(int loc, float value) const;
-		void SetUniformVec(int loc, int size, float value[]) const;
-		void SetUniformMat(int loc, int size, float** value) const;
+        void SetUniform(int loc, int value) const;
 
-		int GetUniformLocation(const char* name) const;
-		int GetAttribLocation(const char* name) const;
+        void SetUniform(int loc, bool value) const;
 
-		void Bind() const;
-		void UnBind() const;
+        void SetUniform(int loc, float value) const;
 
-		void AttachTexture(Texture tex);
+        void SetUniformVec(int loc, int size, float value[]) const;
 
-		void Destroy();
-	
-	private:
-		unsigned int m_ShaderProgramID;
+        void SetUniformMat(int loc, int size, float **value) const;
 
-		std::vector<Texture> m_Textures;
+        int GetUniformLocation(const char *name) const;
 
-	private:
-		static std::string ReadFile(const char* path);
+        int GetAttribLocation(const char *name) const;
 
-		static bool CheckErrors(unsigned int shader);
-	};
+        void Bind() const;
 
-	class Texture
-	{
-	public:
-		Texture(const char* path);
+        void UnBind() const;
 
-		void Bind() const;
-		void UnBind() const;
+        void AttachTexture(Texture tex);
 
-		void Destroy();
+        void Destroy();
 
-	private:
-		unsigned int m_TextureID;
-	};
+    private:
+        unsigned int m_ShaderProgramID;
+
+        std::vector<Texture> m_Textures;
+
+    private:
+        static std::string ReadFile(const char *path);
+
+        static bool CheckErrors(unsigned int shader);
+    };
+
+    class Texture {
+    public:
+        Texture(const char *path);
+
+        void Bind() const;
+
+        void UnBind() const;
+
+        void Destroy();
+
+    private:
+        unsigned int m_TextureID;
+    };
 
 }
 

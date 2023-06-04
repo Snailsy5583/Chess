@@ -9,7 +9,8 @@
 #include <sstream>
 
 namespace Engine {
-    Shader::Shader(const char *vertShaderSource/*=NULL*/, const char *fragShaderSource/*=NULL*/) {
+    Shader::Shader(const char *vertShaderSource/*=NULL*/,
+                   const char *fragShaderSource/*=NULL*/) {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -92,7 +93,8 @@ namespace Engine {
                 glUniform3f(loc, *(value), *(value + 1), *(value + 2));
                 break;
             case 4:
-                glUniform4f(loc, *(value), *(value + 1), *(value + 2), *(value + 3));
+                glUniform4f(loc, *(value), *(value + 1), *(value + 2),
+                            *(value + 3));
                 break;
         }
 
@@ -199,7 +201,8 @@ namespace Engine {
         stbi_set_flip_vertically_on_load(true);
 
         int width, height, channels = 4;
-        unsigned char *image = stbi_load(path, &width, &height, &channels, STBI_rgb_alpha);
+        unsigned char *image = stbi_load(path, &width, &height, &channels,
+                                         STBI_rgb_alpha);
 
         if (!image) {
             std::cout << "ERROR: Image not opened" << std::endl;

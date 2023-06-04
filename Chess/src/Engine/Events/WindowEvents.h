@@ -2,48 +2,40 @@
 
 #include "Events.h"
 
-namespace Engine
-{
+namespace Engine {
 
 
-	class WindowClosedEvent : public Event
-	{
-	public:
-		WindowClosedEvent()
-		{}
+    class WindowClosedEvent : public Event {
+    public:
+        WindowClosedEvent() {}
 
-		static EventType GetStaticType()
-		{ return EventType::WindowClosed; }
-		virtual EventType GetEventType() const override
-		{ return WindowClosedEvent::GetStaticType(); }
+        static EventType GetStaticType() { return EventType::WindowClosed; }
 
-		virtual const char* GetName() const
-		{ return "WindowClosed"; }
-	};
+        virtual EventType
+        GetEventType() const override { return WindowClosedEvent::GetStaticType(); }
 
-	class WindowResizedEvent : public Event
-	{
-	public:
-		WindowResizedEvent(int width, int height)
-			: m_Width(width), m_Height(height)
-		{}
+        virtual const char *GetName() const { return "WindowClosed"; }
+    };
 
-		static EventType GetStaticType()
-		{ return EventType::WindowResized; }
-		virtual EventType GetEventType() const override
-		{ return WindowResizedEvent::GetStaticType(); }
+    class WindowResizedEvent : public Event {
+    public:
+        WindowResizedEvent(int width, int height)
+            : m_Width(width), m_Height(height) {}
 
-		virtual const char* GetName() const
-		{ return "WindowResized"; }
+        static EventType GetStaticType() { return EventType::WindowResized; }
 
-		int GetWidth() const
-		{ return m_Width; }
-		int GetHeight() const
-		{ return m_Height; }
+        virtual EventType
+        GetEventType() const override { return WindowResizedEvent::GetStaticType(); }
 
-	private:
-		int m_Width, m_Height;
-	};
+        virtual const char *GetName() const { return "WindowResized"; }
+
+        int GetWidth() const { return m_Width; }
+
+        int GetHeight() const { return m_Height; }
+
+    private:
+        int m_Width, m_Height;
+    };
 
 
 }

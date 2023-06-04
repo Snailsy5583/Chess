@@ -1,95 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\Main.cpp" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\stb.cpp" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Board.cpp">
+      <Filter>src\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\Piece.cpp">
+      <Filter>src\Board\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SlidingPieces.cpp">
+      <Filter>src\Board\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SpecialPieces.cpp">
+      <Filter>src\Board\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Layer.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Renderer.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Shader.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Window.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Application.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Board.h">
+      <Filter>src\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\Piece.h">
+      <Filter>src\Board\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SlidingPieces.h">
+      <Filter>src\Board\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SpecialPieces.h">
+      <Filter>src\Board\Pieces</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Layer.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Renderer.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Shader.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Window.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Events\Events.h">
+      <Filter>src\Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Events\MouseEvents.h">
+      <Filter>src\Engine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Events\WindowEvents.h">
+      <Filter>src\Engine\Events</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\CMakeLists.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
-      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+      <UniqueIdentifier>{D5B54536-34BB-3FF2-9279-E91F59DBA972}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Board">
-      <UniqueIdentifier>{84E9A4B2-F053-5929-3992-0ACFA53B377E}</UniqueIdentifier>
+      <UniqueIdentifier>{DEE4B8C8-0E2F-3992-AAB9-E0B88EF28BE3}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Board\Pieces">
-      <UniqueIdentifier>{8C880973-7881-28C5-A1B3-0D4A8D0B08D1}</UniqueIdentifier>
+      <UniqueIdentifier>{6BBE41C4-8202-37F7-974A-37B7D43985EF}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Engine">
-      <UniqueIdentifier>{12A1320E-FE58-745B-6760-4DB753370F4C}</UniqueIdentifier>
+      <UniqueIdentifier>{320851CA-36A8-327A-9220-F2370CF37C1B}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Engine\Events">
-      <UniqueIdentifier>{B624EAB0-223B-E846-6BB2-7368D707B9CE}</UniqueIdentifier>
+      <UniqueIdentifier>{8F970A21-7775-3CB1-9849-58538BA00B8A}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Application.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Board\Board.h">
-      <Filter>src\Board</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Board\Pieces\Piece.h">
-      <Filter>src\Board\Pieces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Board\Pieces\SlidingPieces.h">
-      <Filter>src\Board\Pieces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Board\Pieces\SpecialPieces.h">
-      <Filter>src\Board\Pieces</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Events\Events.h">
-      <Filter>src\Engine\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Events\MouseEvents.h">
-      <Filter>src\Engine\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Events\WindowEvents.h">
-      <Filter>src\Engine\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Layer.h">
-      <Filter>src\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Renderer.h">
-      <Filter>src\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Shader.h">
-      <Filter>src\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Window.h">
-      <Filter>src\Engine</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="src\Application.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Board\Board.cpp">
-      <Filter>src\Board</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Board\Pieces\Piece.cpp">
-      <Filter>src\Board\Pieces</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Board\Pieces\SlidingPieces.cpp">
-      <Filter>src\Board\Pieces</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Board\Pieces\SpecialPieces.cpp">
-      <Filter>src\Board\Pieces</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Layer.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Renderer.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Shader.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Window.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="stb.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Shaders\Board.frag" />
-    <None Include="Assets\Shaders\Board.vert" />
-    <None Include="Assets\Shaders\Piece.frag" />
-    <None Include="Assets\Shaders\Piece.vert" />
   </ItemGroup>
 </Project>

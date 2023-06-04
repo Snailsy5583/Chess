@@ -8,23 +8,23 @@
 #include "Engine/Layer.h"
 #include "Board/Board.h"
 
-class Application
-{
+class Application {
 public:
-	Application(unsigned int width, unsigned int height, const char* title);
-	~Application();
+    Application(unsigned int width, unsigned int height, const char *title);
 
-	void Run();
+    ~Application();
 
-	void OnEvent(Engine::Event& e);
+    void Run();
+
+    void OnEvent(Engine::Event &e);
 
 private:
-	Engine::Window* m_MainWindow;
+    Engine::Window *m_MainWindow;
 
-	Engine::LayerStack m_LayerStack;
+    Engine::LayerStack m_LayerStack;
 
-	std::unique_ptr<Board> m_ChessBoard;
+    std::unique_ptr<Board> m_ChessBoard;
 
-	std::chrono::time_point<std::chrono::steady_clock> m_LastFrame;
-	float m_DeltaTime;
+    std::chrono::time_point<std::chrono::steady_clock> m_LastFrame;
+    float m_DeltaTime;
 };

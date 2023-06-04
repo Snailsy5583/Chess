@@ -1,30 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="include">
-      <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\KHR">
-      <UniqueIdentifier>{7D5AC031-E90F-3927-7204-33FEDEB82F2B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\glad">
-      <UniqueIdentifier>{30A0DB69-1C03-6B0E-C588-A3C4B1CA3691}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\src\glad.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\KHR\khrplatform.h">
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include\KHR\khrplatform.h">
       <Filter>include\KHR</Filter>
     </ClInclude>
-    <ClInclude Include="include\glad\glad.h">
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include\glad\glad.h">
       <Filter>include\glad</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\glad.c">
-      <Filter>src</Filter>
-    </ClCompile>
+    <CustomBuild Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{1AE7C771-A165-34AB-87E6-67D2E2BC0AF5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\KHR">
+      <UniqueIdentifier>{215A8E19-7D5A-31A4-A781-AE2E778668AB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\glad">
+      <UniqueIdentifier>{1821528B-2E93-3AE0-ACE1-6CB85C0EC377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{D5B54536-34BB-3FF2-9279-E91F59DBA972}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

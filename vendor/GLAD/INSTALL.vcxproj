@@ -18,11 +18,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{81AC8664-DA00-3458-80AB-8AFC0EDC8E9A}</ProjectGuid>
+    <ProjectGuid>{48F58E7C-B486-34CF-B094-9FC1E6F2E535}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
-    <ProjectName>stb</ProjectName>
+    <ProjectName>INSTALL</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -55,41 +55,55 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
+    <PostBuildEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message></Message>
+      <Command>setlocal
+C:\MinGW\bin\cmake.exe -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
-    <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
+    <PostBuildEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message></Message>
+      <Command>setlocal
+C:\MinGW\bin\cmake.exe -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
+    <PostBuildEvent>
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message></Message>
+      <Command>setlocal
+C:\MinGW\bin\cmake.exe -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\stb\stb\CMakeLists.txt">
-      <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Dev/Rishab/ClionProjects/Chess/vendor/stb/stb/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\Dev\Rishab\ClionProjects\Chess\CMakeFiles\0187c8cfe774944c05b5a70c70ba4de2\INSTALL_force.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-C:\MinGW\bin\cmake.exe -SC:/Dev/Rishab/ClionProjects/Chess -BC:/Dev/Rishab/ClionProjects/Chess --check-stamp-file C:/Dev/Rishab/ClionProjects/Chess/vendor/stb/stb/CMakeFiles/generate.stamp
+cd .
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -98,11 +112,12 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Rishab\ClionProjects\Chess\vendor\stb\stb\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Building Custom Rule C:/Dev/Rishab/ClionProjects/Chess/vendor/stb/stb/CMakeLists.txt</Message>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Dist|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">setlocal
-C:\MinGW\bin\cmake.exe -SC:/Dev/Rishab/ClionProjects/Chess -BC:/Dev/Rishab/ClionProjects/Chess --check-stamp-file C:/Dev/Rishab/ClionProjects/Chess/vendor/stb/stb/CMakeFiles/generate.stamp
+cd .
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -111,11 +126,12 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">C:\Dev\Rishab\ClionProjects\Chess\vendor\stb\stb\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/Rishab/ClionProjects/Chess/vendor/stb/stb/CMakeLists.txt</Message>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-C:\MinGW\bin\cmake.exe -SC:/Dev/Rishab/ClionProjects/Chess -BC:/Dev/Rishab/ClionProjects/Chess --check-stamp-file C:/Dev/Rishab/ClionProjects/Chess/vendor/stb/stb/CMakeFiles/generate.stamp
+cd .
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -124,18 +140,21 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Rishab\ClionProjects\Chess\vendor\stb\stb\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\stb\stb\stb_image.h">
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Dev\Rishab\ClionProjects\Chess\ZERO_CHECK.vcxproj">
       <Project>{035F7F74-3E55-35E3-97DF-B06EC1BBF188}</Project>
       <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\ALL_BUILD.vcxproj">
+      <Project>{3C30E3FE-F317-35C0-A02C-42E9BDAA28E3}</Project>
+      <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>

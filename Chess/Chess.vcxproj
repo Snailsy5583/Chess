@@ -1,184 +1,282 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Dist|x64">
       <Configuration>Dist</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3B2EF60C-A742-1EBE-70C4-C11DDC971AEF}</ProjectGuid>
-    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <ProjectGuid>{3C64737E-B0EE-3BED-91DD-67EEF7A33787}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Chess</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>Chess</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+  <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86_64\Chess\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86_64\Chess\</IntDir>
-    <TargetName>Chess</TargetName>
-    <TargetExt>.exe</TargetExt>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86_64\Chess\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86_64\Chess\</IntDir>
-    <TargetName>Chess</TargetName>
-    <TargetExt>.exe</TargetExt>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-x86_64\Chess\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-x86_64\Chess\</IntDir>
-    <TargetName>Chess</TargetName>
-    <TargetExt>.exe</TargetExt>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Rishab\ClionProjects\Chess\bin\Debug-windows-x86_64\Chess\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Chess.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Chess</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">C:\Dev\Rishab\ClionProjects\Chess\bin\Dist-windows-x86_64\Chess\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Chess.dir\Dist\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Chess</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Rishab\ClionProjects\Chess\bin\Release-windows-x86_64\Chess\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Chess.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Chess</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\vendor\spdlog\include;..\vendor\GLFW\include;..\vendor\GLAD\include;..\vendor\ImGui;..\vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <ExternalWarningLevel>Level3</ExternalWarningLevel>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\vendor\spdlog\include;..\vendor\GLFW\include;..\vendor\GLAD\include;..\vendor\ImGui;..\vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization>Full</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;GLFW_INCLUDE_NONE;UNICODE;_UNICODE;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;GLFW_INCLUDE_NONE;UNICODE;_UNICODE;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
     <Link>
+      <AdditionalDependencies>..\vendor\glfw\src\Debug\glfw3.lib;..\vendor\GLAD\bin\Debug-windows-x86_64\GLAD\GLAD.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Dev/Rishab/ClionProjects/Chess/bin/Debug-windows-x86_64/Chess/Chess.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Dev/Rishab/ClionProjects/Chess/bin/Debug-windows-x86_64/Chess/Chess.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\vendor\spdlog\include;..\vendor\GLFW\include;..\vendor\GLAD\include;..\vendor\ImGui;..\vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization>Full</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;GLFW_INCLUDE_NONE;UNICODE;_UNICODE;CMAKE_INTDIR="Dist"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;GLFW_INCLUDE_NONE;UNICODE;_UNICODE;CMAKE_INTDIR=\"Dist\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
     <Link>
+      <AdditionalDependencies>..\vendor\glfw\src\Dist\glfw3.lib;..\vendor\GLAD\bin\Dist-windows-x86_64\GLAD\GLAD.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Dev/Rishab/ClionProjects/Chess/bin/Dist-windows-x86_64/Chess/Chess.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Dev/Rishab/ClionProjects/Chess/bin/Dist-windows-x86_64/Chess/Chess.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;GLFW_INCLUDE_NONE;UNICODE;_UNICODE;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;GLFW_INCLUDE_NONE;UNICODE;_UNICODE;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Dev\Rishab\ClionProjects\Chess\Chess\src;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\spdlog\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\GLAD\include;C:\Dev\Rishab\ClionProjects\Chess\Chess\..\vendor\stb;C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\include;C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\vendor\glfw\src\Release\glfw3.lib;..\vendor\GLAD\bin\Release-windows-x86_64\GLAD\GLAD.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Dev/Rishab/ClionProjects/Chess/bin/Release-windows-x86_64/Chess/Chess.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Dev/Rishab/ClionProjects/Chess/bin/Release-windows-x86_64/Chess/Chess.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Board\Board.h" />
-    <ClInclude Include="src\Board\Pieces\Piece.h" />
-    <ClInclude Include="src\Board\Pieces\SlidingPieces.h" />
-    <ClInclude Include="src\Board\Pieces\SpecialPieces.h" />
-    <ClInclude Include="src\Engine\Events\Events.h" />
-    <ClInclude Include="src\Engine\Events\MouseEvents.h" />
-    <ClInclude Include="src\Engine\Events\WindowEvents.h" />
-    <ClInclude Include="src\Engine\Layer.h" />
-    <ClInclude Include="src\Engine\Renderer.h" />
-    <ClInclude Include="src\Engine\Shader.h" />
-    <ClInclude Include="src\Engine\Window.h" />
+    <CustomBuild Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Dev/Rishab/ClionProjects/Chess/Chess/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\MinGW\bin\cmake.exe -SC:/Dev/Rishab/ClionProjects/Chess -BC:/Dev/Rishab/ClionProjects/Chess --check-stamp-file C:/Dev/Rishab/ClionProjects/Chess/Chess/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Rishab\ClionProjects\Chess\CMake\Default.cmake;C:\Dev\Rishab\ClionProjects\Chess\CMake\DefaultCXX.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\Rishab\ClionProjects\Chess\Chess\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Building Custom Rule C:/Dev/Rishab/ClionProjects/Chess/Chess/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">setlocal
+C:\MinGW\bin\cmake.exe -SC:/Dev/Rishab/ClionProjects/Chess -BC:/Dev/Rishab/ClionProjects/Chess --check-stamp-file C:/Dev/Rishab/ClionProjects/Chess/Chess/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">C:\Dev\Rishab\ClionProjects\Chess\CMake\Default.cmake;C:\Dev\Rishab\ClionProjects\Chess\CMake\DefaultCXX.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">C:\Dev\Rishab\ClionProjects\Chess\Chess\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Dev/Rishab/ClionProjects/Chess/Chess/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\MinGW\bin\cmake.exe -SC:/Dev/Rishab/ClionProjects/Chess -BC:/Dev/Rishab/ClionProjects/Chess --check-stamp-file C:/Dev/Rishab/ClionProjects/Chess/Chess/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Rishab\ClionProjects\Chess\CMake\Default.cmake;C:\Dev\Rishab\ClionProjects\Chess\CMake\DefaultCXX.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\Rishab\ClionProjects\Chess\Chess\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Board\Board.cpp" />
-    <ClCompile Include="src\Board\Pieces\Piece.cpp" />
-    <ClCompile Include="src\Board\Pieces\SlidingPieces.cpp" />
-    <ClCompile Include="src\Board\Pieces\SpecialPieces.cpp" />
-    <ClCompile Include="src\Engine\Layer.cpp" />
-    <ClCompile Include="src\Engine\Renderer.cpp" />
-    <ClCompile Include="src\Engine\Shader.cpp" />
-    <ClCompile Include="src\Engine\Window.cpp" />
-    <ClCompile Include="stb.cpp" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\Main.cpp" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\stb.cpp" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Application.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Application.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Board.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Board.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\Piece.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\Piece.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SlidingPieces.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SlidingPieces.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SpecialPieces.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\Pieces\SpecialPieces.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Layer.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Layer.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Renderer.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Renderer.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Shader.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Shader.h" />
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Window.cpp" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Window.h" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Events\Events.h" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Events\MouseEvents.h" />
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Events\WindowEvents.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">
-      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    <ProjectReference Include="C:\Dev\Rishab\ClionProjects\Chess\ZERO_CHECK.vcxproj">
+      <Project>{035F7F74-3E55-35E3-97DF-B06EC1BBF188}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="..\vendor\GLAD\GLAD.vcxproj">
-      <Project>{5D4A857C-4981-860D-F26D-6C10DE83020F}</Project>
+    <ProjectReference Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\GLAD\GLAD.vcxproj">
+      <Project>{6FE9D98E-93FC-3B29-B3DD-18ECF5B136D8}</Project>
+      <Name>GLAD</Name>
     </ProjectReference>
-    <ProjectReference Include="..\vendor\ImGui\ImGui.vcxproj">
-      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    <ProjectReference Include="C:\Dev\Rishab\ClionProjects\Chess\vendor\glfw\src\glfw.vcxproj">
+      <Project>{31CBB8F5-8602-3165-95B8-A87830D9B93F}</Project>
+      <Name>glfw</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Shaders\Board.frag" />
-    <None Include="Assets\Shaders\Board.vert" />
-    <None Include="Assets\Shaders\Piece.frag" />
-    <None Include="Assets\Shaders\Piece.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
