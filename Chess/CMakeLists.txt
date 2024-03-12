@@ -57,7 +57,7 @@ set(ALL_FILES
     ${src__Board__Pieces}
     ${src__Engine}
     ${src__Engine__Events}
-)
+        src/Board/PromotionBoard.cpp src/Board/PromotionBoard.h)
 
 ################################################################################
 # Target

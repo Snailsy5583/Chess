@@ -1,16 +1,15 @@
+#include <iostream>
 #include "Layer.h"
 
 namespace Engine {
 
-    Layer::Layer() {
+    /////////////////////////////// Layer Stack ////////////////////////////////
 
-    }
+    LayerStack::LayerStack() = default;
 
-    LayerStack::LayerStack() {}
-
-    void LayerStack::Push(Layer *layer) {
-        m_LayerStack.push_front(layer);
-        layer->OnAttach();
+    void LayerStack::Push(Layer* layer) {
+        m_LayerStack.push_front(std::move(layer));
+        m_LayerStack.front()->OnAttach();
     }
 
     void LayerStack::PopBack() {
@@ -18,11 +17,20 @@ namespace Engine {
         m_LayerStack.pop_back();
     }
 
-    void LayerStack::Remove(int index) {}
+    void LayerStack::PopFront() {
+        m_LayerStack.front()->OnDetach();
+        m_LayerStack.pop_front();
+    }
+
+    void LayerStack::Remove(int index) {
+        std::remove(m_LayerStack.begin(), m_LayerStack.end(), m_LayerStack.at
+        (index));
+    }
 
     void LayerStack::OnEvent(Event &e) {
-        for (Layer *layer: m_LayerStack)
-            layer->OnEvent(e);
+        for (Layer* layer : m_LayerStack)
+            if (layer->OnEvent(e))
+                break;
     }
 
 }

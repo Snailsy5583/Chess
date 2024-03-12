@@ -98,10 +98,12 @@ public:
     virtual bool Move(Position pos, bool overrideLegality);
 
     virtual void Pin(Position dir) {
+        m_IsPinned = true;
         m_PinnedDirection = dir;
     }
 
     virtual void UnPin() {
+        m_IsPinned = false;
         m_PinnedDirection = {0,0};
     }
 
@@ -143,6 +145,8 @@ protected:
     bool m_IsVirgin = true;
     bool m_IsSlidingPiece = false;
     std::vector<Position> m_MovePatterns;
+
+    bool m_IsPinned=false;
     Position m_PinnedDirection;
     std::vector<Position> m_LegalMoves;
     std::vector<Position> m_ControlledSquares;

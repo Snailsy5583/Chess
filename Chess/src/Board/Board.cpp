@@ -1,5 +1,7 @@
 #include "Board.h"
 
+#include "PromotionBoard.h"
+
 #include "Pieces/SlidingPieces.h"
 #include "Pieces/SpecialPieces.h"
 
@@ -31,6 +33,19 @@ Board::Board(const char *vertShaderPath, const char *fragShaderPath)
 
         square.piece = nullptr;
     }
+
+    float pos[3] = {0, 0, 0};
+    float tint_color[4] = {0, 0, 0, .333};
+    m_ShadowObj = Engine::Renderer::GenQuad
+        (pos, m_SquareSize*8, vertShaderPath, fragShaderPath);
+
+    m_ShadowObj.shader.SetUniformVec(
+        m_ShadowObj.shader.GetUniformLocation("tint"),
+        4,
+        tint_color
+    );
+    m_ShadowObj.shader.SetUniform
+        (m_ShadowObj.shader.GetUniformLocation("tint_mix"),1.f);
 }
 
 void Board::ReadFen(std::string fen) {
@@ -64,7 +79,7 @@ void Board::ReadFen(std::string fen) {
                 king = dynamic_cast<King *>(GetPiece(
                     (std::isupper(fen[i]) ? m_WhiteKingPos : m_BlackKingPos)));
                 k = (fen[i] == (std::isupper(fen[i]) ? 'K' : 'k'));
-                q = (fen[i] == (std::isupper(fen[i]) ? 'Q' : 'q'));
+                q = (fen[++i] == (std::isupper(fen[i]) ? 'Q' : 'q'));
                 king->SetCastling(k, q);
                 break;
             case CheckEnPassant:
@@ -149,25 +164,34 @@ void Board::RenderBoard() {
                                         {0, 0});
 
     for (Square &square: m_Board) {
-        // Highlight controlled squares
+// Highlight controlled squares
 #ifdef SHOW_CONTROLLED_SQUARES
         bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) !=
                                  m_WhiteControlledSquares.end();
         bool controlledByBlack = m_BlackControlledSquares.find(square.pos) !=
                                  m_BlackControlledSquares.end();
         if (controlledByWhite) {
-            float tint[4] = {0.75f, 0.5f, 0.5f, 0.66f};
+            float tint[4] = {0.75f, 0.5f, 0.5f, 1};
             square.obj.shader.SetUniformVec(
                 square.obj.shader.GetUniformLocation("tint"), 4, tint);
+            square.obj.shader.SetUniform(
+                square.obj.shader.GetUniformLocation("tint_mix"), .66f
+            );
         } else if (controlledByBlack) {
-            float tint[4] = {0.5f, 0.75f, 0.5f, 0.66f};
+            float tint[4] = {0.5f, 0.75f, 0.5f, 1};
             square.obj.shader.SetUniformVec(
                 square.obj.shader.GetUniformLocation("tint"), 4, tint);
+            square.obj.shader.SetUniform(
+                square.obj.shader.GetUniformLocation("tint_mix"), .66f
+            );
         }
         if (controlledByWhite && controlledByBlack) {
-            float tint[4] = {0.8f, 0.75f, 0.35f, 0.66f};
+            float tint[4] = {0.8f, 0.75f, 0.35f, 1};
             square.obj.shader.SetUniformVec(
                 square.obj.shader.GetUniformLocation("tint"), 4, tint);
+            square.obj.shader.SetUniform(
+                square.obj.shader.GetUniformLocation("tint_mix"), .66f
+            );
         }
 #endif
 
@@ -190,6 +214,11 @@ void Board::RenderBoard() {
         // the piece might be covered up by the background squares
         // so render it on top
         GetPiece(m_ActivatedSquare)->Render();
+    }
+
+    if (m_PromotionBoard) {
+        Engine::Renderer::SubmitObject(m_ShadowObj);
+        m_PromotionBoard->RenderBoard();
     }
 }
 
@@ -255,8 +284,6 @@ int Board::CalculateAllLegalMoves() {
             king->CalculateLegalMoves();
     }
 
-    std::cout << numOfMoves << std::endl;
-
     return numOfMoves;
 }
 
@@ -266,7 +293,6 @@ bool Board::MakeMove(Piece *piece, Position from, Position to,
     {
         // Capture Piece if piece exists on ending square
         if (IsPieceCapturable(to, m_Turn)) {
-            std::cout << GetPiece(to)->GetPieceName() << std::endl;
             if (GetPiece(to)->GetPieceName() == "en_passant") {
                 auto *enPassantPiece = dynamic_cast<EnPassantPiece *>(GetPiece(
                     to));
@@ -445,7 +471,15 @@ void Board::DeletePiece(Position pos) {
     m_Board[pos.ToIndex()].piece.reset();
 }
 
-////////////////// BoardLayer ////////////////////////////////
+std::unique_ptr<PromotionBoard> Board::GetPromotionBoard() {
+    return std::move(m_PromotionBoard);
+}
+
+void Board::SetPromotionBoard(std::unique_ptr<PromotionBoard> board) {
+    m_PromotionBoard = std::move(board);
+}
+
+/////////////////////////////////// BoardLayer /////////////////////////////////
 
 BoardLayer::BoardLayer(Board *boardPtr)
     : m_BoardPtr(boardPtr) {}
@@ -454,16 +488,18 @@ void BoardLayer::OnAttach() {}
 
 void BoardLayer::OnDetach() {}
 
-void BoardLayer::OnEvent(Engine::Event &e) {
+bool BoardLayer::OnEvent(Engine::Event &e) {
     Engine::EventDispatcher dispatcher(e);
 
-    dispatcher.Dispatch<Engine::MouseButtonPressedEvent>(
-        std::bind(&Board::HandleMouseDown, m_BoardPtr,
-                  std::placeholders::_1));
-    dispatcher.Dispatch<Engine::MouseButtonReleasedEvent>(
-        std::bind(&Board::HandleMouseReleased, m_BoardPtr,
-                  std::placeholders::_1));
-    dispatcher.Dispatch<Engine::MouseMovedEvent>(
-        std::bind(&Board::HandleMouseMoved, m_BoardPtr,
-                  std::placeholders::_1));
+    if (dispatcher.Dispatch<Engine::MouseButtonPressedEvent>(
+        std::bind(&Board::HandleMouseDown, m_BoardPtr,std::placeholders::_1)
+        )) return true;
+    if (dispatcher.Dispatch<Engine::MouseButtonReleasedEvent>(
+        std::bind(&Board::HandleMouseReleased, m_BoardPtr,std::placeholders::_1)
+        )) return true;
+    if (dispatcher.Dispatch<Engine::MouseMovedEvent>(
+        std::bind(&Board::HandleMouseMoved, m_BoardPtr, std::placeholders::_1)
+        )) return true;
+
+    return false; // if it hasn't returned true already
 }

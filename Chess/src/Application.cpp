@@ -6,16 +6,20 @@
 
 #define BIND_EVENT_FUNC(x, obj) std::bind(&x, obj, std::placeholders::_1)
 
+Application* Application::m_App = nullptr;
+
 Application::Application(unsigned int width, unsigned int height,
                          const char *title) {
+    m_App = this;
+
     m_DeltaTime = 0;
     if (!glfwInit())
         std::cout << "GLFW INIT FAILED\n";
 
     m_MainWindow = new Engine::Window(
         width, height, title,BIND_EVENT_FUNC(Application::OnEvent, this));
-    //m_MainWindow = std::make_unique<Engine::Window>(
-    // width, height, title, BIND_EVENT_FUNC(Application::OnEvent, this));
+//    m_MainWindow = std::make_unique<Engine::Window>(
+//     width, height, title, BIND_EVENT_FUNC(Application::OnEvent, this));
 
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
         std::cout << "Failed to initialize GLAD\n";
@@ -23,10 +27,13 @@ Application::Application(unsigned int width, unsigned int height,
     m_ChessBoard = std::make_unique<Board>("Assets/Shaders/Board.vert",
                                            "Assets/Shaders/Board.frag");
 
-    m_LayerStack.Push(m_ChessBoard->GetBoardLayer());
+    AddLayer(m_ChessBoard->GetBoardLayer());
 
-    m_ChessBoard->ReadFen(
-        "rnbqk2r/pppp1ppp/8/2b1p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 1");
+    std::string starting = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    std::string castling_test = "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1";
+    std::string promotion_test = "8/PPPPPPPP/8/K6k/8/8/pppppppp/8 w KQkq - 0 1";
+
+    m_ChessBoard->ReadFen(promotion_test);
 }
 
 Application::~Application() {
@@ -60,4 +67,16 @@ void Application::OnEvent(Engine::Event &e) {
         BIND_EVENT_FUNC(Engine::Window::OnEvent_WindowResize, m_MainWindow));
 
     m_LayerStack.OnEvent(e);
+}
+
+void Application::AddLayer(Engine::Layer* layer) {
+    if (m_App)
+        m_App->m_LayerStack.Push(layer);
+}
+
+Engine::LayerStack* Application::GetLayerStack() {
+    if (m_App)
+        return &m_App->m_LayerStack;
+    else
+        return nullptr;
 }

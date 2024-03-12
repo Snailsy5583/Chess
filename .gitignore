@@ -368,3 +368,13 @@ FodyWeavers.xsd
 
 cmake-build-debug-event-trace/
 cmake-build-debug/
+
+.idea
+
+*.vcxproj
+
+out
+.64
+cmake-build-debug
+cmake-build-debug-event-trace
+bin

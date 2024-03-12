@@ -5,12 +5,18 @@
 // a piece that can move in specified directions till collision with existing pieces/capturing opponent pieces
 class SlidingPiece : public Piece {
 public:
+    void CalculateLegalMoves(bool findPinnedPiece);
+
     void CalculateLegalMoves() override;
 
 private:
     bool CheckDirectionIsViable(Position latest, Position movePattern);
 
     bool FindPinnedPiece(Position curPos, Position movePattern);
+
+    void PinPiece(Piece *p, Position dir);
+
+    void UnPinPiece(Piece *p);
 
 protected:
     SlidingPiece(Color color, Position pos, float squareSize, char *pieceName,

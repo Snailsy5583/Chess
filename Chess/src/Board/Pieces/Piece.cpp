@@ -12,7 +12,7 @@ Piece::Piece(Color color, Position pos, float squareSize, const char *pieceName,
     float viewPos[3] = {(-1 + squareSize / 2) + (pos.file * squareSize),
                         (-1 + squareSize / 2) + (pos.rank * squareSize), 1};
 
-    UnPin();
+    m_PinnedDirection = {0,0};
 
     if (loadImage) {
         m_Object = Engine::Renderer::GenQuad(viewPos, squareSize,
@@ -24,7 +24,6 @@ Piece::Piece(Color color, Position pos, float squareSize, const char *pieceName,
 }
 
 Piece::~Piece() {
-    UnPin();
     Engine::Renderer::DeleteQuad(m_Object);
 }
 
@@ -56,8 +55,6 @@ bool Piece::Move(Position pos, bool overrideLegality/*=false*/) {
             2,
             offset
         );
-
-        return true;
     } else {
         float offset[2] = {0, 0};
         m_Object.shader.SetUniformVec(
@@ -65,8 +62,9 @@ bool Piece::Move(Position pos, bool overrideLegality/*=false*/) {
             2,
             offset
         );
-        return false;
     }
+
+    return legal;
 }
 
 void Piece::Render() { Engine::Renderer::SubmitObject(m_Object); }

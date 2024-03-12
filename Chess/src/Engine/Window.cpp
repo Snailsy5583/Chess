@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include <utility>
+
 namespace Engine {
 
 
@@ -8,12 +10,12 @@ namespace Engine {
         m_WindowWidth = width;
         m_WindowHeight = height;
         m_WindowTitle = title;
-        m_OnEventFunc = func;
+        m_OnEventFunc = std::move(func);
 
         m_ShouldCloseWindow = false;
 
         m_Window = glfwCreateWindow(m_WindowWidth, m_WindowHeight,
-                                    m_WindowTitle, NULL, NULL);
+                                    m_WindowTitle, nullptr, nullptr);
         glfwMakeContextCurrent(m_Window);
 
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);

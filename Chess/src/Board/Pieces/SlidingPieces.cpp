@@ -7,7 +7,7 @@ SlidingPiece::SlidingPiece(Color color, Position pos, float squareSize,
                            Board *board)
     : Piece(color, pos, squareSize, pieceName, board) {}
 
-void SlidingPiece::CalculateLegalMoves() {
+void SlidingPiece::CalculateLegalMoves(bool findPinnedPieces) {
     m_LegalMoves.clear();
     m_ControlledSquares.clear();
 
@@ -51,11 +51,15 @@ void SlidingPiece::CalculateLegalMoves() {
                     m_ControlledSquares.push_back(latest + movePattern);
                     latest += movePattern;
                 }
-            } else
+            } else if (findPinnedPieces)
                 FindPinnedPiece(latest, movePattern);
         }
     }
 
+}
+
+void SlidingPiece::CalculateLegalMoves() {
+    CalculateLegalMoves(true);
 }
 
 bool SlidingPiece::CheckDirectionIsViable(Position latest,
@@ -63,81 +67,85 @@ bool SlidingPiece::CheckDirectionIsViable(Position latest,
     return
         (
             (latest + movePattern).IsValid() &&
-            (
-                !m_OwnerBoard->IsSquareOccupied(latest + movePattern) ||
-                m_OwnerBoard->GetPiece(latest + movePattern)->GetPieceName() ==
-                "en_passant"
-            )
+            !m_OwnerBoard->IsSquareOccupied(latest + movePattern)
         );
 }
 
-bool SlidingPiece::FindPinnedPiece(Position curPos, Position movePattern) {
-    curPos += movePattern;
-    Position piecePos = curPos;
+bool SlidingPiece::FindPinnedPiece(Position currentPos, Position movePattern) {
+    currentPos += movePattern;
 
-    bool isAlreadyPinned = (m_PinnedPiecePos == piecePos);
+    Position piecePos = currentPos; // position of piece being pinned
+    Piece *p = m_OwnerBoard->GetPiece(piecePos); // piece being pinned
 
-    bool pinned = false;
-    while ((curPos + movePattern).IsValid()) {
-        if (m_OwnerBoard->IsSquareOccupied(curPos + movePattern)) {
-            if (m_OwnerBoard->GetPiece(curPos + movePattern)->GetPieceName() ==
-                "king") {
-                pinned = true;
+    bool wasPreviouslyPinned = piecePos == m_PinnedPiecePos;
 
-                Piece *piece = m_OwnerBoard->GetPiece(piecePos);
-                piece->Pin(movePattern);
+    while ((currentPos+movePattern).IsValid()) { // can check the next pos
+        currentPos += movePattern;
 
-                if (!isAlreadyPinned) {
-                    if (m_PinnedPiecePos.IsValid()) {
-                        std::cout << "unpinned: " << m_PinnedPiecePos.ToString()
-                                  << std::endl;
-                        Piece *prevPinnedPiece = m_OwnerBoard->GetPiece(
-                            m_PinnedPiecePos);
-                        prevPinnedPiece->UnPin();
-                        prevPinnedPiece->CalculateLegalMoves();
+        if (!m_OwnerBoard->IsSquareOccupied(currentPos)) // square is empty
+            continue;
+        else if (m_OwnerBoard->GetPiece(currentPos)->GetPieceName() != "king") {
+            // the only 2 defensive options to unpin a pinned piece are either:
+            //      block the pin or move the king
 
-                        m_PinnedPiecePos = {-1, -1};
-                    } else
-                        piece->CalculateLegalMoves();
-                }
+            // in this branch, a pin has been blocked
 
-                m_PinnedPiecePos = piecePos;
-            } else if (m_PinnedPiecePos.IsValid()) {
-                std::cout << "unpinned: " << m_PinnedPiecePos.ToString()
-                          << std::endl;
-                Piece *prevPinnedPiece = m_OwnerBoard->GetPiece(
-                    m_PinnedPiecePos);
+            // a pin can be blocked in between the piece and the pinner or
+            // in between the piece and the king
 
-                // this means we killed the piece
-                // without it, there will be an invisible infinite loop
-                if (!prevPinnedPiece || prevPinnedPiece == this) {
-                    m_PinnedPiecePos = {-1, -1};
-                    break;
-                }
+            // pin blocked in between piece and king
+            if (wasPreviouslyPinned)
+                UnPinPiece(p);
 
-                prevPinnedPiece->UnPin();
-                prevPinnedPiece->CalculateLegalMoves();
+            // pin blocked in between piece and pinner
+            else if (m_PinnedPiecePos == currentPos)
+                UnPinPiece(m_OwnerBoard->GetPiece(currentPos));
 
-                m_PinnedPiecePos = {-1, -1};
-            }
             break;
         }
 
-        curPos += movePattern;
+        // unpin previously pinned piece
+        if (m_PinnedPiecePos.IsValid() &&
+            m_OwnerBoard->IsSquareOccupied(m_PinnedPiecePos)) {
+            UnPinPiece(m_OwnerBoard->GetPiece(m_PinnedPiecePos));
+        }
+
+        PinPiece(p, movePattern);
+
+        return true; // piece is pinned
     }
 
-    if (!pinned && isAlreadyPinned && m_PinnedPiecePos.IsValid()) {
-        Piece *piece = m_OwnerBoard->GetPiece(m_PinnedPiecePos);
-        piece->UnPin();
-        piece->CalculateLegalMoves();
-
-        m_PinnedPiecePos = {-1, -1};
+    if (wasPreviouslyPinned) { // the king has been moved, so unpin the piece
+        UnPinPiece(p);
+        return false; // piece is not pinned
     }
-
-    return pinned;
+    return false;
 }
 
-/////////////////////////////// Actual Pieces ////////////////////////////////////
+void SlidingPiece::PinPiece(Piece *p, Position dir) {
+    p->Pin(dir);
+    m_PinnedPiecePos = p->GetPosition();
+
+    auto *sp = dynamic_cast<SlidingPiece *>(p);
+    if (sp)
+        sp->CalculateLegalMoves(false);
+    else
+        p->CalculateLegalMoves();
+}
+
+void SlidingPiece::UnPinPiece(Piece *p) {
+    p->UnPin();
+    m_PinnedPiecePos = {-1, -1};
+
+    auto *sp = dynamic_cast<SlidingPiece *>(p);
+    if (sp)
+        sp->CalculateLegalMoves(false);
+    else
+        p->CalculateLegalMoves();
+}
+
+
+/////////////////////////////// Actual Pieces //////////////////////////////////
 
 Bishop::Bishop(Color color, Position pos, float squareSize, Board *board)
     : SlidingPiece(color, pos, squareSize, "bishop", board) {

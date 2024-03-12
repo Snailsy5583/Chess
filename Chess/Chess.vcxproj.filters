@@ -30,6 +30,9 @@
     <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Window.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\PromotionBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Application.h">
@@ -68,11 +71,20 @@
     <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Engine\Events\WindowEvents.h">
       <Filter>src\Engine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\src\Board\PromotionBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Dev\Rishab\ClionProjects\Chess\Chess\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{3E49807E-E5F7-3A07-B064-B222856F87E4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{DFAA100A-3251-3E11-84B3-DEC54EC1EFB3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{D5B54536-34BB-3FF2-9279-E91F59DBA972}</UniqueIdentifier>
     </Filter>

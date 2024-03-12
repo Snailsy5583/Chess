@@ -10,6 +10,8 @@
 #include "Pieces/Piece.h"
 #include "Engine/Events/MouseEvents.h"
 
+#include "PromotionBoard.h"
+
 struct Square {
     Position pos;
     Engine::RendererObject obj;
@@ -26,7 +28,7 @@ public:
 
     void OnDetach() override;
 
-    void OnEvent(Engine::Event &e) override;
+    bool OnEvent(Engine::Event &e) override;
 
 private:
     Board *m_BoardPtr;
@@ -36,7 +38,7 @@ class Board {
 public:
     Board(const char *vertShaderPath, const char *fragShaderPath);
 
-    ~Board() = default;
+    ~Board()=default;
 
     void ReadFen(std::string fen);
 
@@ -72,6 +74,10 @@ public:
 
     void DeletePiece(Position pos);
 
+    std::unique_ptr<PromotionBoard> GetPromotionBoard();
+
+    void SetPromotionBoard(std::unique_ptr<PromotionBoard> board = nullptr);
+
 public:
     inline BoardLayer *GetBoardLayer() { return &m_Layer; }
 
@@ -79,6 +85,10 @@ public:
 
 private:
     BoardLayer m_Layer;
+
+    Engine::RendererObject m_ShadowObj;
+
+    std::unique_ptr<PromotionBoard> m_PromotionBoard = nullptr;
 
     float m_SquareSize;
     Square m_Board[64];
@@ -89,4 +99,6 @@ private:
     Position m_WhiteKingPos, m_BlackKingPos;
 
     std::set<Position> m_WhiteControlledSquares, m_BlackControlledSquares;
+
+    friend class PromotionBoard;
 };

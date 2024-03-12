@@ -18,7 +18,13 @@ public:
 
     void OnEvent(Engine::Event &e);
 
+    static void AddLayer(Engine::Layer* layer);
+
+    static Engine::LayerStack* GetLayerStack();
+
 private:
+    static Application* m_App;
+
     Engine::Window *m_MainWindow;
 
     Engine::LayerStack m_LayerStack;

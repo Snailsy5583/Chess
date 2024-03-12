@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Piece.h"
+#include "Board/PromotionBoard.h"
 
 // Special Piece = any piece that is not a sliding piece
 
@@ -36,11 +37,15 @@ class EnPassantPiece;
 class Pawn : public Piece {
 public:
     Pawn(Color color, Position pos, float squareSize, Board *board);
-    // TODO: Queening
 
     void CalculateLegalMoves() override;
 
     bool Move(Position pos, bool overrideLegality) override;
+
+    Piece* Promote(std::unique_ptr<Piece> piece);
+
+    void Render() override;
+
 };
 
 /////////////// Fake Pieces /////////////////
