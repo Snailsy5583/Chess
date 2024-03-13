@@ -13,92 +13,92 @@
 #include "PromotionBoard.h"
 
 struct Square {
-    Position pos;
-    Engine::RendererObject obj;
-    std::unique_ptr<Piece> piece;
+	Position pos;
+	Engine::RendererObject obj;
+	std::unique_ptr<Piece> piece;
 };
 
 class Board;
 
 class BoardLayer : public Engine::Layer {
 public:
-    explicit BoardLayer(Board *boardPtr);
+	explicit BoardLayer(Board *boardPtr);
 
-    void OnAttach() override;
+	void OnAttach() override;
 
-    void OnDetach() override;
+	void OnDetach() override;
 
-    bool OnEvent(Engine::Event &e) override;
+	bool OnEvent(Engine::Event &e) override;
 
 private:
-    Board *m_BoardPtr;
+	Board *m_BoardPtr;
 };
 
 class Board {
 public:
-    Board(const char *vertShaderPath, const char *fragShaderPath);
+	Board(const char *vertShaderPath, const char *fragShaderPath);
 
-    ~Board()=default;
+	~Board() = default;
 
-    void ReadFen(std::string fen);
+	void ReadFen(std::string fen);
 
-    void GeneratePieces(std::string fen, int i, Position &currentPos);
+	void GeneratePieces(std::string fen, int i, Position &currentPos);
 
-    void RenderBoard();
+	void RenderBoard();
 
-    int CalculateAllLegalMoves();
+	int CalculateAllLegalMoves();
 
-    bool MakeMove(Piece *piece, Position from, Position to,
-                  bool overrideLegality = false);
-
-public:
-    bool HandleMouseDown(Engine::MouseButtonPressedEvent &e);
-
-    bool HandleMouseReleased(Engine::MouseButtonReleasedEvent &e);
-
-    bool HandleMouseMoved(Engine::MouseMovedEvent &e);
+	bool MakeMove(Piece *piece, Position from, Position to,
+	              bool overrideLegality = false);
 
 public:
-    bool IsSquareOccupied(Position pos) const;
+	bool HandleMouseDown(Engine::MouseButtonPressedEvent &e);
 
-    bool IsPieceCapturable(Position pos, Color color) const;
+	bool HandleMouseReleased(Engine::MouseButtonReleasedEvent &e);
 
-    bool IsInEnemyTerritory(Position pos, Color color);
-
-    Piece *GetPiece(Position pos) const;
-
-    // Careful -- uses std::move()
-    std::unique_ptr<Piece> GetFullPiecePtr(Position pos);
-
-    void SetPiece(Position pos, std::unique_ptr<Piece> piece);
-
-    void DeletePiece(Position pos);
-
-    std::unique_ptr<PromotionBoard> GetPromotionBoard();
-
-    void SetPromotionBoard(std::unique_ptr<PromotionBoard> board = nullptr);
+	bool HandleMouseMoved(Engine::MouseMovedEvent &e);
 
 public:
-    inline BoardLayer *GetBoardLayer() { return &m_Layer; }
+	bool IsSquareOccupied(Position pos) const;
 
-    inline Color GetTurn() { return m_Turn; }
+	bool IsPieceCapturable(Position pos, Color color) const;
+
+	bool IsInEnemyTerritory(Position pos, Color color);
+
+	Piece *GetPiece(Position pos) const;
+
+	// Careful -- uses std::move()
+	std::unique_ptr<Piece> GetFullPiecePtr(Position pos);
+
+	void SetPiece(Position pos, std::unique_ptr<Piece> piece);
+
+	void DeletePiece(Position pos);
+
+	std::unique_ptr<PromotionBoard> GetPromotionBoard();
+
+	void SetPromotionBoard(std::unique_ptr<PromotionBoard> board = nullptr);
+
+public:
+	inline BoardLayer *GetBoardLayer() { return &m_Layer; }
+
+	inline Color GetTurn() { return m_Turn; }
 
 private:
-    BoardLayer m_Layer;
+	BoardLayer m_Layer;
 
-    Engine::RendererObject m_ShadowObj;
+	Engine::RendererObject m_ShadowObj;
 
-    std::unique_ptr<PromotionBoard> m_PromotionBoard = nullptr;
+	std::unique_ptr<PromotionBoard> m_PromotionBoard = nullptr;
 
-    float m_SquareSize;
-    Square m_Board[64];
+	float m_SquareSize;
+	Square m_Board[64];
 
-    Position m_ActivatedSquare;
-    Color m_Turn;
+	Position m_ActivatedSquare;
+	Color m_Turn;
 
-    Position m_WhiteKingPos, m_BlackKingPos;
+	Position m_WhiteKingPos, m_BlackKingPos;
 
-    std::set<Position> m_WhiteControlledSquares, m_BlackControlledSquares;
+	std::set<Position> m_WhiteControlledSquares, m_BlackControlledSquares;
 
-    friend class PromotionBoard;
+	friend class PromotionBoard;
 };

@@ -33,7 +33,7 @@ Application::Application(unsigned int width, unsigned int height,
     std::string castling_test = "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1";
     std::string promotion_test = "8/PPPPPPPP/8/K6k/8/8/pppppppp/8 w KQkq - 0 1";
 
-    m_ChessBoard->ReadFen(promotion_test);
+    m_ChessBoard->ReadFen(starting);
 }
 
 Application::~Application() {

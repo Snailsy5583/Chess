@@ -11,35 +11,35 @@
 namespace Engine {
 
 
-    class Window {
-    public:
-        Window(unsigned int width, unsigned int height, const char *title,
-               std::function<void(Event &)> func);
+	class Window {
+	public:
+		Window(unsigned int width, unsigned int height, const char *title,
+		       std::function<void(Event &)> func);
 
-        ~Window();
+		~Window();
 
-        void SetWindowCallbacks();
+		void SetWindowCallbacks();
 
-        void Update();
+		void Update();
 
-        GLFWwindow *GetWindow();
+		GLFWwindow *GetWindow();
 
-        bool OnEvent_WindowClosed(WindowClosedEvent &e);
+		bool OnEvent_WindowClosed(WindowClosedEvent &e);
 
-        bool OnEvent_WindowResize(WindowResizedEvent &e);
+		bool OnEvent_WindowResize(WindowResizedEvent &e);
 
-        inline bool GetShouldCloseWindow() const { return m_ShouldCloseWindow; }
+		inline bool GetShouldCloseWindow() const { return m_ShouldCloseWindow; }
 
-        std::function<void(Event &)> m_OnEventFunc;
+		std::function<void(Event &)> m_OnEventFunc;
 
-    private:
-        GLFWwindow *m_Window;
+	private:
+		GLFWwindow *m_Window;
 
-        unsigned int m_WindowWidth, m_WindowHeight;
-        const char *m_WindowTitle;
+		unsigned int m_WindowWidth, m_WindowHeight;
+		const char *m_WindowTitle;
 
-        bool m_ShouldCloseWindow;
-    };
+		bool m_ShouldCloseWindow;
+	};
 
 
 }
