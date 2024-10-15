@@ -35,6 +35,8 @@ private:
 };
 
 class Board {
+	friend class PromotionBoard;
+
 public:
 	Board(const char *vertShaderPath, const char *fragShaderPath);
 
@@ -67,16 +69,12 @@ public:
 
 	Piece *GetPiece(Position pos) const;
 
-	// Careful -- uses std::move()
+	// Gives away ownership
 	std::unique_ptr<Piece> GetFullPiecePtr(Position pos);
 
 	void SetPiece(Position pos, std::unique_ptr<Piece> piece);
 
 	void DeletePiece(Position pos);
-
-	std::unique_ptr<PromotionBoard> GetPromotionBoard();
-
-	void SetPromotionBoard(std::unique_ptr<PromotionBoard> board = nullptr);
 
 public:
 	inline BoardLayer *GetBoardLayer() { return &m_Layer; }
@@ -88,17 +86,18 @@ private:
 
 	Engine::RendererObject m_ShadowObj;
 
-	std::unique_ptr<PromotionBoard> m_PromotionBoard = nullptr;
-
 	float m_SquareSize;
 	Square m_Board[64];
 
 	Position m_ActivatedSquare;
 	Color m_Turn;
 
-	Position m_WhiteKingPos, m_BlackKingPos;
+	std::set<Position> m_ControlledSquares[2]{};
 
-	std::set<Position> m_WhiteControlledSquares, m_BlackControlledSquares;
+public:
+	std::unique_ptr<PromotionBoard> p_PromotionBoard = nullptr;
 
-	friend class PromotionBoard;
+	Position p_PinnedPiecePos[2]{};
+
+	Position p_KingPos[2]{};
 };

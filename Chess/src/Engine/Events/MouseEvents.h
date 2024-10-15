@@ -5,7 +5,7 @@
 namespace Engine {
 	class MouseButtonEvent : public Event {
 	public:
-		void GetMousePosition(float &outX, float &outY) {
+		void GetMousePosition(float &outX, float &outY) const {
 			outX = m_MousePosX;
 			outY = m_MousePosY;
 		}
@@ -29,7 +29,7 @@ namespace Engine {
 		EventType
 		GetEventType() const override { return MouseButtonPressedEvent::GetStaticType(); }
 
-		virtual const char *GetName() const { return "MouseButtonPressed"; }
+		const char *GetName() const override { return "MouseButtonPressed"; }
 	};
 
 	class MouseButtonReleasedEvent : public MouseButtonEvent {
@@ -43,7 +43,7 @@ namespace Engine {
 		EventType
 		GetEventType() const override { return MouseButtonReleasedEvent::GetStaticType(); }
 
-		virtual const char *GetName() const { return "MouseButtonReleased"; }
+		const char *GetName() const override { return "MouseButtonReleased"; }
 	};
 
 	class MouseMovedEvent : public Event {
@@ -56,9 +56,9 @@ namespace Engine {
 		EventType
 		GetEventType() const override { return MouseMovedEvent::GetStaticType(); }
 
-		virtual const char *GetName() const { return "MouseMoved"; }
+		const char *GetName() const override { return "MouseMoved"; }
 
-		void GetMousePosition(float &outX, float &outY) {
+		void GetMousePosition(float &outX, float &outY) const {
 			outX = m_MousePosX;
 			outY = m_MousePosY;
 		}

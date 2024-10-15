@@ -8,10 +8,10 @@ namespace Engine {
 
 
 	struct RendererObject {
-		float position[3];
-		unsigned int vao;
-		unsigned int vbo;
-		unsigned int bufferSize;
+		float position[3]{0,0,0};
+		unsigned int vao = -1;
+		unsigned int vbo = -1;
+		unsigned int bufferSize = -1;
 		Shader shader;
 	};
 
@@ -21,7 +21,7 @@ namespace Engine {
 		GenObject(const float pos[3], int size, const float *Vertices,
 		          const char *vertShaderPath, const char *fragShaderPath);
 
-		static RendererObject GenQuad(const float pos[3], const float sideLen,
+		static RendererObject GenQuad(const float pos[3], float sideLen,
 		                              const char *vertShaderPath,
 		                              const char *fragShaderPath);
 
@@ -30,7 +30,7 @@ namespace Engine {
 
 		static void DeleteQuad(RendererObject &object);
 
-		static void SubmitObject(RendererObject obj);
+		static void SubmitObject(const RendererObject& obj);
 
 	private:
 		const static float m_QuadVerts[];

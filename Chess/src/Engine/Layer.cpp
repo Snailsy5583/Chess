@@ -8,7 +8,7 @@ namespace Engine {
 	LayerStack::LayerStack() = default;
 
 	void LayerStack::Push(Layer *layer) {
-		m_LayerStack.push_front(std::move(layer));
+		m_LayerStack.push_front(layer);
 		m_LayerStack.front()->OnAttach();
 	}
 
@@ -23,9 +23,8 @@ namespace Engine {
 	}
 
 	void LayerStack::Remove(int index) {
-		std::remove(
-				m_LayerStack.begin(), m_LayerStack.end(), m_LayerStack.at
-						                                                      (index));
+		std::remove(m_LayerStack.begin(), m_LayerStack.end(),
+					m_LayerStack.at(index));
 	}
 
 	void LayerStack::OnEvent(Event &e) {

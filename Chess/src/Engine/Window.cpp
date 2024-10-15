@@ -15,7 +15,7 @@ namespace Engine {
 		m_ShouldCloseWindow = false;
 
 		m_Window = glfwCreateWindow(
-				m_WindowWidth, m_WindowHeight,
+				(int) m_WindowWidth, (int) m_WindowHeight,
 				m_WindowTitle, nullptr, nullptr
 		);
 		glfwMakeContextCurrent(m_Window);
@@ -70,14 +70,15 @@ namespace Engine {
 
 					if (action == GLFW_PRESS) {
 						MouseButtonPressedEvent e(
-								button, mouseX * 2 / width - 1,
-								-mouseY * 2 / height + 1
+								button, (float)mouseX * 2 / (float)width - 1,
+								-(float)mouseY * 2 / (float)height + 1
 						);
 						win.m_OnEventFunc(e);
 					} else if (action == GLFW_RELEASE) {
 						MouseButtonReleasedEvent e(
-								button, mouseX * 2 / width - 1,
-								-mouseY * 2 / height + 1
+								button,
+								 (float)mouseX * 2 / (float)width - 1,
+								-(float)mouseY * 2 / (float)height + 1
 						);
 						win.m_OnEventFunc(e);
 					}
@@ -92,7 +93,8 @@ namespace Engine {
 					int width, height;
 					glfwGetWindowSize(window, &width, &height);
 
-					MouseMovedEvent e(mouseX * 2 / width - 1, -mouseY * 2 / height + 1);
+					MouseMovedEvent e( (float)mouseX * 2 / (float)width  - 1,
+									  -(float)mouseY * 2 / (float)height + 1);
 					win.m_OnEventFunc(e);
 				}
 		);
@@ -113,8 +115,6 @@ namespace Engine {
 	bool Window::OnEvent_WindowResize(WindowResizedEvent &e) {
 		m_WindowWidth = e.GetWidth();
 		m_WindowHeight = e.GetHeight();
-		std::cout << "Event: Window Resized (" << m_WindowWidth << ", "
-		          << m_WindowHeight << ")" << std::endl;
 		return true;
 	}
 

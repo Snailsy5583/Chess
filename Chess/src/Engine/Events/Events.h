@@ -30,7 +30,7 @@ namespace Engine {
 		template<typename T>
 		using EventFunc = std::function<bool(T &)>;
 	public:
-		EventDispatcher(Event &event)
+		explicit EventDispatcher(Event &event)
 				: m_Event(event) {}
 
 		template<typename T>

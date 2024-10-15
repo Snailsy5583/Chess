@@ -1,25 +1,23 @@
 #include "Application.h"
-#include "Engine/Events/MouseEvents.h"
 #include "Engine/Events/WindowEvents.h"
 
 #include <fstream>
 
-#define BIND_EVENT_FUNC(x, obj) std::bind(&x, obj, std::placeholders::_1)
+#define BIND_EVENT_FUNC(func, obj) std::bind(&func, obj, std::placeholders::_1)
 
 Application* Application::m_App = nullptr;
 
-Application::Application(unsigned int width, unsigned int height,
-                         const char *title) {
+Application::Application(unsigned int width, unsigned int height, const char *title)
+	: m_DeltaTime(0) {
     m_App = this;
 
-    m_DeltaTime = 0;
     if (!glfwInit())
         std::cout << "GLFW INIT FAILED\n";
 
-    m_MainWindow = new Engine::Window(
-        width, height, title,BIND_EVENT_FUNC(Application::OnEvent, this));
-//    m_MainWindow = std::make_unique<Engine::Window>(
-//     width, height, title, BIND_EVENT_FUNC(Application::OnEvent, this));
+//    m_MainWindow = new Engine::Window(
+//        width, height, title, BIND_EVENT_FUNC(Application::OnEvent, this));
+    m_MainWindow = std::make_unique<Engine::Window>(
+     width, height, title, BIND_EVENT_FUNC(Application::OnEvent, this));
 
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
         std::cout << "Failed to initialize GLAD\n";
@@ -51,7 +49,7 @@ void Application::Run() {
 
         m_MainWindow->Update();
 
-        m_DeltaTime = std::chrono::duration_cast<std::chrono::microseconds>(
+        m_DeltaTime = (float)std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::steady_clock::now() - m_LastFrame).count() / 1000000.f;
 
         m_LastFrame = std::chrono::steady_clock::now();
@@ -62,9 +60,9 @@ void Application::OnEvent(Engine::Event &e) {
     Engine::EventDispatcher dispatcher(e);
 
     dispatcher.Dispatch<Engine::WindowClosedEvent>(
-        BIND_EVENT_FUNC(Engine::Window::OnEvent_WindowClosed, m_MainWindow));
+        BIND_EVENT_FUNC(Engine::Window::OnEvent_WindowClosed, m_MainWindow.get()));
     dispatcher.Dispatch<Engine::WindowResizedEvent>(
-        BIND_EVENT_FUNC(Engine::Window::OnEvent_WindowResize, m_MainWindow));
+        BIND_EVENT_FUNC(Engine::Window::OnEvent_WindowResize, m_MainWindow.get()));
 
     m_LayerStack.OnEvent(e);
 }

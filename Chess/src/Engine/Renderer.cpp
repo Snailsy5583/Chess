@@ -35,7 +35,7 @@ namespace Engine {
 
 		glVertexAttribPointer(
 				0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
-				(void *) 0
+				(void *) nullptr
 		);
 		glVertexAttribPointer(
 				1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
@@ -106,7 +106,7 @@ namespace Engine {
 
 		glVertexAttribPointer(
 				0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
-				(void *) 0
+				(void *) nullptr
 		);
 		glEnableVertexAttribArray(0);
 
@@ -122,12 +122,12 @@ namespace Engine {
 		obj.shader.Destroy();
 	}
 
-	void Renderer::SubmitObject(RendererObject obj) {
+	void Renderer::SubmitObject(const RendererObject& obj) {
 		glBindVertexArray(obj.vao);
 		glBindBuffer(GL_ARRAY_BUFFER, obj.vbo);
 		obj.shader.Bind();
 
-		glDrawArrays(GL_TRIANGLES, 0, obj.bufferSize);
+		glDrawArrays(GL_TRIANGLES, 0, (GLsizei) obj.bufferSize);
 
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

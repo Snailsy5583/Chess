@@ -1,6 +1,3 @@
-//
-// Created by r6awe on 2/29/2024.
-//
 #pragma once
 
 //#include "Board.h"

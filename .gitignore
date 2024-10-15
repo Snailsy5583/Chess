@@ -377,4 +377,7 @@ out
 .64
 cmake-build-debug
 cmake-build-debug-event-trace
+cmake-build-dist
+cmake-build-release
+cmake-build-release-event-trace
 bin

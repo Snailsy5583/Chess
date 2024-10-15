@@ -9,8 +9,8 @@ namespace Engine {
 
 	class Shader {
 	public:
-		Shader(const char *vertShaderSource = NULL,
-		       const char *fragShaderSource = NULL);
+		explicit Shader(const char *vertShaderSource = nullptr,
+		                const char *fragShaderSource = nullptr);
 
 		static Shader Compile(const char *vertPath, const char *fragPath);
 
@@ -20,7 +20,7 @@ namespace Engine {
 
 		void SetUniform(int loc, float value) const;
 
-		void SetUniformVec(int loc, int size, float value[]) const;
+		void SetUniformVec(int loc, int size, const float value[]) const;
 
 		void SetUniformMat(int loc, int size, float **value) const;
 
@@ -49,7 +49,7 @@ namespace Engine {
 
 	class Texture {
 	public:
-		Texture(const char *path);
+		explicit Texture(const char *path);
 
 		void Bind() const;
 
@@ -58,7 +58,7 @@ namespace Engine {
 		void Destroy();
 
 	private:
-		unsigned int m_TextureID;
+		unsigned int m_TextureID{};
 	};
 
 }

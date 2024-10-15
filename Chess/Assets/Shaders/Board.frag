@@ -1,7 +1,7 @@
 #version 330 core
 
 uniform vec4 tint = vec4(1,1,1,0);
-uniform float mix = 0;
+uniform float tint_mix = 0;
 
 uniform bool isWhite;
 
@@ -19,5 +19,5 @@ void main()
 
 	gl_FragColor /= 255.f;
 
-	gl_FragColor = mix(gl_FragColor, vec4(tint.r, tint.g, tint.b, tint.a), mix);
+	gl_FragColor = mix(gl_FragColor, vec4(tint.r, tint.g, tint.b, tint.a), tint_mix);
 }

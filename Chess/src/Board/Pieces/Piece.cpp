@@ -9,8 +9,8 @@ Piece::Piece(Color color, Position pos, float squareSize, const char *pieceName,
 	m_TexturePath.append((color == White ? "W_" : "B_"));
 	m_TexturePath.append(pieceName);
 	m_TexturePath.append(".png");
-	float viewPos[3] = {(-1 + squareSize / 2) + (pos.file * squareSize),
-	                    (-1 + squareSize / 2) + (pos.rank * squareSize), 1};
+	float viewPos[3] = {(-1 + squareSize / 2) + ((float) pos.file * squareSize),
+	                    (-1 + squareSize / 2) + ((float) pos.rank * squareSize), 1};
 
 	m_PinnedDirection = {0, 0};
 
@@ -30,25 +30,23 @@ Piece::~Piece() {
 }
 
 bool Piece::Move(Position pos, bool overrideLegality/*=false*/) {
-	if (m_IsVirgin)
-		m_IsVirgin = false;
-
 	bool legal = overrideLegality;
 
-	if (!legal) {
-		for (
-			const Position &legalMove: m_LegalMoves
-				) {
+	if (!legal) { // if legality was not overridden
+		for (const Position &legalMove: m_LegalMoves) {
 			if (legalMove == pos)
 				legal = true;
 		}
 	}
 
 	if (legal) {
+		if (m_IsVirgin)
+			m_IsVirgin = false;
+
 		m_Position = pos;
 
-		float viewPos[3] = {(-1 + m_SquareSize / 2) + (pos.file * m_SquareSize),
-		                    (-1 + m_SquareSize / 2) + (pos.rank * m_SquareSize),
+		float viewPos[3] = {(-1 + m_SquareSize / 2) + ((float)pos.file * m_SquareSize),
+		                    (-1 + m_SquareSize / 2) + ((float)pos.rank * m_SquareSize),
 		                    0};
 		Engine::Renderer::MoveQuad(
 				m_Object, viewPos,

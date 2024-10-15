@@ -6,7 +6,6 @@
 #include "Pieces/SpecialPieces.h"
 
 #include <string>
-#include <iostream>
 
 Board::Board(const char *vertShaderPath, const char *fragShaderPath)
 		: m_Layer(this) {
@@ -14,9 +13,7 @@ Board::Board(const char *vertShaderPath, const char *fragShaderPath)
 	m_ActivatedSquare = {-1, -1};
 	m_SquareSize = 2.f / 8.f;
 
-	for (
-			int i = 0; i < 64; i++
-			) {
+	for (int i = 0; i < 64; i++) {
 		Square &square = m_Board[i];
 
 		square.pos = {i % 8, i / 8};
@@ -45,9 +42,7 @@ Board::Board(const char *vertShaderPath, const char *fragShaderPath)
 
 	m_ShadowObj.shader.SetUniformVec(
 			m_ShadowObj.shader.GetUniformLocation("tint"),
-			4,
-			tint_color
-	);
+			4, tint_color);
 	m_ShadowObj.shader.SetUniform
 			(m_ShadowObj.shader.GetUniformLocation("tint_mix"), 1.f);
 }
@@ -65,9 +60,7 @@ void Board::ReadFen(std::string fen) {
 	King *king;
 	bool k, q;
 
-	for (
-			int i = 0; i < fen.length(); i++
-			) {
+	for (int i = 0; i < fen.length(); i++) {
 		if (fen[i] == ' ') {
 			phase = (Phase) (phase + 1);
 			currentPos = {-1, -1};
@@ -81,10 +74,11 @@ void Board::ReadFen(std::string fen) {
 			break;
 		case CheckCastling:
 			king = dynamic_cast<King *>(GetPiece(
-					(std::isupper(fen[i]) ? m_WhiteKingPos : m_BlackKingPos)));
+					(std::isupper(fen[i]) ? p_KingPos[White] : p_KingPos[Black])));
 			k = (fen[i] == (std::isupper(fen[i]) ? 'K' : 'k'));
-			q = (fen[++i] == (std::isupper(fen[i]) ? 'Q' : 'q'));
+			q = (fen[i+1] == (std::isupper(fen[i+1]) ? 'Q' : 'q'));
 			king->SetCastling(k, q);
+			i++;
 			break;
 		case CheckEnPassant:
 			if (currentPos.file < 0)
@@ -125,9 +119,11 @@ void Board::GeneratePieces(std::string fen, int i, Position &currentPos) {
 		switch (std::tolower(fen[i])) {
 		case 'k':SetPiece(currentPos, std::make_unique<King>(color, currentPos, m_SquareSize, this));
 			if (color)
-				m_WhiteKingPos = currentPos;
+				p_KingPos[White] = currentPos;
 			else
-				m_BlackKingPos = currentPos;
+				p_KingPos[Black] = currentPos;
+
+			(color ? p_KingPos[White] : p_KingPos[Black]) = currentPos; // set king pos
 			break;
 		case 'q':
 			SetPiece(
@@ -173,7 +169,7 @@ void Board::GeneratePieces(std::string fen, int i, Position &currentPos) {
 	}
 }
 
-//#define SHOW_CONTROLLED_SQUARES
+#define SHOW_CONTROLLED_SQUARES
 
 void Board::RenderBoard() {
 	// Instantiate a legal move which is then rendered multiple times in
@@ -183,15 +179,13 @@ void Board::RenderBoard() {
 			{0, 0}
 	);
 
-	for (
-		Square &square: m_Board
-			) {
+	for (Square &square: m_Board) {
 // Highlight controlled squares
 #ifdef SHOW_CONTROLLED_SQUARES
-		bool controlledByWhite = m_WhiteControlledSquares.find(square.pos) !=
-								 m_WhiteControlledSquares.end();
-		bool controlledByBlack = m_BlackControlledSquares.find(square.pos) !=
-								 m_BlackControlledSquares.end();
+		bool controlledByWhite = m_ControlledSquares[White].find(square.pos) !=
+								 m_ControlledSquares[White].end();
+		bool controlledByBlack = m_ControlledSquares[Black].find(square.pos) !=
+								 m_ControlledSquares[Black].end();
 		if (controlledByWhite) {
 			float tint[4] = {0.75f, 0.5f, 0.5f, 1};
 			square.obj.shader.SetUniformVec(
@@ -228,9 +222,7 @@ void Board::RenderBoard() {
 	// If a piece is activated display its legal moves
 	if (m_ActivatedSquare.file != -1) {
 		for (
-			const Position &legalMove: GetPiece(
-				m_ActivatedSquare
-		)->GetLegalMoves()) {
+			const Position &legalMove: GetPiece(m_ActivatedSquare)->GetLegalMoves()) {
 			legalMoveSpriteInst.SetPosition(legalMove);
 			legalMoveSpriteInst.Render();
 		}
@@ -240,94 +232,73 @@ void Board::RenderBoard() {
 		GetPiece(m_ActivatedSquare)->Render();
 	}
 
-	if (m_PromotionBoard) {
+	if (p_PromotionBoard) {
 		Engine::Renderer::SubmitObject(m_ShadowObj);
-		m_PromotionBoard->RenderBoard();
+		p_PromotionBoard->RenderBoard();
 	}
 }
 
 int Board::CalculateAllLegalMoves() {
-	m_WhiteControlledSquares.clear();
-	m_BlackControlledSquares.clear();
+	// reset piece states
+//	if (m_Turn == Color::White)
+		m_ControlledSquares[White].clear();
+//	else
+		m_ControlledSquares[Black].clear();
 
-	for (
-		auto &square: m_Board
-			) {
-		if (square.piece) {
+	for (auto &square: m_Board)
+		if (square.piece)
 			square.piece->UnPin();
-		}
-	}
 
-	King *kings[2] = {dynamic_cast<King *>(GetPiece(m_WhiteKingPos)),
-	                  dynamic_cast<King *>(GetPiece(m_BlackKingPos))};
+	King *kings[2] = {dynamic_cast<King *>(GetPiece(p_KingPos[White])),
+	                  dynamic_cast<King *>(GetPiece(p_KingPos[Black]))};
 
 	int numOfMoves = 0;
-	for (
-		auto &square: m_Board
-			) {
+	for (auto &square: m_Board) {
 		if (!square.piece)
 			continue;
 
 		square.piece->CalculateLegalMoves();
 
-//        if (square.piece->GetPieceName() == "king") {
-//            if (!kings[0])
-//                kings[0] = dynamic_cast<King *>(square.piece.get());
-//            else
-//                kings[1] = dynamic_cast<King *>(square.piece.get());
-//            continue;
-//        }
-
-//        if (!square.piece) // i forgot why i did this (it seems to work without it)
-//            continue;
+		// this is bc of the en_passant piece getting deleted when calculating
+        if (!square.piece)
+            continue;
 
 		if (square.piece->GetColor() == m_Turn)
 			numOfMoves += (int) square.piece->GetLegalMoves().size();
 
-		for (
-			Position pos: square.piece->GetControlledSquares()) {
+		for (Position pos : square.piece->GetControlledSquares()) {
 			if (square.piece->GetColor())
-				m_WhiteControlledSquares.insert(pos);
+				m_ControlledSquares[White].insert(pos);
 			else
-				m_BlackControlledSquares.insert(pos);
-		}
-	}
-
-	// Calculate both kings' controlled squares
-	for (
-		King *king: kings
-			) {
-		king->CalculateLegalMoves();
-
-		// Add controlled positions to the set
-		for (
-			Position pos: king->GetControlledSquares()) {
-			if (king->GetColor())
-				m_WhiteControlledSquares.insert(pos);
-			else
-				m_BlackControlledSquares.insert(pos);
+				m_ControlledSquares[Black].insert(pos);
 		}
 	}
 
 	// Calculate King legal moves again so that they can't walk into each other
-	for (
-		King *king: kings
-			) {
+	for (King *king: kings) {
 		if (king)
 			king->CalculateLegalMoves();
 
-		// check if king is in check
-		if (IsInEnemyTerritory(king->GetPosition(), king->GetColor())) {
+		SlidingPiece* checker;
+		if (king->IsInCheck(checker)) {
 			// remove all legal moves
-			for (
-				auto &square: m_Board
-					) {
+			for (auto &square: m_Board) {
 				if (!square.piece || square.piece->GetPieceName() == "king")
 					continue;
+
+				// TODO: check if the move can block the check
+				// TODO: check if the move can kill the checker
 
 				square.piece->ClearLegalMoves();
 			}
 		}
+	}
+
+	for (auto piecePos : p_PinnedPiecePos) {
+		auto piece = GetPiece(piecePos);
+
+		if (piece)
+			piece->CalculateLegalMoves();
 	}
 
 	return numOfMoves;
@@ -353,6 +324,9 @@ bool Board::MakeMove(Piece *piece, Position from, Position to,
 
 		}
 
+		if (piece->GetPieceName() == "king")
+			(piece->GetColor() ? p_KingPos[White] : p_KingPos[Black]) = to;
+
 		// move piece
 		SetPiece(to, GetFullPiecePtr(from));
 
@@ -375,12 +349,11 @@ bool Board::HandleMouseDown(Engine::MouseButtonPressedEvent &e) {
 	float mouseX, mouseY;
 	e.GetMousePosition(mouseX, mouseY);
 
-	Position squarePos = {static_cast<int>((1 + mouseX) / m_SquareSize),
-	                      static_cast<int>((1 + mouseY) / m_SquareSize)};
+	Position squarePos = {(int) ((1 + mouseX) / m_SquareSize),
+	                      (int) ((1 + mouseY) / m_SquareSize)};
 
 
-	if (m_ActivatedSquare !=
-	    invalid) { // if a piece is already activated, move to the new square (if possible)
+	if (m_ActivatedSquare != invalid) { // if a piece is already activated, move to the new square (if possible)
 		if (!MakeMove(
 				GetPiece(m_ActivatedSquare), m_ActivatedSquare,
 				squarePos
@@ -402,17 +375,14 @@ bool Board::HandleMouseDown(Engine::MouseButtonPressedEvent &e) {
 		}
 
 		m_ActivatedSquare = invalid;
-
-		return true;
 	} else { // if a piece is not already selected, then select the piece under the mouse
-		if (!GetPiece(squarePos))
-			return true;
-		else if (GetPiece(squarePos)->GetColor() != m_Turn)
-			return true;
+		if (!GetPiece(squarePos) || GetPiece(squarePos)->GetColor() != m_Turn)
+			return false;
 
 		m_ActivatedSquare = squarePos;
-		return true;
 	}
+
+	return true;
 }
 
 bool Board::HandleMouseReleased(Engine::MouseButtonReleasedEvent &e) {
@@ -504,15 +474,17 @@ bool Board::IsPieceCapturable(Position pos, Color color) const {
 
 bool Board::IsInEnemyTerritory(Position pos, Color color) {
 	if (color) {
-		return (m_BlackControlledSquares.find(pos) !=
-		        m_BlackControlledSquares.end());
+		return (m_ControlledSquares[Black].find(pos) !=
+		        m_ControlledSquares[Black].end());
 	} else {
-		return (m_WhiteControlledSquares.find(pos) !=
-		        m_WhiteControlledSquares.end());
+		return (m_ControlledSquares[White].find(pos) !=
+		        m_ControlledSquares[White].end());
 	}
 }
 
 Piece *Board::GetPiece(Position pos) const {
+	if (!pos.IsValid())
+		return nullptr;
 	return m_Board[pos.ToIndex()].piece.get();
 }
 
@@ -526,14 +498,6 @@ void Board::SetPiece(Position pos, std::unique_ptr<Piece> piece) {
 
 void Board::DeletePiece(Position pos) {
 	m_Board[pos.ToIndex()].piece.reset();
-}
-
-std::unique_ptr<PromotionBoard> Board::GetPromotionBoard() {
-	return std::move(m_PromotionBoard);
-}
-
-void Board::SetPromotionBoard(std::unique_ptr<PromotionBoard> board) {
-	m_PromotionBoard = std::move(board);
 }
 
 /////////////////////////////////// BoardLayer /////////////////////////////////

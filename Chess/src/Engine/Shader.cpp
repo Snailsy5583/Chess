@@ -41,7 +41,7 @@ namespace Engine {
 		);
 		if (!success) {
 			std::vector<char> errorLog(512);
-			glGetProgramInfoLog(m_ShaderProgramID, 512, NULL, &errorLog[0]);
+			glGetProgramInfoLog(m_ShaderProgramID, 512, nullptr, &errorLog[0]);
 
 			std::stringstream logStream;
 			for (
@@ -86,7 +86,7 @@ namespace Engine {
 		UnBind();
 	}
 
-	void Shader::SetUniformVec(int loc, int size, float value[]) const {
+	void Shader::SetUniformVec(int loc, int size, const float value[]) const {
 		Bind();
 
 		switch (size) {
@@ -99,6 +99,7 @@ namespace Engine {
 					loc, *(value), *(value + 1), *(value + 2),
 					*(value + 3));
 			break;
+		default: break;
 		}
 
 		UnBind();
@@ -132,9 +133,7 @@ namespace Engine {
 	}
 
 	void Shader::UnBind() const {
-		for (
-			const Texture &tex: m_Textures
-				) {
+		for (const Texture &tex: m_Textures) {
 			tex.UnBind();
 		}
 		glUseProgram(0);
@@ -196,12 +195,10 @@ namespace Engine {
 
 			std::cout << logStream.str();
 
-			// Provide the infolog in whatever manor you deem best.
+			// Provide the info log in whatever manner you deem best.
 			// Exit with failure.
 			glDeleteShader(shader); // Don't leak the shader.
 		}
-
-// 		std::cout << isCompiled << std::endl;
 
 		return !isCompiled;
 	}

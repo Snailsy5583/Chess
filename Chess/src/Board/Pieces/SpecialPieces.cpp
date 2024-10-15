@@ -1,6 +1,5 @@
 #include "SpecialPieces.h"
 #include "Application.h"
-#include "Board/Board.h"
 #include "Board/PromotionBoard.h"
 
 #include <iostream>
@@ -57,31 +56,27 @@ void King::CalculateLegalMoves() {
 	CheckCastling(1);
 }
 
-bool King::IsInCheck(Piece *&piece) {
-	piece = nullptr;
+bool King::IsInCheck(SlidingPiece* &checker) {
+	checker = nullptr;
 	if (!m_OwnerBoard->IsInEnemyTerritory(m_Position, m_Color))
 		return false;
 
-	Piece *sus;
-	for (
-			int file = 0; file < 8; file++
-			) {
-		for (
-				int rank = 0; rank < 8; rank++
-				) {
-			sus = m_OwnerBoard->GetPiece({file, rank});
-			if (!sus || sus->GetColor() != m_OwnerBoard->GetTurn())
-				continue;
+	SlidingPiece* piece;
+	for (int i = 0; i < 64; i++) {
+		int file = i%8, rank = i/8;
 
-			if (sus->IsLegalMove(m_Position)) {
-				if (!piece)
-					piece = sus;
-				else {
-					// if there's multiple pieces, its not possible to
-					// kill one of the pieces to stop check
-					piece = nullptr;
-					return true;
-				}
+		piece = dynamic_cast<SlidingPiece*>(m_OwnerBoard->GetPiece({file, rank}));
+		if (!piece || piece->GetColor() == this->GetColor())
+			continue;
+
+		if (piece->IsLegalMove(m_Position)) {
+			if (!checker) {
+				checker = piece;
+			} else {
+				// if there's multiple pieces, it's not possible to
+				// kill one of the pieces to stop check
+				checker = nullptr;
+				return true;
 			}
 		}
 	}
@@ -112,12 +107,6 @@ bool King::CheckCastling(int direction) {
 	if (!areCastleSquaresOccupied && !areSquaresInCheck) {
 		Piece *piece = m_OwnerBoard->GetPiece(rookPos);
 
-		if (piece)
-			std::cout << piece->GetPieceName() << " " << piece->GetIsVirgin()
-			          << std::endl;
-		else
-			std::cout << "nothin there" << std::endl;
-
 		if (piece &&
 		    piece->GetPieceName() == "rook" &&
 		    piece->GetIsVirgin()) // if the piece is a rook that hasn't moved
@@ -138,10 +127,10 @@ bool King::Move(Position pos, bool overrideLegality/* =false */) {
 		if ((prev - pos).file > 1 ||
 		    (prev - pos).file < -1) // if king just castled
 		{
-			Position rookPos = pos;
-			if ((prev - pos).file < 0)
+			Position rookPos;
+			if ((prev - pos).file < 0)  // castle right side
 				rookPos = {7, (m_Color ? 0 : 7)};
-			else
+			else                        // castle left side
 				rookPos = {0, (m_Color ? 0 : 7)};
 
 
@@ -185,21 +174,17 @@ void Knight::CalculateLegalMoves() {
 	m_LegalMoves.clear();
 	m_ControlledSquares.clear();
 
-	for (
-		const Position &movePattern: m_MovePatterns
-			) {
+	for (const Position &movePattern: m_MovePatterns) {
 		if (m_PinnedDirection != Position({0, 0}))
-			continue;
+			break; // knight can't move when pinned
 
 		if (!(m_Position + movePattern).IsValid())
 			continue;
 
 		m_ControlledSquares.push_back(m_Position + movePattern);
 
-		if (!m_OwnerBoard->IsSquareOccupied(m_Position + movePattern))
-			m_LegalMoves.push_back(m_Position + movePattern);
-		else if (m_OwnerBoard->GetPiece(m_Position + movePattern)->GetColor() !=
-		         m_Color)
+		if (!m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) ||
+				m_OwnerBoard->GetPiece(m_Position + movePattern)->GetColor() != m_Color)
 			m_LegalMoves.push_back(m_Position + movePattern);
 	}
 }
@@ -240,16 +225,10 @@ void Pawn::CalculateLegalMoves() {
 					m_Position + m_MovePatterns[1]
 			)) {
 				m_LegalMoves.push_back(m_Position + m_MovePatterns[1]);
-			} else {
-				std::cout << m_Position.ToString() << " pawn double push "
-				                                      "position is "
-				                                      "occupied\n";
 			}
 		} else {
 			std::cout << m_Position.ToString() << " pawn is not a virgin\n";
 		}
-	} else {
-		std::cout << m_Position.ToString() << " pawn can't be pushed once\n";
 	}
 
 	// Check if pawn can capture
@@ -297,7 +276,7 @@ bool Pawn::Move(Position pos, bool overrideLegality) {
 					"Assets/Shaders/Board.frag"
 			);
 			Application::AddLayer(pb->GetBoardLayer());
-			m_OwnerBoard->SetPromotionBoard(std::move(pb));
+			m_OwnerBoard->p_PromotionBoard = std::move(pb);
 		}
 
 		// Do the En Passant things
@@ -355,7 +334,6 @@ void EnPassantPiece::DeleteOwningPawn() {
 void EnPassantPiece::CalculateLegalMoves() {
 	if (m_FirstMove) {
 		m_FirstMove = false;
-		std::cout << "first move\n";
 	} else
 		CancelEnPassantOffer();
 
@@ -387,9 +365,9 @@ LegalMoveSprite::LegalMoveSprite(float squareSize, float spriteSize,
 
 LegalMoveSprite::~LegalMoveSprite() { Engine::Renderer::DeleteQuad(m_Obj); }
 
-void LegalMoveSprite::SetPosition(Position pos) {
-	float viewPos[2] = {(-1 + m_SquareSize / 2) + (pos.file * m_SquareSize),
-	                    (-1 + m_SquareSize / 2) + (pos.rank * m_SquareSize)};
+void LegalMoveSprite::SetPosition(Position pos) const {
+	float viewPos[2] = {(-1 + m_SquareSize / 2) + ((float)pos.file * m_SquareSize),
+	                    (-1 + m_SquareSize / 2) + ((float)pos.rank * m_SquareSize)};
 	m_Obj.shader.SetUniformVec(
 			m_Obj.shader.GetUniformLocation("renderOffset"),
 			2, viewPos

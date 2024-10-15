@@ -1,7 +1,3 @@
-//
-// Created by r6awe on 2/29/2024.
-//
-
 #include "PromotionBoard.h"
 
 #include "Board.h"
@@ -15,15 +11,12 @@ PromotionBoard::PromotionBoard(Position position, Board *board, Color color,
 		: m_Layer(this), m_Board(board), m_Origin(position), m_Color(color),
 		  m_PromotionBoard(5) {
 	float squareSize = m_Board->m_SquareSize;
-	for (
-			int i = 0; i < 5; i++
-			) {
+	for (int i = 0; i < 5; i++) {
 		Square &square = m_PromotionBoard[i];
 
 		square.pos = {position.file, (
 				m_Color == Color::White ? 7 - i : i
 		)};
-		std::cout << square.pos.ToString() << std::endl;
 		float pos[3] = {
 				(-1 + squareSize / 2) + ((float) square.pos.file * squareSize),
 				(-1 + squareSize / 2) + ((float) square.pos.rank * squareSize),
@@ -104,9 +97,7 @@ PromotionBoard::PromotionBoard(Position position, Board *board, Color color,
 PromotionBoard::~PromotionBoard() = default;
 
 void PromotionBoard::RenderBoard() {
-	for (
-		Square &square: m_PromotionBoard
-			) {
+	for (Square &square: m_PromotionBoard) {
 		// Render every piece except for fake pieces
 		Engine::Renderer::SubmitObject(square.obj);
 
@@ -115,6 +106,7 @@ void PromotionBoard::RenderBoard() {
 	}
 }
 
+// always returns true because we don't want events passing through
 bool PromotionBoard::HandleMouseReleased(Engine::MouseButtonReleasedEvent &e) {
 	float mouseX, mouseY;
 	e.GetMousePosition(mouseX, mouseY);
@@ -125,16 +117,17 @@ bool PromotionBoard::HandleMouseReleased(Engine::MouseButtonReleasedEvent &e) {
 	// square that was clicked on
 	Square *chosenSquare = GetSquare(squarePos, true);
 
-	if (!chosenSquare)
-		return true;    // chosen square does not exist but we don't want the
+	// if chosen square does not exist we still don't want the
 	// board to be handling events
+	if (!chosenSquare)
+		return true;
 
 	Application::GetLayerStack()->PopFront();
 	dynamic_cast<Pawn *>(m_Board->GetPiece(m_Origin))->Promote(
 			std::move(chosenSquare->piece)
 	);
 
-	m_Board->GetPromotionBoard().reset(); // delete this;
+	m_Board->p_PromotionBoard.reset(); // delete this;
 
 	return true; // event was handled
 }
@@ -147,7 +140,9 @@ void PromotionBoard::SetPiece(Position pos, std::unique_ptr<Piece> piece) {
 Square *PromotionBoard::GetSquare(Position pos, bool ignore0/*=false*/) {
 	if (pos.file != m_Origin.file)
 		return nullptr;
+
 	int index = (m_Color == Color::White ? 7 - pos.rank : pos.rank);
+
 	if (index > 4 || index < (ignore0 ? 1 : 0))
 		return nullptr;
 

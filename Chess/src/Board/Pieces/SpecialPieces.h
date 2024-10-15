@@ -3,6 +3,7 @@
 
 #include "Piece.h"
 #include "Board/PromotionBoard.h"
+#include "SlidingPieces.h"
 
 // Special Piece = any piece that is not a sliding piece
 
@@ -17,7 +18,7 @@ public:
 
 	// returns the piece checking the king
 	// returns null if there are multiple pieces checking the king
-	bool IsInCheck(Piece *&piece);
+	bool IsInCheck(SlidingPiece *&checker);
 
 	bool Move(Position pos, bool overrideLegality) override;
 
@@ -84,7 +85,7 @@ public:
 
 	~LegalMoveSprite();
 
-	void SetPosition(Position pos);
+	void SetPosition(Position pos) const;
 
 	void Render() const;
 

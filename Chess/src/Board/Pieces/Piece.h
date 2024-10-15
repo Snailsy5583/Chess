@@ -114,10 +114,8 @@ public:
 	virtual inline void ClearLegalMoves() { m_LegalMoves.clear(); }
 
 	virtual bool IsLegalMove(Position pos) {
-		for (
-			Position &position: m_LegalMoves
-				)
-			if (pos == position) return true;
+		for (Position position : m_LegalMoves)
+			if (position == pos) return true;
 		return false;
 	}
 

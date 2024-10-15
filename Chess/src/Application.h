@@ -25,7 +25,7 @@ public:
 private:
     static Application* m_App;
 
-    Engine::Window *m_MainWindow;
+    std::unique_ptr<Engine::Window> m_MainWindow;
 
     Engine::LayerStack m_LayerStack;
 
