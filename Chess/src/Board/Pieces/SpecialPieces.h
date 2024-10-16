@@ -18,7 +18,9 @@ public:
 
 	// returns the piece checking the king
 	// returns null if there are multiple pieces checking the king
-	bool IsInCheck(SlidingPiece *&checker);
+	bool IsInCheck(Piece* &checker);
+
+	bool DoesMoveBlockCheck(Position move, Piece* checker);
 
 	bool Move(Position pos, bool overrideLegality) override;
 

@@ -28,26 +28,17 @@ void King::CalculateLegalMoves() {
 	m_LegalMoves.clear();
 	m_ControlledSquares.clear();
 
-	for (
-		const Position &movePattern: m_MovePatterns
-			) {
-		// king actually cannot be pinned to anything
-
+	for (const Position &movePattern: m_MovePatterns) {
 		if (!(m_Position + movePattern).IsValid())
 			continue;
 
-		if (
-				(
-						!m_OwnerBoard->IsSquareOccupied(m_Position + movePattern)
-						|| m_OwnerBoard->IsPieceCapturable(
-								m_Position + movePattern,
-								m_Color
-						)
-				)
-				&&
-				!m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern, m_Color)
-				)
+		if ((!m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) ||
+			  m_OwnerBoard->IsPieceCapturable(m_Position + movePattern,m_Color))
+			&&
+			 !m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern, m_Color)
+		) {
 			m_LegalMoves.push_back(m_Position + movePattern);
+		}
 
 		m_ControlledSquares.push_back(m_Position + movePattern);
 	}
@@ -56,17 +47,17 @@ void King::CalculateLegalMoves() {
 	CheckCastling(1);
 }
 
-bool King::IsInCheck(SlidingPiece* &checker) {
+bool King::IsInCheck(Piece* &checker) {
 	checker = nullptr;
 	if (!m_OwnerBoard->IsInEnemyTerritory(m_Position, m_Color))
 		return false;
 
-	SlidingPiece* piece;
+	Piece* piece;
 	for (int i = 0; i < 64; i++) {
 		int file = i%8, rank = i/8;
 
-		piece = dynamic_cast<SlidingPiece*>(m_OwnerBoard->GetPiece({file, rank}));
-		if (!piece || piece->GetColor() == this->GetColor())
+		piece = m_OwnerBoard->GetPiece({file, rank});
+		if (!piece || piece->GetColor() == m_Color)
 			continue;
 
 		if (piece->IsLegalMove(m_Position)) {
@@ -88,36 +79,47 @@ bool King::CheckCastling(int direction) {
 	if (!m_IsVirgin) // if piece already moved
 		return false;
 
-	// Can't Castle King Side
-	if (direction > 0 && !m_CanCastleK)
-		return false;
-	// Can't Castle Queen Side
-	if (direction < 0 && !m_CanCastleQ)
+	bool kingSide  = (direction > 0);
+	bool queenSide = (direction < 0);
+
+	if ((kingSide  && !m_CanCastleK) || (queenSide && !m_CanCastleQ))
 		return false;
 
-	Position movePattern = Position({direction, 0});
-	Position rookPos{(direction < 0 ? 0 : 7), (m_Color ? 0 : 7)};
+	Position movePattern { direction             , 0};
+	Position rookPos     {(direction < 0 ? 0 : 7), (m_Color ? 0 : 7)};
 
 	bool areCastleSquaresOccupied =
-			m_OwnerBoard->IsSquareOccupied(m_Position + movePattern) ||
-			m_OwnerBoard->IsSquareOccupied(m_Position + (movePattern * 2));
+			m_OwnerBoard->IsSquareOccupied(m_Position   + movePattern)   ||
+			m_OwnerBoard->IsSquareOccupied(m_Position   + movePattern*2) || (queenSide &&
+			m_OwnerBoard->IsSquareOccupied(m_Position   + movePattern*3) );
 	bool areSquaresInCheck =
-			m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern, m_Color) ||
-			m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern * 2, m_Color);
+			m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern,   m_Color) ||
+			m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern*2, m_Color) || (queenSide &&
+			m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern*3, m_Color));
+
 	if (!areCastleSquaresOccupied && !areSquaresInCheck) {
 		Piece *piece = m_OwnerBoard->GetPiece(rookPos);
 
-		if (piece &&
-		    piece->GetPieceName() == "rook" &&
-		    piece->GetIsVirgin()) // if the piece is a rook that hasn't moved
+		if (piece && piece->GetPieceName() == "rook" && piece->GetIsVirgin())
 		{
-			// The king is able to castle
 			m_LegalMoves.push_back(m_Position + movePattern * 2);
 			return true;
 		}
 	}
 
 	return false;
+}
+
+bool King::DoesMoveBlockCheck(Position move, Piece* checker) {
+	if (dynamic_cast<SlidingPiece*>(checker)) {
+		Position dir = (this->GetPosition() - checker->GetPosition()).Normalized();
+
+		for (Position p = checker->GetPosition(); p != this->GetPosition(); p += dir)
+			if (move == p)
+				return true;
+		return false;
+	} else
+		return (move == checker->GetPosition());
 }
 
 bool King::Move(Position pos, bool overrideLegality/* =false */) {

@@ -169,7 +169,7 @@ void Board::GeneratePieces(std::string fen, int i, Position &currentPos) {
 	}
 }
 
-#define SHOW_CONTROLLED_SQUARES
+//#define SHOW_CONTROLLED_SQUARES
 
 void Board::RenderBoard() {
 	// Instantiate a legal move which is then rendered multiple times in
@@ -249,8 +249,8 @@ int Board::CalculateAllLegalMoves() {
 		if (square.piece)
 			square.piece->UnPin();
 
-	King *kings[2] = {dynamic_cast<King *>(GetPiece(p_KingPos[White])),
-	                  dynamic_cast<King *>(GetPiece(p_KingPos[Black]))};
+	King *kings[2] = {dynamic_cast<King *>(GetPiece(p_KingPos[Black])),
+	                  dynamic_cast<King *>(GetPiece(p_KingPos[White]))};
 
 	int numOfMoves = 0;
 	for (auto &square: m_Board) {
@@ -276,32 +276,43 @@ int Board::CalculateAllLegalMoves() {
 
 	// Calculate King legal moves again so that they can't walk into each other
 	for (King *king: kings) {
-		if (king)
-			king->CalculateLegalMoves();
+		king->CalculateLegalMoves();
 
-		SlidingPiece* checker;
-		if (king->IsInCheck(checker)) {
-			// remove all legal moves
-			for (auto &square: m_Board) {
-				if (!square.piece || square.piece->GetPieceName() == "king")
-					continue;
+		Piece* checker = nullptr;
+		if (!king->IsInCheck(checker))
+			continue;
 
-				// TODO: check if the move can block the check
-				// TODO: check if the move can kill the checker
-
-				square.piece->ClearLegalMoves();
-			}
-		}
+		RecalculateCheckLegalMoves(king, checker);
 	}
 
-	for (auto piecePos : p_PinnedPiecePos) {
-		auto piece = GetPiece(piecePos);
-
-		if (piece)
-			piece->CalculateLegalMoves();
-	}
+	for (auto piecePos : p_PinnedPiecePos)
+		if (GetPiece(piecePos))
+			GetPiece(piecePos)->CalculateLegalMoves();
 
 	return numOfMoves;
+}
+
+void Board::RecalculateCheckLegalMoves(King* king, Piece* checker) {
+	for (auto &square: m_Board) {
+		if (!square.piece || square.piece->GetColor() != king->GetColor() ||
+		    square.piece->GetPieceName() == "king") {
+			continue;
+		}
+		if (!checker) {
+			square.piece->ClearLegalMoves();
+			continue;
+		}
+
+		// check if the move_ptr can kill the checker or block the check
+		auto move_ptr = square.piece->GetLegalMoves().begin();
+		while (move_ptr != square.piece->GetLegalMoves().end()) {
+			if (king->DoesMoveBlockCheck(*move_ptr, checker))
+				move_ptr++;
+			else
+				square.piece->RemoveLegalMove(move_ptr);
+		}
+
+	}
 }
 
 bool Board::MakeMove(Piece *piece, Position from, Position to,

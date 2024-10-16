@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <algorithm>
 
 class Board;
 
@@ -82,6 +83,11 @@ struct Position {
 		return file >= 0 && file < 8 &&
 		       rank >= 0 && rank < 8;
 	}
+
+	Position Normalized() const {
+		auto sign = [](int x) -> int {return (x > 0) - (x < 0);};
+		return {sign(file), sign(rank)};
+	}
 };
 
 enum Color {
@@ -121,7 +127,13 @@ public:
 
 	inline const std::vector<Position> &GetLegalMoves() const { return m_LegalMoves; }
 
-	inline const std::vector<Position> &GetControlledSquares() const { return m_ControlledSquares; }
+	inline void RemoveLegalMove(std::vector<Position>::const_iterator i) { m_LegalMoves.erase(i); }
+
+	bool IsLegalMove(Position sq) const;
+
+	inline std::vector<Position> &GetControlledSquares() { return m_ControlledSquares; }
+
+	bool IsControlledSquare(Position sq) const;
 
 	inline Color GetColor() const { return m_Color; }
 
@@ -144,7 +156,6 @@ protected:
 	Color m_Color;
 
 	bool m_IsVirgin = true;
-	bool m_IsSlidingPiece = false;
 	std::vector<Position> m_MovePatterns;
 
 	bool m_IsPinned = false;

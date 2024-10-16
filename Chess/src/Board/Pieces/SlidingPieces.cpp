@@ -49,22 +49,18 @@ void SlidingPiece::CalculateLegalMoves() {
 					latest += movePattern;
 				}
 			} else {
-				FindPinnedPiece(latest + movePattern, movePattern);
+				CheckPiecePinned(latest + movePattern, movePattern);
 			}
 		}
 	}
 }
 
-bool SlidingPiece::CheckDirectionIsViable(Position latest,
-                                          Position movePattern) {
-	return
-			(
-					(latest + movePattern).IsValid() &&
-					!m_OwnerBoard->IsSquareOccupied(latest + movePattern)
-			);
+bool SlidingPiece::CheckDirectionIsViable(Position latest, Position movePattern) {
+	return  ((latest + movePattern).IsValid() &&
+			 !m_OwnerBoard->IsSquareOccupied(latest + movePattern));
 }
 
-bool SlidingPiece::FindPinnedPiece(Position pinCheckPiecePos, Position movePattern) {
+bool SlidingPiece::CheckPiecePinned(Position pinCheckPiecePos, Position movePattern) {
 	Piece *pinCheckPiece = m_OwnerBoard->GetPiece(pinCheckPiecePos);
 
 	Position prevPinnedPiecePos = m_OwnerBoard->p_PinnedPiecePos[pinCheckPiece->GetColor()];

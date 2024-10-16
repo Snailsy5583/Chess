@@ -72,3 +72,17 @@ bool Piece::Move(Position pos, bool overrideLegality/*=false*/) {
 }
 
 void Piece::Render() { Engine::Renderer::SubmitObject(m_Object); }
+
+bool Piece::IsLegalMove(Position sq) const {
+	for (auto square : m_LegalMoves)
+		if (square == sq)
+			return true;
+	return false;
+}
+
+bool Piece::IsControlledSquare(Position sq) const {
+	for (auto square : m_ControlledSquares)
+		if (square == sq)
+			return true;
+	return false;
+}

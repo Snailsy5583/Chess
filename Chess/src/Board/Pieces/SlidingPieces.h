@@ -10,7 +10,7 @@ public:
 private:
 	bool CheckDirectionIsViable(Position latest, Position movePattern);
 
-	bool FindPinnedPiece(Position curPos, Position movePattern);
+	bool CheckPiecePinned(Position pinCheckPiecePos, Position movePattern);
 
 	void PinPiece(Piece *p, Position dir);
 

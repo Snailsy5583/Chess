@@ -11,6 +11,7 @@
 #include "Engine/Events/MouseEvents.h"
 
 #include "PromotionBoard.h"
+#include "Board/Pieces/SpecialPieces.h"
 
 struct Square {
 	Position pos;
@@ -49,6 +50,8 @@ public:
 	void RenderBoard();
 
 	int CalculateAllLegalMoves();
+
+	void RecalculateCheckLegalMoves(King* king, Piece* checker);
 
 	bool MakeMove(Piece *piece, Position from, Position to,
 	              bool overrideLegality = false);

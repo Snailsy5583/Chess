@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Layer.h"
 
 namespace Engine {
