@@ -1,6 +1,7 @@
 #include "Layer.h"
 
-namespace Engine {
+namespace Engine
+{
 
 	/////////////////////////////// Layer Stack ////////////////////////////////
 
@@ -22,16 +23,15 @@ namespace Engine {
 	}
 
 	void LayerStack::Remove(int index) {
-		std::remove(m_LayerStack.begin(), m_LayerStack.end(),
-					m_LayerStack.at(index));
+		std::remove(
+			m_LayerStack.begin(), m_LayerStack.end(), m_LayerStack.at(index)
+		);
 	}
 
 	void LayerStack::OnEvent(Event &e) {
-		for (
-			Layer *layer: m_LayerStack
-				)
+		for (Layer *layer : m_LayerStack)
 			if (layer->OnEvent(e))
 				break;
 	}
 
-}
+} // namespace Engine

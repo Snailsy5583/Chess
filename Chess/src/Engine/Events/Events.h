@@ -1,16 +1,23 @@
 #pragma once
 
-#include <vector>
 #include <functional>
+#include <vector>
 
-namespace Engine {
+namespace Engine
+{
 
 	enum EventType {
-		WindowClosed, WindowResized,
-		MouseButtonPressed, MouseButtonReleased, MouseMoved
+		WindowClosed,
+		WindowResized,
+		MouseButtonPressed,
+		MouseButtonReleased,
+		MouseMoved,
+		KeyPressed,
+		KeyReleased
 	};
 
-	class Event {
+	class Event
+	{
 		friend class EventDispatcher;
 
 	public:
@@ -26,12 +33,13 @@ namespace Engine {
 		bool m_Handled = false;
 	};
 
-	class EventDispatcher {
+	class EventDispatcher
+	{
 		template<typename T>
 		using EventFunc = std::function<bool(T &)>;
+
 	public:
-		explicit EventDispatcher(Event &event)
-				: m_Event(event) {}
+		explicit EventDispatcher(Event &event) : m_Event(event) {}
 
 		template<typename T>
 		bool Dispatch(EventFunc<T> func) {
@@ -47,5 +55,4 @@ namespace Engine {
 	};
 
 
-}
-
+} // namespace Engine

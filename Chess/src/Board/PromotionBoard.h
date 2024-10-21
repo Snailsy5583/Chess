@@ -1,14 +1,15 @@
 #pragma once
 
-//#include "Board.h"
+// #include "Board.h"
 
-#include "Engine/Layer.h"
 #include "Board/Pieces/Piece.h"
 #include "Engine/Events/MouseEvents.h"
+#include "Engine/Layer.h"
 
 class PromotionBoard;
 
-class PromotionBoardLayer : public Engine::Layer {
+class PromotionBoardLayer : public Engine::Layer
+{
 public:
 	explicit PromotionBoardLayer(PromotionBoard *boardPtr);
 
@@ -22,10 +23,13 @@ private:
 	PromotionBoard *m_BoardPtr;
 };
 
-class PromotionBoard {
+class PromotionBoard
+{
 public:
-	PromotionBoard(Position position, Board *board, Color color,
-	               const char *vertShaderPath, const char *fragShaderPath);
+	PromotionBoard(
+		Position position, Board *board, Color color,
+		const char *vertShaderPath, const char *fragShaderPath
+	);
 
 	~PromotionBoard();
 
@@ -49,5 +53,4 @@ private:
 	Color m_Color;
 
 	PromotionBoardLayer m_Layer;
-
 };

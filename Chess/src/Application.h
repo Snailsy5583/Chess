@@ -1,36 +1,39 @@
 #pragma once
 
-#include <memory>
 #include <chrono>
+#include <memory>
 
-#include "Engine/Window.h"
+#include "Board/Board.h"
 #include "Engine/Events/Events.h"
 #include "Engine/Layer.h"
-#include "Board/Board.h"
+#include "Engine/Window.h"
 
-class Application {
+#define BIND_EVENT_FUNC(func, obj) std::bind(&func, obj, std::placeholders::_1)
+
+class Application
+{
 public:
-    Application(unsigned int width, unsigned int height, const char *title);
+	Application(unsigned int width, unsigned int height, const char *title);
 
-    ~Application();
+	~Application();
 
-    void Run();
+	void Run();
 
-    void OnEvent(Engine::Event &e);
+	void OnEvent(Engine::Event &e);
 
-    static void AddLayer(Engine::Layer* layer);
+	static void AddLayer(Engine::Layer *layer);
 
-    static Engine::LayerStack* GetLayerStack();
+	static Engine::LayerStack *GetLayerStack();
 
 private:
-    static Application* m_App;
+	static Application *m_App;
 
-    std::unique_ptr<Engine::Window> m_MainWindow;
+	std::unique_ptr<Engine::Window> m_MainWindow;
 
-    Engine::LayerStack m_LayerStack;
+	Engine::LayerStack m_LayerStack;
 
-    std::unique_ptr<Board> m_ChessBoard;
+	std::unique_ptr<Board> m_ChessBoard;
 
-    std::chrono::time_point<std::chrono::steady_clock> m_LastFrame;
-    float m_DeltaTime;
+	std::chrono::time_point<std::chrono::steady_clock> m_LastFrame;
+	float m_DeltaTime;
 };

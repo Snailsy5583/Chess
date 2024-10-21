@@ -1,12 +1,14 @@
 #pragma once
 
-#include <queue>
 #include <memory>
+#include <queue>
 
 #include "Events/Events.h"
 
-namespace Engine {
-	class Layer {
+namespace Engine
+{
+	class Layer
+	{
 	public:
 		Layer() = default;
 
@@ -19,7 +21,8 @@ namespace Engine {
 		virtual bool OnEvent(Event &e) { return false; }
 	};
 
-	class LayerStack {
+	class LayerStack
+	{
 	public:
 		LayerStack();
 
@@ -36,4 +39,4 @@ namespace Engine {
 	private:
 		std::deque<Layer *> m_LayerStack;
 	};
-}
+} // namespace Engine

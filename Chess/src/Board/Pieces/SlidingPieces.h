@@ -2,8 +2,10 @@
 
 #include "Piece.h"
 
-// a piece that can move in specified directions till collision with existing pieces/capturing opponent pieces
-class SlidingPiece : public Piece {
+// a piece that can move in specified directions till collision with existing
+// pieces/capturing opponent pieces
+class SlidingPiece : public Piece
+{
 public:
 	void CalculateLegalMoves() override;
 
@@ -17,22 +19,28 @@ private:
 	void UnPinPiece(Piece *p);
 
 protected:
-	SlidingPiece(Color color, Position pos, float squareSize,
-				 const char *pieceName, Board *board);
+	SlidingPiece(
+		Color color, Position pos, float squareSize, const char *pieceName,
+		Board *board
+	);
 };
 
-class Bishop : public SlidingPiece {
+class Bishop : public SlidingPiece
+{
 public:
 	Bishop(Color color, Position pos, float squareSize, Board *board);
 };
 
-class Rook
-		: public SlidingPiece { // This is a bit special because it can castle
+class Rook : public SlidingPiece
+{ // This is a bit special because it can castle
 public:
 	Rook(Color color, Position pos, float squareSize, Board *board);
+
+	void Castle(Position to);
 };
 
-class Queen : public SlidingPiece {
+class Queen : public SlidingPiece
+{
 public:
 	Queen(Color color, Position pos, float squareSize, Board *board);
 };

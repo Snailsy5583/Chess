@@ -1,33 +1,43 @@
 #pragma once
 
+#include <memory>
+#include <set>
 #include <string>
 #include <vector>
-#include <set>
-#include <memory>
 
+#include "Engine/Events/KeyboardEvents.h"
+#include "Engine/Events/MouseEvents.h"
 #include "Engine/Layer.h"
 #include "Engine/Renderer.h"
 #include "Pieces/Piece.h"
-#include "Engine/Events/MouseEvents.h"
 
 #include "PromotionBoard.h"
-#include "Board/Pieces/SpecialPieces.h"
 
 struct Square {
 	Position pos;
-	Engine::RendererObject obj;
+	Engine::RendererObject background;
 	std::unique_ptr<Piece> piece;
+};
+
+struct Move {
+	Position from;
+	Position to;
+
+	bool operator==(Move other) const {
+		return from == other.from && to == other.to;
+	}
 };
 
 class Board;
 
-class BoardLayer : public Engine::Layer {
+class BoardLayer : public Engine::Layer
+{
 public:
 	explicit BoardLayer(Board *boardPtr);
 
-	void OnAttach() override;
+	inline void OnAttach() override {}
 
-	void OnDetach() override;
+	inline void OnDetach() override {}
 
 	bool OnEvent(Engine::Event &e) override;
 
@@ -35,54 +45,98 @@ private:
 	Board *m_BoardPtr;
 };
 
-class Board {
+class Board
+{
 	friend class PromotionBoard;
 
-public:
-	Board(const char *vertShaderPath, const char *fragShaderPath);
-
-	~Board() = default;
+public: // construction
+	Board(
+		const char *vertShaderPath, const char *fragShaderPath,
+		bool trackMoves = true
+	);
 
 	void ReadFen(std::string fen);
 
 	void GeneratePieces(std::string fen, int i, Position &currentPos);
 
+public: // rendering
 	void RenderBoard();
 
-	int CalculateAllLegalMoves();
+	void FlipBoard(Square &square);
 
-	void RecalculateCheckLegalMoves(King* king, Piece* checker);
+public: // calculating legal moves
+	unsigned int CalculateAllLegalMoves();
 
-	bool MakeMove(Piece *piece, Position from, Position to,
-	              bool overrideLegality = false);
+	void RecalculateCheckLegalMoves(
+		class King *king, Piece *checker, unsigned int &numMoves
+	);
 
-public:
+	void RecalculatePinnedPieceLegalMoves(unsigned &numMoves);
+
+public: // En Passant
+	// expects en passant piece to be in m_EnPassantPieceInst
+	void StartEnPassanting(class Pawn *pawn, Position pos);
+
+	void ResetEnPassantPiece();
+
+	class EnPassantPiece *GetEnPassantPiece();
+
+public: // moving pieces
+	bool MakeMove(Move move);
+
+	void UnMakeMove(Move move);
+
+	void GameOver();
+
+public: // handling events
+	void ApplyOffset(float x, float y);
+
 	bool HandleMouseDown(Engine::MouseButtonPressedEvent &e);
 
 	bool HandleMouseReleased(Engine::MouseButtonReleasedEvent &e);
 
 	bool HandleMouseMoved(Engine::MouseMovedEvent &e);
 
-public:
-	bool IsSquareOccupied(Position pos) const;
+	bool HandleKeyPressed(Engine::KeyPressedEvent &e);
 
-	bool IsPieceCapturable(Position pos, Color color) const;
+public: // utility functions
+	inline bool IsSquareOccupied(Position pos) const {
+		return pos.IsValid() && GetPiece(pos) &&
+		       GetPiece(pos)->GetPieceName() != "en_passant";
+	}
 
-	bool IsInEnemyTerritory(Position pos, Color color);
+	inline bool IsPieceCapturable(Position pos, Color color) const {
+		return pos.IsValid() && GetPiece(pos) &&
+		       GetPiece(pos)->GetColor() != color;
+	}
 
-	Piece *GetPiece(Position pos) const;
+	inline bool IsInEnemyTerritory(Position pos, Color color) const {
+		return (
+			m_ControlledSquares[!color].find(pos) !=
+			m_ControlledSquares[!color].end()
+		);
+	}
+
+	inline Piece *GetPiece(Position pos) const {
+		return pos.IsValid() ? m_Board[pos.ToIndex()].piece.get() : nullptr;
+	}
 
 	// Gives away ownership
-	std::unique_ptr<Piece> GetFullPiecePtr(Position pos);
+	inline std::unique_ptr<Piece> GetFullPiecePtr(Position pos) {
+		return std::move(m_Board[pos.ToIndex()].piece);
+	}
 
-	void SetPiece(Position pos, std::unique_ptr<Piece> piece);
+	inline void SetPiece(Position pos, std::unique_ptr<Piece> piece) {
+		m_Board[pos.ToIndex()].piece = std::move(piece);
+	}
 
-	void DeletePiece(Position pos);
-
-public:
-	inline BoardLayer *GetBoardLayer() { return &m_Layer; }
+	inline void DeletePiece(Position pos) {
+		m_Board[pos.ToIndex()].piece.reset();
+	}
 
 	inline Color GetTurn() { return m_Turn; }
+
+	inline BoardLayer *GetBoardLayer() { return &m_Layer; }
 
 private:
 	BoardLayer m_Layer;
@@ -91,16 +145,20 @@ private:
 
 	float m_SquareSize;
 	Square m_Board[64];
-
 	Position m_ActivatedSquare;
 	Color m_Turn;
+	bool m_MouseReleased = true;
+	std::unique_ptr<Piece> m_EnPassantPieceInst;
+	Position *m_EnPassantPosition;
 
-	std::set<Position> m_ControlledSquares[2]{};
+	bool m_ShouldTrackMoves;
+	std::vector<Move> m_MovesPlayed;
+	std::set<Position> m_ControlledSquares[2] {};
 
 public:
 	std::unique_ptr<PromotionBoard> p_PromotionBoard = nullptr;
 
-	Position p_PinnedPiecePos[2]{};
+	Position p_PinnedPiecePos[2] {};
 
-	Position p_KingPos[2]{};
+	Position p_KingPos[2] {};
 };

@@ -3,14 +3,18 @@
 #include <string>
 #include <vector>
 
-namespace Engine {
+namespace Engine
+{
 
 	class Texture;
 
-	class Shader {
+	class Shader
+	{
 	public:
-		explicit Shader(const char *vertShaderSource = nullptr,
-		                const char *fragShaderSource = nullptr);
+		explicit Shader(
+			const char *vertShaderSource = nullptr,
+			const char *fragShaderSource = nullptr
+		);
 
 		static Shader Compile(const char *vertPath, const char *fragPath);
 
@@ -47,7 +51,8 @@ namespace Engine {
 		static bool CheckErrors(unsigned int shader);
 	};
 
-	class Texture {
+	class Texture
+	{
 	public:
 		explicit Texture(const char *path);
 
@@ -58,8 +63,7 @@ namespace Engine {
 		void Destroy();
 
 	private:
-		unsigned int m_TextureID{};
+		unsigned int m_TextureID {};
 	};
 
-}
-
+} // namespace Engine

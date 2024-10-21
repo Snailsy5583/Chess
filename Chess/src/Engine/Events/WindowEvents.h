@@ -2,31 +2,35 @@
 
 #include "Events.h"
 
-namespace Engine {
+namespace Engine
+{
 
 
-	class WindowClosedEvent : public Event {
+	class WindowClosedEvent : public Event
+	{
 	public:
 		WindowClosedEvent() = default;
 
 		static EventType GetStaticType() { return EventType::WindowClosed; }
 
-		EventType GetEventType() const override
-			{ return WindowClosedEvent::GetStaticType(); }
+		EventType GetEventType() const override {
+			return WindowClosedEvent::GetStaticType();
+		}
 
-		const char *GetName() const override
-			{ return "WindowClosed"; }
+		const char *GetName() const override { return "WindowClosed"; }
 	};
 
-	class WindowResizedEvent : public Event {
+	class WindowResizedEvent : public Event
+	{
 	public:
 		WindowResizedEvent(int width, int height)
-				: m_Width(width), m_Height(height) {}
+			: m_Width(width), m_Height(height) {}
 
 		static EventType GetStaticType() { return EventType::WindowResized; }
 
-		EventType GetEventType() const override
-			{ return WindowResizedEvent::GetStaticType(); }
+		EventType GetEventType() const override {
+			return WindowResizedEvent::GetStaticType();
+		}
 
 		const char *GetName() const override { return "WindowResized"; }
 
@@ -39,4 +43,4 @@ namespace Engine {
 	};
 
 
-}
+} // namespace Engine

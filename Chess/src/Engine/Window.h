@@ -3,18 +3,23 @@
 #include "GLFW/glfw3.h"
 
 #include "Events/Events.h"
-#include "Events/WindowEvents.h"
+#include "Events/KeyboardEvents.h"
 #include "Events/MouseEvents.h"
+#include "Events/WindowEvents.h"
 
 #include <iostream>
 
-namespace Engine {
+namespace Engine
+{
 
 
-	class Window {
+	class Window
+	{
 	public:
-		Window(unsigned int width, unsigned int height, const char *title,
-		       std::function<void(Event &)> func);
+		Window(
+			unsigned int width, unsigned int height, const char *title,
+			std::function<void(Event &)> func
+		);
 
 		~Window();
 
@@ -42,5 +47,4 @@ namespace Engine {
 	};
 
 
-}
-
+} // namespace Engine

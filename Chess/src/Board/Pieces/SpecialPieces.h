@@ -1,16 +1,20 @@
 
 #pragma once
 
-#include "Piece.h"
+#include "Board/Board.h"
 #include "Board/PromotionBoard.h"
+#include "Piece.h"
 #include "SlidingPieces.h"
 
 // Special Piece = any piece that is not a sliding piece
 
-class King : public Piece {
+class King : public Piece
+{
 public:
-	King(Color color, Position pos, float squareSize, Board *board,
-	     bool isVirgin = true);
+	King(
+		Color color, Position pos, float squareSize, Board *board,
+		bool isVirgin = true
+	);
 
 	void CalculateLegalMoves() override;
 
@@ -18,11 +22,11 @@ public:
 
 	// returns the piece checking the king
 	// returns null if there are multiple pieces checking the king
-	bool IsInCheck(Piece* &checker);
+	bool IsInCheck(Piece *&checker);
 
-	bool DoesMoveBlockCheck(Position move, Piece* checker);
+	bool DoesMoveBlockCheck(Position move, Piece *checker);
 
-	bool Move(Position pos, bool overrideLegality) override;
+	bool Move(Position to) override;
 
 	void SetCastling(bool K, bool Q);
 
@@ -32,58 +36,88 @@ private:
 	bool m_CanCastleK, m_CanCastleQ;
 };
 
-class Knight : public Piece {
+class Knight : public Piece
+{
 public:
 	Knight(Color color, Position pos, float squareSize, Board *board);
 
 	void CalculateLegalMoves() override;
 };
 
-class EnPassantPiece;
-
-class Pawn : public Piece {
+class Pawn : public Piece
+{
 public:
-	Pawn(Color color, Position pos, float squareSize, Board *board);
+	Pawn(
+		Color color, Position pos, float squareSize, Board *board,
+		bool isVirgin = true
+	);
+
+	~Pawn() override = default;
 
 	void CalculateLegalMoves() override;
 
-	bool Move(Position pos, bool overrideLegality) override;
+	bool Move(Position to) override;
 
-	Piece *Promote(std::unique_ptr<Piece> piece);
+	template<typename PieceType>
+	Piece *Promote() {
+		auto pawn = std::move(m_OwnerBoard->GetFullPiecePtr(m_Position));
 
-	void Render() override;
+		// std::unique_ptr<Piece> restricts the PieceType to only subclasses of
+		// Piece
+		std::unique_ptr<Piece> piece = std::make_unique<PieceType>(
+			m_Color, m_Position, m_SquareSize, m_OwnerBoard
+		);
 
+		m_OwnerBoard->SetPiece(m_Position, std::move(piece));
+
+		m_OwnerBoard->CalculateAllLegalMoves();
+
+		return m_OwnerBoard->GetPiece(m_Position);
+		// this pawn gets deleted here bc we have the pawn unique_ptr
+	}
 };
 
 /////////////// Fake Pieces /////////////////
 
 // Piece generated when a pawn is En Passant-able
-class EnPassantPiece : public Piece {
+class EnPassantPiece : public Piece
+{
 public:
-	EnPassantPiece(Position pos, Pawn *originalPawn, Board *board);
+	EnPassantPiece(Board *board);
 
-	void CancelEnPassantOffer(bool deletePawn = false);
+	~EnPassantPiece() = default;
 
-	void DeleteOwningPawn();
+	void SetPawn(Pawn *pawn, Position pos);
+
+	void UndoMove(Position from) override;
+
+	std::unique_ptr<Piece> CancelEnPassantOffer(bool deletePawn = false);
+
+	Position *GetPosition() { return &m_Position; }
 
 	// This doesn't have legal move, but it still
 	// needs to delete itself after the first move
 	void CalculateLegalMoves() override;
 
-	Position
-	GetPosition() const override { return m_OriginalPawn->GetPosition(); }
+	void Render() override {}
+
+public:
+	Pawn *p_OriginalPawn;
 
 private:
-	Pawn *m_OriginalPawn;
+	bool m_FirstMove = true;
 
-	bool m_FirstMove;
+	Pawn *m_PreviousOriginalPawn;
+	Position m_PreviousPosition {-1, -1};
 };
 
-
 // Piece generated to show legal moves
-class LegalMoveSprite {
+class LegalMoveSprite
+{
 public:
-	LegalMoveSprite(float squareSize, float spriteSize, Position pos);
+	LegalMoveSprite(
+		float squareSize, float spriteSize, Position pos, bool capture
+	);
 
 	~LegalMoveSprite();
 

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16.0)
 set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 
 project(Chess C CXX)
+set(CMAKE_CXX_STANDARD 20)
 
 ################################################################################
 # Global configuration types
