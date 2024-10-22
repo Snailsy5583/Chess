@@ -5,8 +5,7 @@
 #include <iostream>
 
 
-////////////////////////// King
-///////////////////////////////////////////////////////////
+///////////////////////////////////// King /////////////////////////////////////
 
 King::King(
 	Color color, Position pos, float squareSize, Board *board,
@@ -163,7 +162,7 @@ void King::SetCastling(bool K, bool Q) {
 	m_CanCastleQ = Q;
 }
 
-////////////////////////// Knight //////////////////////////////////////////////
+/////////////////////////////////// Knight /////////////////////////////////////
 
 Knight::Knight(Color color, Position pos, float squareSize, Board *board)
 	: Piece(color, pos, squareSize, "knight", board) {
@@ -200,7 +199,7 @@ void Knight::CalculateLegalMoves() {
 	}
 }
 
-///////////////////////////////// Pawn /////////////////////////////////////////
+/////////////////////////////////// Pawn ///////////////////////////////////////
 
 Pawn::Pawn(
 	Color color, Position pos, float squareSize, Board *board,
@@ -284,7 +283,6 @@ bool Pawn::Move(Position pos) {
 		if (abs((pos - prev).rank) > 1) {
 			auto enPassantPos = m_Position + Position {0, -((m_Color * 2) - 1)};
 
-			m_OwnerBoard->ResetEnPassantPiece();
 			m_OwnerBoard->StartEnPassanting(this, enPassantPos);
 			return true;
 		}
@@ -293,7 +291,7 @@ bool Pawn::Move(Position pos) {
 	return false;
 }
 
-///////////////////// En Passant Placeholder ///////////////////////////////////
+/////////////////////////// En Passant Placeholder /////////////////////////////
 
 EnPassantPiece::EnPassantPiece(Board *board)
 	: p_OriginalPawn(nullptr),
@@ -302,6 +300,9 @@ EnPassantPiece::EnPassantPiece(Board *board)
 void EnPassantPiece::SetPawn(Pawn *pawn, Position pos) {
 	m_PreviousOriginalPawn = p_OriginalPawn;
 	m_PreviousPosition = m_Position;
+
+	std::cout << "m_PreviousPosition" << m_PreviousPosition.ToString()
+			  << std::endl;
 
 	m_Position = pos;
 	p_OriginalPawn = pawn;
@@ -326,18 +327,24 @@ void EnPassantPiece::UndoMove(Position from) {
 	auto pawn = m_PreviousOriginalPawn;
 	auto pos = m_PreviousPosition;
 
-	m_OwnerBoard->ResetEnPassantPiece();
+	std::cout << "pos" << pos.ToString() << std::endl;
+
 	m_OwnerBoard->StartEnPassanting(pawn, pos);
 }
 
 void EnPassantPiece::CalculateLegalMoves() {
 	if (m_FirstMove)
 		m_FirstMove = false;
-	else
+	else {
+		auto pawn = m_PreviousOriginalPawn;
+		auto pos = m_PreviousPosition;
 		CancelEnPassantOffer();
+		m_PreviousOriginalPawn = pawn;
+		m_PreviousPosition = pos;
+	}
 }
 
-/////////////////////////// Legal Move Sprite //////////////////////////////////
+////////////////////////////// Legal Move Sprite ///////////////////////////////
 
 LegalMoveSprite::LegalMoveSprite(
 	float squareSize, float spriteSize, Position pos, bool capture

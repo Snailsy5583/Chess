@@ -149,7 +149,7 @@ private:
 	Color m_Turn;
 	bool m_MouseReleased = true;
 	std::unique_ptr<Piece> m_EnPassantPieceInst;
-	Position *m_EnPassantPosition;
+	Position *m_EnPassantPositionPtr;
 
 	bool m_ShouldTrackMoves;
 	std::vector<Move> m_MovesPlayed;

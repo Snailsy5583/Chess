@@ -17,7 +17,7 @@ Board::Board(
 	: m_Layer(this), m_Turn(White), m_ActivatedSquare({-1, -1}),
 	  m_SquareSize(2.f / 8.f), m_ShouldTrackMoves(trackMoves) {
 	m_EnPassantPieceInst = std::make_unique<EnPassantPiece>(this);
-	m_EnPassantPosition =
+	m_EnPassantPositionPtr =
 		dynamic_cast<EnPassantPiece *>(m_EnPassantPieceInst.get())
 			->GetPosition();
 
@@ -317,9 +317,10 @@ unsigned int Board::CalculateAllLegalMoves() {
 	}
 
 	auto elapsed = std::chrono::steady_clock::now() - start;
-	std::cout << (float) elapsed.count() / 1000000.f << std::endl;
+	std::cout << "time elapsed: " << (float) elapsed.count() / 1000000.f
+			  << std::endl;
 
-	std::cout << numMoves << std::endl;
+	//	std::cout << numMoves << std::endl;
 	return numMoves;
 }
 
@@ -362,29 +363,29 @@ void Board::RecalculatePinnedPieceLegalMoves(unsigned &numMoves) {
 }
 
 void Board::StartEnPassanting(Pawn *pawn, Position pos) {
-	std::cout << "start en passanting" << std::endl;
-
-	auto *ep = dynamic_cast<EnPassantPiece *>(m_EnPassantPieceInst.get());
-	ep->SetPawn(pawn, pos);
+	ResetEnPassantPiece();
+	GetEnPassantPiece()->SetPawn(pawn, pos);
 
 	SetPiece(pos, std::move(m_EnPassantPieceInst));
 }
 
 void Board::ResetEnPassantPiece() {
-	std::cout << "reset" << std::endl;
-	if (!m_EnPassantPosition->IsValid())
+	if (!m_EnPassantPositionPtr->IsValid()) // already reset
+	{
+		GetEnPassantPiece()->SetPawn(nullptr, {});
 		return;
+	}
 
-	std::cout << m_EnPassantPosition->ToString() << std::endl;
-	m_EnPassantPieceInst = GetFullPiecePtr(*m_EnPassantPosition);
-	dynamic_cast<EnPassantPiece *>(m_EnPassantPieceInst.get())
-		->SetPawn(nullptr, {-1, -1});
+	std::cout << "reset" << std::endl;
+	m_EnPassantPieceInst = GetFullPiecePtr(*m_EnPassantPositionPtr);
+	GetEnPassantPiece()->SetPawn(nullptr, {});
 }
 
 EnPassantPiece *Board::GetEnPassantPiece() {
-	auto *ep = dynamic_cast<EnPassantPiece *>(m_EnPassantPieceInst.get());
+	auto ep = dynamic_cast<EnPassantPiece *>(m_EnPassantPieceInst.get());
 	if (ep ||
-	    (ep = dynamic_cast<EnPassantPiece *>(GetPiece(*m_EnPassantPosition))))
+	    (ep =
+	         dynamic_cast<EnPassantPiece *>(GetPiece(*m_EnPassantPositionPtr))))
 		return ep;
 	return nullptr;
 }
@@ -396,7 +397,7 @@ bool Board::MakeMove(Move move) {
 
 	// Capture Piece if piece exists on ending square
 	if (IsPieceCapturable(move.to, m_Turn)) {
-		if (auto *ep = dynamic_cast<EnPassantPiece *>(GetPiece(move.to)))
+		if (auto ep = dynamic_cast<EnPassantPiece *>(GetPiece(move.to)))
 			piece->p_CapturedPieceCache = ep->CancelEnPassantOffer(
 				GetPiece(move.from)->GetPieceName() == "pawn"
 			);
@@ -425,17 +426,18 @@ bool Board::MakeMove(Move move) {
 }
 
 void Board::UnMakeMove(Move move) {
-	auto *piece = GetPiece(move.to);
+	auto piece = GetPiece(move.to);
 	if (!piece)
 		return;
 
 	piece->UndoMove(move.from);
-	//	GetEnPassantPiece()->UndoMove(move.from);
 
 	if (piece->GetPieceName() == "king")
 		p_KingPos[piece->GetColor()] = move.from;
 
 	SetPiece(move.from, GetFullPiecePtr(move.to));
+
+	GetEnPassantPiece()->UndoMove({});
 
 	if (m_ShouldTrackMoves) {
 		if (m_MovesPlayed.back() == move)
@@ -554,6 +556,7 @@ bool Board::HandleKeyPressed(Engine::KeyPressedEvent &e) {
 		return false;
 
 	UnMakeMove(m_MovesPlayed.back());
+	m_ActivatedSquare = {};
 
 	return true;
 }
