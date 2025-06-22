@@ -381,3 +381,4 @@ cmake-build-dist
 cmake-build-release
 cmake-build-release-event-trace
 bin
+/stockfish/
