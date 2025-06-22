@@ -101,12 +101,7 @@ bool King::CheckCastling(int direction) {
 	     m_OwnerBoard->IsSquareOccupied(m_Position + movePattern * 3));
 	bool areSquaresInCheck =
 		m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern, m_Color) ||
-		m_OwnerBoard->IsInEnemyTerritory(
-			m_Position + movePattern * 2, m_Color
-		) ||
-		(queenSide &&
-	     m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern * 3, m_Color)
-	    );
+		m_OwnerBoard->IsInEnemyTerritory(m_Position + movePattern * 2, m_Color);
 
 	if (!areCastleSquaresOccupied && !areSquaresInCheck) {
 		Piece *piece = m_OwnerBoard->GetPiece(rookPos);
@@ -132,29 +127,42 @@ bool King::DoesMoveBlockCheck(Position move, Piece *checker) {
 	return false;
 }
 
-bool King::Move(Position pos) {
-	Position prev = m_Position;
+bool King::Move(Position to) {
+	Position from = m_Position;
 
-	if (!Piece::Move(pos))
+	if (!Piece::Move(to))
 		return false;
 
-	if ((prev - pos).file > 1 || (prev - pos).file < -1) // if king just castled
-	{
-		Position rookPos;
-		if ((prev - pos).file < 0) // castle right side
-			rookPos = {7, (m_Color ? 0 : 7)};
-		else // castle left side
-			rookPos = {0, (m_Color ? 0 : 7)};
+	// if king just castled
+	if (abs((from - to).file) > 1) {
+		Position rookFrom = {((from - to).file < 0 ? 7 : 0), (m_Color ? 0 : 7)};
 
+		Position rookTo =
+			to + ((from - to).file < 0 ? Position({-1, 0}) : Position({1, 0}));
 
-		Rook *rook = dynamic_cast<Rook *>(m_OwnerBoard->GetPiece(rookPos));
-
-		rook->Castle(
-			((prev - pos).file < 0 ? prev + Position({1, 0})
-		                           : prev - Position({1, 0}))
-		);
+		Rook *rook = dynamic_cast<Rook *>(m_OwnerBoard->GetPiece(rookFrom));
+		rook->Castle(rookTo);
 	}
 	return true;
+}
+
+void King::UndoMove(Position from) {
+	// king's castled position
+	Position to = m_Position;
+
+	Piece::UndoMove(from);
+
+	// if king just castled
+	if (abs(-(to - from).file) > 1) {
+		Position rookFrom = {
+			(-(to - from).file < 0 ? 7 : 0), (m_Color ? 0 : 7)};
+
+		Position rookTo =
+			to + (-(to - from).file < 0 ? Position({-1, 0}) : Position({1, 0}));
+
+		Rook *rook = dynamic_cast<Rook *>(m_OwnerBoard->GetPiece(rookTo));
+		rook->UnCastle(rookFrom);
+	}
 }
 
 void King::SetCastling(bool K, bool Q) {
@@ -266,11 +274,11 @@ void Pawn::CalculateLegalMoves() {
 	}
 }
 
-bool Pawn::Move(Position pos) {
+bool Pawn::Move(Position to) {
 	Position prev = m_Position;
-	if (Piece::Move(pos)) {
+	if (Piece::Move(to)) {
 		// pawn promotion
-		if (m_Color ? m_Position.rank == 7 : m_Position.rank == 0) {
+		if (CheckIsPromotionMove(to)) {
 			auto pb = std::make_unique<PromotionBoard>(
 				m_Position, m_OwnerBoard, m_Color, "Assets/Shaders/Board.vert",
 				"Assets/Shaders/Board.frag"
@@ -280,67 +288,79 @@ bool Pawn::Move(Position pos) {
 		}
 
 		// En Passant
-		if (abs((pos - prev).rank) > 1) {
+		if (abs((to - prev).rank) > 1) {
 			auto enPassantPos = m_Position + Position {0, -((m_Color * 2) - 1)};
 
-			m_OwnerBoard->StartEnPassanting(this, enPassantPos);
-			return true;
+			m_OwnerBoard->StartEnPassanting(
+				this, enPassantPos, m_OwnerBoard->GetNumMovesPlayed() + 1
+			);
 		}
 		return true;
 	}
 	return false;
 }
 
+bool Pawn::CheckIsPromotionMove(Position to) {
+	return m_Color ? m_Position.rank == 7 : m_Position.rank == 0;
+}
+
 /////////////////////////// En Passant Placeholder /////////////////////////////
 
 EnPassantPiece::EnPassantPiece(Board *board)
-	: p_OriginalPawn(nullptr),
+	: p_OwningPawn(nullptr),
 	  Piece::Piece(White, {-1, -1}, 0, "en_passant", board) {}
 
-void EnPassantPiece::SetPawn(Pawn *pawn, Position pos) {
-	m_PreviousOriginalPawn = p_OriginalPawn;
-	m_PreviousPosition = m_Position;
-
-	std::cout << "m_PreviousPosition" << m_PreviousPosition.ToString()
-			  << std::endl;
-
+void EnPassantPiece::SetPawn(Pawn *pawn, Position pos, int moveNum /*=-1*/) {
 	m_Position = pos;
-	p_OriginalPawn = pawn;
+	p_OwningPawn = pawn;
 	m_Color = pawn ? pawn->GetColor() : White;
-	m_FirstMove = pawn;
+	m_MoveWasIgnored = !pawn;
+
+	if (pawn)
+		m_MoveCache.emplace(moveNum, pawn, pos);
 }
 
 std::unique_ptr<Piece>
 EnPassantPiece::CancelEnPassantOffer(bool deletePawn /*=false*/) {
 	std::unique_ptr<Piece> pawn;
 	if (deletePawn)
-		pawn = m_OwnerBoard->GetFullPiecePtr(p_OriginalPawn->GetPosition());
+		pawn = m_OwnerBoard->GetFullPiecePtr(p_OwningPawn->GetPosition());
 
 	m_OwnerBoard->ResetEnPassantPiece();
 	return pawn;
 }
 
 void EnPassantPiece::UndoMove(Position from) {
-	if (!m_PreviousOriginalPawn)
+	if (m_MoveCache.empty())
 		return;
 
-	auto pawn = m_PreviousOriginalPawn;
-	auto pos = m_PreviousPosition;
+	// if we undid a pawn double push move
+	if (std::get<0>(m_MoveCache.top()) == m_OwnerBoard->GetNumMovesPlayed() + 1)
+		m_MoveCache.pop();
 
-	std::cout << "pos" << pos.ToString() << std::endl;
+	if (m_MoveCache.empty())
+		return;
 
-	m_OwnerBoard->StartEnPassanting(pawn, pos);
+	// if en passant is not legal here
+	if (std::get<0>(m_MoveCache.top()) != m_OwnerBoard->GetNumMovesPlayed()) {
+		CancelEnPassantOffer();
+		return;
+	}
+
+	auto pawn = std::get<1>(m_MoveCache.top());
+	auto pos = std::get<2>(m_MoveCache.top());
+	m_MoveCache.pop();
+
+	m_OwnerBoard->StartEnPassanting(
+		pawn, pos, m_OwnerBoard->GetNumMovesPlayed()
+	);
+	// SetPawn puts this move back into the move cache
 }
 
 void EnPassantPiece::CalculateLegalMoves() {
-	if (m_FirstMove)
-		m_FirstMove = false;
-	else {
-		auto pawn = m_PreviousOriginalPawn;
-		auto pos = m_PreviousPosition;
+	if (!m_MoveWasIgnored && m_Color == m_OwnerBoard->GetTurn()) {
+		m_MoveWasIgnored = true;
 		CancelEnPassantOffer();
-		m_PreviousOriginalPawn = pawn;
-		m_PreviousPosition = pos;
 	}
 }
 

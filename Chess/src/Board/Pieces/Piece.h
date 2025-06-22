@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <sstream>
+#include <stack>
 #include <vector>
 
 class Board;
@@ -68,7 +69,7 @@ struct Position {
 
 	std::string ToString() const {
 		std::stringstream ss;
-		ss << "(" << file << ", " << rank << ")";
+		ss << (char) ('a' + file) << rank + 1;
 		return ss.str();
 	}
 
@@ -99,10 +100,6 @@ public:
 	virtual bool Move(Position to);
 
 	virtual void UndoMove(Position from);
-
-	virtual void inline ClearCapturedPieceCache() {
-		p_CapturedPieceCache.release();
-	}
 
 	virtual void Pin(Position dir) {
 		m_IsPinned = true;
@@ -167,7 +164,4 @@ protected:
 	std::vector<Position> m_ControlledSquares;
 
 	float m_SquareSize;
-
-public:
-	std::unique_ptr<Piece> p_CapturedPieceCache;
 };

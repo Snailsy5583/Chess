@@ -37,6 +37,8 @@ public:
 	Rook(Color color, Position pos, float squareSize, Board *board);
 
 	void Castle(Position to);
+
+	void UnCastle(Position from);
 };
 
 class Queen : public SlidingPiece

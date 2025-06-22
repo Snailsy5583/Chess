@@ -28,6 +28,8 @@ public:
 
 	bool Move(Position to) override;
 
+	void UndoMove(Position from) override;
+
 	void SetCastling(bool K, bool Q);
 
 private:
@@ -58,8 +60,10 @@ public:
 
 	bool Move(Position to) override;
 
+	bool CheckIsPromotionMove(Position to);
+
 	template<typename PieceType>
-	Piece *Promote() {
+	std::unique_ptr<Piece> Promote() {
 		auto pawn = std::move(m_OwnerBoard->GetFullPiecePtr(m_Position));
 
 		// std::unique_ptr<Piece> restricts the PieceType to only subclasses of
@@ -72,8 +76,8 @@ public:
 
 		m_OwnerBoard->CalculateAllLegalMoves();
 
-		return m_OwnerBoard->GetPiece(m_Position);
-		// this pawn gets deleted here bc we have the pawn unique_ptr
+		// return pawn unique_ptr
+		return pawn;
 	}
 };
 
@@ -87,7 +91,7 @@ public:
 
 	~EnPassantPiece() = default;
 
-	void SetPawn(Pawn *pawn, Position pos);
+	void SetPawn(Pawn *pawn, Position pos, int moveNum = -1);
 
 	void UndoMove(Position from) override;
 
@@ -102,13 +106,12 @@ public:
 	void Render() override {}
 
 public:
-	Pawn *p_OriginalPawn;
+	Pawn *p_OwningPawn;
 
 private:
-	bool m_FirstMove = true;
+	bool m_MoveWasIgnored = true;
 
-	Pawn *m_PreviousOriginalPawn;
-	Position m_PreviousPosition {-1, -1};
+	std::stack<std::tuple<int, Pawn *, Position>> m_MoveCache;
 };
 
 // Piece generated to show legal moves

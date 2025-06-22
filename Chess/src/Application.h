@@ -8,7 +8,6 @@
 #include "Engine/Layer.h"
 #include "Engine/Window.h"
 
-#define BIND_EVENT_FUNC(func, obj) std::bind(&func, obj, std::placeholders::_1)
 
 class Application
 {

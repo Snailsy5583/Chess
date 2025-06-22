@@ -68,7 +68,7 @@ void Piece::UndoMove(Position from) {
 		m_OwnerBoard->p_PinnedPiecePos[m_Color] = from;
 
 	m_Position = from;
-	if (m_Position == m_StartingPosition)
+	if (m_Position == m_StartingPosition) // TODO: fix this later
 		m_IsVirgin = true;
 
 	// move render obj

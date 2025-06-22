@@ -36,23 +36,23 @@ void SlidingPiece::CalculateLegalMoves() {
 		// the square is controlled by this piece
 		m_ControlledSquares.push_back(latest + movePattern);
 
+		auto piece = m_OwnerBoard->GetPiece(latest + movePattern);
+
 		bool isEnemyPiece =
 			m_OwnerBoard->IsPieceCapturable(latest + movePattern, m_Color) &&
-			m_OwnerBoard->GetPiece(latest + movePattern)->GetPieceName() !=
-				"en_passant";
+			piece->GetPieceName() != "en_passant";
 		if (!isEnemyPiece)
 			continue;
 
 		m_LegalMoves.push_back(latest + movePattern);
-		if (m_OwnerBoard->GetPiece(latest + movePattern)->GetPieceName() ==
-		    "king") {
+		if (piece->GetPieceName() == "king") {
 			latest += movePattern;
 
 			while ((latest + movePattern).IsValid()) {
 				m_ControlledSquares.push_back(latest + movePattern);
 				latest += movePattern;
 			}
-		} else {
+		} else if (m_Color != piece->GetColor()) {
 			CheckPiecePinned(latest + movePattern, movePattern);
 		}
 	}
@@ -79,12 +79,14 @@ bool SlidingPiece::CheckPiecePinned(
 	while ((currentPos + movePattern).IsValid()) {
 		currentPos += movePattern;
 
+		auto piece = m_OwnerBoard->GetPiece(currentPos);
+
 		if (!m_OwnerBoard->IsSquareOccupied(currentPos) ||
-		    m_OwnerBoard->GetPiece(currentPos)->GetPieceName() == "en_passant")
+		    piece->GetPieceName() == "en_passant")
 			continue;
 
 		// pin has been blocked
-		if (m_OwnerBoard->GetPiece(currentPos)->GetPieceName() != "king") {
+		if (piece->GetPieceName() != "king" || m_Color == piece->GetColor()) {
 			if (prevPinnedPiecePos == pinCheckPiecePos ||
 			    prevPinnedPiecePos == currentPos)
 				UnPinPiece(m_OwnerBoard->GetPiece(prevPinnedPiecePos));
@@ -145,16 +147,27 @@ Rook::Rook(Color color, Position pos, float squareSize, Board *board)
 void Rook::Castle(Position pos) {
 	m_IsVirgin = false;
 
-	if (m_OwnerBoard->p_PinnedPiecePos[m_Color] == m_Position)
-		m_OwnerBoard->p_PinnedPiecePos[m_Color] = pos;
-
 	// change visual position
 	float viewPos[3] = {
 		(-1 + m_SquareSize / 2) + ((float) pos.file * m_SquareSize),
 		(-1 + m_SquareSize / 2) + ((float) pos.rank * m_SquareSize), 0};
 	Engine::Renderer::MoveQuad(m_Object, viewPos, m_SquareSize);
 
+	m_OwnerBoard->SetPiece(pos, m_OwnerBoard->GetFullPiecePtr(m_Position));
 	m_Position = pos;
+}
+
+void Rook::UnCastle(Position from) {
+	m_IsVirgin = true;
+
+	// change visual position
+	float viewPos[3] = {
+		(-1 + m_SquareSize / 2) + ((float) from.file * m_SquareSize),
+		(-1 + m_SquareSize / 2) + ((float) from.rank * m_SquareSize), 0};
+	Engine::Renderer::MoveQuad(m_Object, viewPos, m_SquareSize);
+
+	m_OwnerBoard->SetPiece(from, m_OwnerBoard->GetFullPiecePtr(m_Position));
+	m_Position = from;
 }
 
 Queen::Queen(Color color, Position pos, float squareSize, Board *board)

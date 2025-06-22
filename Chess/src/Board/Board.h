@@ -22,9 +22,38 @@ struct Square {
 struct Move {
 	Position from;
 	Position to;
+	int indexOfPiecePromotedTo = -1;
+
+	bool isPawnPromotionMove() { return indexOfPiecePromotedTo != -1; }
 
 	bool operator==(Move other) const {
 		return from == other.from && to == other.to;
+	}
+
+	bool operator!=(Move other) const { return !(*this == other); }
+
+	bool operator<(Move other) const {
+		return ToIndex() < other.ToIndex() && *this != other;
+	}
+
+	bool operator>(Move other) const {
+		return ToIndex() > other.ToIndex() && *this != other;
+	}
+
+	bool operator<=(Move other) const { return ToIndex() <= other.ToIndex(); }
+
+	bool operator>=(Move other) const { return ToIndex() >= other.ToIndex(); }
+
+	int ToIndex() const { return (from.ToIndex() * 64 + to.ToIndex()); }
+
+	friend std::ostream &operator<<(std::ostream &stream, Move &move) {
+		stream << move.from.ToString() + move.to.ToString();
+		return stream;
+	}
+
+	friend std::ostream &operator<<(std::ostream &stream, Move &&move) {
+		stream << move;
+		return stream;
 	}
 };
 
@@ -50,10 +79,7 @@ class Board
 	friend class PromotionBoard;
 
 public: // construction
-	Board(
-		const char *vertShaderPath, const char *fragShaderPath,
-		bool trackMoves = true
-	);
+	Board(const char *vertShaderPath, const char *fragShaderPath);
 
 	void ReadFen(std::string fen);
 
@@ -65,28 +91,33 @@ public: // rendering
 	void FlipBoard(Square &square);
 
 public: // calculating legal moves
-	unsigned int CalculateAllLegalMoves();
+	unsigned int CalculateAllLegalMoves(std::set<Move> *legalMoves = nullptr);
 
-	void RecalculateCheckLegalMoves(
-		class King *king, Piece *checker, unsigned int &numMoves
-	);
+	void
+	PopulatePieceLegalMovesIntoSet(std::set<Move> *legalMoves, Square &square);
 
-	void RecalculatePinnedPieceLegalMoves(unsigned &numMoves);
+	void RecalculatePinnedPieceLegalMoves();
+
+	void RecalculateCheckLegalMoves(class King *king, Piece *checker);
 
 public: // En Passant
 	// expects en passant piece to be in m_EnPassantPieceInst
-	void StartEnPassanting(class Pawn *pawn, Position pos);
+	void StartEnPassanting(class Pawn *pawn, Position pos, int moveNum);
 
 	void ResetEnPassantPiece();
 
 	class EnPassantPiece *GetEnPassantPiece();
 
 public: // moving pieces
+	void GameOver();
+
 	bool MakeMove(Move move);
 
-	void UnMakeMove(Move move);
+	void UndoMove(Move move);
 
-	void GameOver();
+	uint64_t Perft(
+		int depth, bool printMoves, const std::function<void()> &windowUpdate
+	);
 
 public: // handling events
 	void ApplyOffset(float x, float y);
@@ -136,6 +167,8 @@ public: // utility functions
 
 	inline Color GetTurn() { return m_Turn; }
 
+	inline int GetNumMovesPlayed() { return m_MovesPlayed.size(); }
+
 	inline BoardLayer *GetBoardLayer() { return &m_Layer; }
 
 private:
@@ -151,9 +184,12 @@ private:
 	std::unique_ptr<Piece> m_EnPassantPieceInst;
 	Position *m_EnPassantPositionPtr;
 
-	bool m_ShouldTrackMoves;
 	std::vector<Move> m_MovesPlayed;
 	std::set<Position> m_ControlledSquares[2] {};
+
+	std::stack<std::pair<int, std::unique_ptr<Piece>>> m_CapturedPiecesCache[2];
+
+	std::stack<std::pair<int, std::unique_ptr<Piece>>> m_PromotedPawnsCache[2];
 
 public:
 	std::unique_ptr<PromotionBoard> p_PromotionBoard = nullptr;
